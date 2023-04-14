@@ -11,16 +11,10 @@ Set-Variable WINGET_PACKAGES_TEMP -Value "$env:TEMP\Winget"
 Set-Variable WINGET_DB_FILE -Value "$env:ProgramFiles\WindowsApps\Microsoft.Winget.Source_*_neutral_8wekyb3d8bbwe\Public"
 
 
-#ExecutionPolicy
-#Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-
-
 #Terminal Icons
-#Install-Module -Name Terminal-Icons
 Import-Module -Name Terminal-Icons
 
 #PSReadLine
-#Install-Module -Name PSReadLine -Force
 Import-Module PSReadLine
 
 #PSReadLineOption
@@ -33,14 +27,7 @@ if($env:TERM_PROGRAM -ne 'vscode'){
 }
 
 
-#NerdFonts
-#Invoke-WebRequest -Uri "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip" -OutFile "$env:USERPROFILE\Downloads\CascadiaCode.zip"
-#Expand-Archive -Path "$env:USERPROFILE\Downloads\CascadiaCode.zip" -DestinationPath "$env:USERPROFILE\Downloads\CascadiaCode"
-#Invoke-Item -Path "$env:USERPROFILE\Downloads\CascadiaCode\Caskaydia Cove Nerd Font Complete Windows Compatible.ttf"
-
-
 #OH-MY-POSH
-#winget install oh-my-posh -s winget
 oh-my-posh init `
     $(if ($PSVersionTable.PSVersion.Major -gt 5) { "pwsh" } else { "powershell" }) `
         --config "$OneDrive_PROFILE\ohmyposhCustome.omp.json" | Invoke-Expression
