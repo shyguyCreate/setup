@@ -47,13 +47,15 @@ sudo systemctl enable --now snapd.socket
 sudo ln -s /var/lib/snapd/snap /snap
 
 #Install Oh-My-Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 #Show Oh-My-Zsh prompt (in Manjaro)
 echo 'Comment this lines from /usr/share/zsh/manjaro-zsh-prompt to show Oh-My-Zsh prompt'
 echo '   source /usr/share/zsh/p10k-portable.zsh'
 echo '   source /usr/share/zsh/p10k.zsh'
 #Combine zshrc files
-mv ~/.zshrc ~/.zshrc.oh-my-zsh && cat ~/.zshrc.pre-oh-my-zsh ~/.zshrc.oh-my-zsh > ~/.zshrc
+if [ -f ~/.zshrc.pre-oh-my-zsh ]; then
+    mv ~/.zshrc ~/.zshrc.oh-my-zsh && cat ~/.zshrc.pre-oh-my-zsh ~/.zshrc.oh-my-zsh > ~/.zshrc
+fi
 
 #Install powerlevel10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
@@ -104,7 +106,7 @@ sudo snap install powershell --classic
 #Make directory for Github and gists
 mkdir "$HOME/Github/gist"
 #Clone git repository
-git clone https://github.com/shyguyCreate/installation-Setup.git "$HOME/Github/installation"
+git clone https://github.com/shyguyCreate/installation-Setup.git "$HOME/Github/installation-Setup"
 #Create symbolic link to powershell profile file
 ln -s "$HOME/Github/installation-Setup/Linux/Microsoft.PowerShell_profile.ps1" "$HOME/.config/powershell/Microsoft.PowerShell_profile.ps1"
 ln -s "$HOME/Github/installation-Setup/Linux/Microsoft.PowerShell_profile.ps1" "$HOME/.config/powershell/Microsoft.VSCode_profile.ps1"
@@ -117,4 +119,3 @@ ln -s "$HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json" "$HOME/.config/power
 #Install Powershell modules
 pwsh -c { Install-Module -Name Terminal-Icons }
 pwsh -c { Install-Module -Name PSReadLine -Force }
-
