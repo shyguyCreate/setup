@@ -1,14 +1,12 @@
 #Aliases
-Set-Alias arp-panel -Value appwiz.cpl
-function arp-settings {Start-Process ms-settings:appsfeatures}  #only works if it is function
-Set-Alias onedrive -Value "$env:LOCALAPPDATA\Microsoft\OneDrive\OneDrive.exe"
+Set-Alias onedrive -Value "$Env:LOCALAPPDATA\Microsoft\OneDrive\OneDrive.exe"
 
 #Variables
 Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
-Set-Variable OneDrive_PROFILE -Value "$env:USERPROFILE\OneDrive\Documents\WindowsPowerShell"
-Set-Variable WINGET_LOGS -Value "$env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir"
-Set-Variable WINGET_PACKAGES_TEMP -Value "$env:TEMP\Winget"
-Set-Variable WINGET_DB_FILE -Value "$env:ProgramFiles\WindowsApps\Microsoft.Winget.Source_*_neutral_8wekyb3d8bbwe\Public"
+Set-Variable OneDrive_PROFILE -Value "$Env:USERPROFILE\OneDrive\Documents\WindowsPowerShell"
+Set-Variable WINGET_LOGS -Value "$Env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir"
+Set-Variable WINGET_PACKAGES_TEMP -Value "$Env:TEMP\Winget"
+Set-Variable WINGET_DB_FILE -Value "$Env:ProgramFiles\WindowsApps\Microsoft.Winget.Source_*_neutral_8wekyb3d8bbwe\Public"
 
 
 #Terminal Icons
@@ -22,7 +20,7 @@ Set-PSReadLineOption -HistorySavePath "$PROFILE_FOLDER\ConsoleHost_history.txt"
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -BellStyle None
 Set-PSReadLineOption -EditMode Windows
-if($env:TERM_PROGRAM -ne 'vscode'){
+if($Env:TERM_PROGRAM -ne 'vscode'){
     Set-PSReadLineOption -PredictionViewStyle ListView
 }
 
@@ -43,3 +41,8 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
             [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
         }
 }
+
+#Get-PSReadLineKeyHandler output to file in Linux folder
+Get-PSReadLineKeyHandler | ForEach-Object { 
+    Write-Output ("Set-PSReadLineKeyHandler " + $_.Key + " " + $_.Function) 
+} | Out-File "$Env:USERPROFILE\Github\installation-Setup\Linux\Get-PSReadLineKeyHandler.txt"

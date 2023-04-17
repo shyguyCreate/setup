@@ -22,22 +22,12 @@ Set-PSReadLineOption -HistorySavePath "$PROFILE_FOLDER/ConsoleHost_history.txt"
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -BellStyle None
 Set-PSReadLineOption -EditMode Windows
-if($env:TERM_PROGRAM -ne 'vscode'){
+if($Env:TERM_PROGRAM -ne 'vscode'){
     Set-PSReadLineOption -PredictionViewStyle ListView
 }
 
-#PSReadLineKeyHandler
-Set-PSReadLineKeyHandler -Key Ctrl+h -Function BackwardDeleteChar
-Set-PSReadLineKeyHandler -Key Ctrl+End -Function ForwardDeleteInput
-Set-PSReadLineKeyHandler -Key Ctrl+Delete -Function KillWord
-Set-PSReadLineKeyHandler -Key Ctrl+Spacebar -Function MenuComplete
-Set-PSReadLineKeyHandler -Key PageDown -Function ScrollDisplayDown
-Set-PSReadLineKeyHandler -Key Ctrl+PageDown -Function ScrollDisplayDownLine
-Set-PSReadLineKeyHandler -Key PageUp -Function ScrollDisplayUp
-Set-PSReadLineKeyHandler -Key Ctrl+PageUp -Function ScrollDisplayUpLine
-#Alternatives
-Set-PSReadLineKeyHandler -Key Alt+Backspace -Function BackwardKillWord
-Set-PSReadLineKeyHandler -Key Alt+m -Function MenuComplete
+#Set-PSReadLineKeyHandler with keys in Windows folder
+. $Env:HOME/Github/installation-Setup/Linux/Get-PSReadLineKeyHandler.ps1
 
 
 #OH-MY-POSH
