@@ -19,28 +19,28 @@ sudo pacman -S base-devel --needed
 #Print kernel release to know what linux-headers to install
 uname -r
 #Headers and scripts for building modules for the Linux kernel
-sudo pacman -S linux-headers
+sudo pacman -S linux-headers --needed
 
 #Print network controller to add driver for wifi
 lspci | grep network -i
 #Install dkms to specific version of dkms driver
-sudo pacman -S dkms
+sudo pacman -S dkms --needed
 #Install wifi driver from dkms to rebuild with kernel updates
-sudo pacman -S broadcom-wl-dkms
+sudo pacman -S broadcom-wl-dkms --needed
 
 #Update system
 sudo pacman -Syu
 
 
-#Configure printer settings
-#sudo pacman -S cups cups-pdf
-sudo systemctl enable --now cups
 #Install GUI for printer
-#sudo pacman -S system-config-printer
+sudo pacman -S system-config-printer --needed
+#Add printer support for USB
+sudo pacman -S cups cups-pdf --needed
+sudo systemctl enable --now cups
 #Add wireless printer support
-#sudo pacman -S avahi nss-mdns
+sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
-echo 'Edit /etc/nsswitch.conf and change the hosts line to look like this
+echo 'Edit /etc/nsswitch.conf and change the hosts line to look like this:
 "hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"'
 
 
@@ -55,10 +55,10 @@ git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 yay -S google-chrome
 
 
-#Install snap
-sudo pacman -S snapd
-sudo systemctl enable --now snapd.socket
-sudo ln -s /var/lib/snapd/snap /snap
+#Install zsh
+sudo pacman -S zsh --needed
+#Install zsh plugins
+sudo pacman -S zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search --needed
 
 
 #Install Oh-My-Zsh
@@ -113,8 +113,12 @@ eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 #Install github cli
 brew install go gh
 
-#Install zsh plugins (in case not preinstalled in system)
-#brew install zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search
+
+#Install snap
+sudo pacman -S snapd --needed
+sudo systemctl enable --now snapd.socket
+sudo ln -s /var/lib/snapd/snap /snap
+
 
 #Install vscode
 sudo snap install code --classic
