@@ -32,6 +32,17 @@ sudo pacman -S broadcom-wl-dkms
 sudo pacman -Syu
 
 
+#Configure printer settings
+#sudo pacman -S cups cups-pdf
+sudo systemctl enable --now cups
+#Install GUI for printer
+#sudo pacman -S system-config-printer
+#Add wireless printer support
+#sudo pacman -S avahi nss-mdns
+sudo systemctl enable avahi-daemon.service
+echo 'Edit /etc/nsswitch.conf and change the hosts line to look like this
+"hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"'
+
 
 #Install git and add user name and email
 sudo pacman -S git --needed
