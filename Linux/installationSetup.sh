@@ -9,8 +9,10 @@
 #sudo pacman -U linux*-headers*.pkg.tar.zst
 #sudo pacman -U *broadcom-wl*.pkg.tar.zst
 
-#Load modules for broadcom wifi driver
-#rmmod b43 && rmmod ssb && modprobe wl
+#Remove modules and load wl for broadcom wifi driver and update dependencies
+sudo rmmod b43 ssb
+sudo modprobe wl
+sudo depmod -a
 
 
 #Basic tools to build Arch Linux packages
@@ -42,6 +44,10 @@ sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
 echo 'Edit /etc/nsswitch.conf and change the hosts line to look like this:
 "hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"'
+
+
+#Install bash-language-server for Kate bash autocompletion
+sudo pacman -S bash-language-server --needed
 
 
 #Install git and add user name and email
