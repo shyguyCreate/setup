@@ -1,8 +1,5 @@
 #Download packages from Arch website instead of pacman for wifi
-#And rename cache directory to avoid not downloading the packages
-#sudo mv /var/cache/pacman/pkg /var/cache/pacman/pkg2
-#sudo pacman -Syw --cachedir . base-devel linux-headers broadcom-wl
-#sudo mv /var/cache/pacman/pkg2 /var/cache/pacman/pkg
+#sudo pacman -Syw --cachedir . --dbpath /tmp/blankdb base-devel linux-headers broadcom-wl
 
 #Install downloaded packages for wifi
 #sudo pacman -U base-devel*.pkg.tar.zst
@@ -42,6 +39,7 @@ sudo systemctl enable --now cups
 #Add wireless printer support
 sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
+#Enable Avahi support for hostname resolution
 echo 'Edit /etc/nsswitch.conf and change the hosts line to look like this:
 "hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"'
 
@@ -70,9 +68,9 @@ sudo pacman -S zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-h
 #Install Oh-My-Zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 #Show Oh-My-Zsh prompt (in Manjaro)
-echo 'Comment this lines from /usr/share/zsh/manjaro-zsh-prompt to show Oh-My-Zsh prompt'
-echo '   source /usr/share/zsh/p10k-portable.zsh'
-echo '   source /usr/share/zsh/p10k.zsh'
+echo 'Comment this lines from /usr/share/zsh/manjaro-zsh-prompt to show Oh-My-Zsh prompt
+      source /usr/share/zsh/p10k-portable.zsh
+      source /usr/share/zsh/p10k.zsh'
 #Combine zshrc files
 if [ -f ~/.zshrc.pre-oh-my-zsh ]; then
     mv ~/.zshrc ~/.zshrc.oh-my-zsh && cat ~/.zshrc.pre-oh-my-zsh ~/.zshrc.oh-my-zsh > ~/.zshrc
