@@ -1,16 +1,18 @@
 #Download packages from Arch website instead of pacman for wifi
-#sudo pacman -Syw --cachedir . --dbpath /tmp/blankdb base-devel linux-headers broadcom-wl
+#mkdir /tmp/blankdb $HOME/BroadcomPackages
+#sudo pacman -Syw --cachedir $HOME/BroadcomPackages --dbpath /tmp/blankdb base-devel linux-headers broadcom-wl
 
 #Install downloaded packages for wifi
-#sudo pacman -U base-devel*.pkg.tar.zst
-#sudo pacman -U linux*-headers*.pkg.tar.zst
-#sudo pacman -U *broadcom-wl*.pkg.tar.zst
+sudo pacman -U $HOME/BroadcomPackages/*[^sig] --needed
 
 #Remove modules and load wl for broadcom wifi driver and update dependencies
 sudo rmmod b43 ssb
 sudo modprobe wl
 sudo depmod -a
 
+
+#Update system
+sudo pacman -Syu
 
 #Basic tools to build Arch Linux packages
 sudo pacman -S base-devel --needed
@@ -26,9 +28,6 @@ lspci | grep network -i
 sudo pacman -S dkms --needed
 #Install wifi driver from dkms to rebuild with kernel updates
 sudo pacman -S broadcom-wl-dkms --needed
-
-#Update system
-sudo pacman -Syu
 
 
 #Install GUI for printer
