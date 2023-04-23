@@ -2,4 +2,4 @@
 wget https://zoom.us/client/latest/zoom_x86_64.pkg.tar.xz -O $HOME/Downloads/zoom_x86_64.pkg.tar.xz
 
 #Install zoom
-sudo pacman -U $HOME/Downloads/zoom_x86_64.pkg.tar.xz
+sudo pacman -U $HOME/Downloads/zoom_x86_64.pkg.tar.xz --needed

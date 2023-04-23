@@ -47,12 +47,6 @@ echo 'Edit /etc/nsswitch.conf and change the hosts line to look like this:
 "hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"'
 
 
-#Install bash-language-server for bash completion inside text editors
-sudo pacman -S bash-language-server --needed
-#Install aditional software
-sudo pacman -S firefox onlyoffice-desktopeditors vlc obs-studio gimp shotcut --needed
-
-
 #Install git and add user name and email
 sudo pacman -S git --needed
 git config --global user.name shyguyCreate
@@ -156,3 +150,16 @@ ln -s "$HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json" "$HOME/.config/power
 #Install Powershell modules
 pwsh -c { Install-Module -Name Terminal-Icons }
 pwsh -c { Install-Module -Name PSReadLine -Force }
+
+
+#Install bash-language-server for bash completion inside text editors
+sudo pacman -S bash-language-server --needed
+#Install aditional software
+sudo pacman -S firefox onlyoffice-desktopeditors vlc obs-studio gimp shotcut --needed
+
+#Install zoom from script
+source $HOME/Github/installation-Setup/Linux/zoomInstaller.sh
+#Add alias to update zoom
+echo "
+alias zoomUpdate='source \$HOME/Github/installation-Setup/Linux/zoomInstaller.sh'
+" >> $HOME/.zshrc
