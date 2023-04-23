@@ -1,8 +1,27 @@
-#Download packages from Arch website instead of pacman for wifi
-#mkdir /tmp/blankdb $HOME/BroadcomPackages
-#sudo pacman -Syw --cachedir $HOME/BroadcomPackages --dbpath /tmp/blankdb base-devel linux-headers broadcom-wl
+################ GET ALL PACKAGES AND DEPENDECIES FOR BROADCOM WIFI DRIVER ################
 
-#Install downloaded packages for wifi
+#Create directories for pacman cache and db
+#mkdir /tmp/blankdb $HOME/BroadcomPackages
+
+#Rename pacman CacheDir to force download of all packages and dependecies
+#sudo mv $(echo ${$(pacman -v 2>/dev/null | grep Cache | awk '{print $3}')%/}) $(echo ${$(pacman -v 2>/dev/null | grep Cache | awk '{print $3}')%/}Tmp)
+
+#Print kernel release to know what linux-headers to install
+#uname -r
+
+#Print network controller to know what wifi driver to install (for this case broadcom)
+#lspci | grep network -i
+
+#Download all packages and dependecies for broadcom wifi driver inside custom CacheDir
+#sudo pacman -Syw --cachedir $HOME/BroadcomPackages --dbpath /tmp/blankdb base-devel linux-headers broadcom-wl-dkms
+
+#Revert rename of pacman CacheDir
+#sudo mv $(echo ${$(pacman -v 2>/dev/null | grep Cache | awk '{print $3}')%/}Tmp) $(echo ${$(pacman -v 2>/dev/null | grep Cache | awk '{print $3}')%/})
+
+###########################################################################################
+
+
+#Install downloaded packages and dependecies
 sudo pacman -U $HOME/BroadcomPackages/*[^sig] --needed
 
 #Remove modules and load wl for broadcom wifi driver and update dependencies
@@ -13,21 +32,6 @@ sudo depmod -a
 
 #Update system
 sudo pacman -Syu
-
-#Basic tools to build Arch Linux packages
-sudo pacman -S base-devel --needed
-
-#Print kernel release to know what linux-headers to install
-uname -r
-#Headers and scripts for building modules for the Linux kernel
-sudo pacman -S linux-headers --needed
-
-#Print network controller to add driver for wifi
-lspci | grep network -i
-#Install dkms to specific version of dkms driver
-sudo pacman -S dkms --needed
-#Install wifi driver from dkms to rebuild with kernel updates
-sudo pacman -S broadcom-wl-dkms --needed
 
 
 #Install GUI for printer
@@ -43,8 +47,10 @@ echo 'Edit /etc/nsswitch.conf and change the hosts line to look like this:
 "hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"'
 
 
-#Install bash-language-server for Kate bash autocompletion
+#Install bash-language-server for bash completion inside text editors
 sudo pacman -S bash-language-server --needed
+#Install aditional software
+sudo pacman -S firefox onlyoffice-desktopeditors vlc obs-studio gimp shotcut --needed
 
 
 #Install git and add user name and email
