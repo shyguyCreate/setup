@@ -8,6 +8,7 @@ Set-Alias notepad -Value kate
 Set-Alias explorer -Value dolphin
 
 #Variables
+Set-Variable PROFILE -Value $PROFILE.CurrentUserAllHosts
 Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
 
 

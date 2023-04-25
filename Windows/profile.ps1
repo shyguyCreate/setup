@@ -2,8 +2,8 @@
 Set-Alias onedrive -Value "$Env:LOCALAPPDATA\Microsoft\OneDrive\OneDrive.exe"
 
 #Variables
+Set-Variable PROFILE -Value $PROFILE.CurrentUserAllHosts
 Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
-Set-Variable OneDrive_PROFILE -Value "$Env:USERPROFILE\OneDrive\Documents\WindowsPowerShell"
 Set-Variable WINGET_LOGS -Value "$Env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir"
 Set-Variable WINGET_PACKAGES_TEMP -Value "$Env:TEMP\Winget"
 Set-Variable WINGET_DB_FILE -Value "$Env:ProgramFiles\WindowsApps\Microsoft.Winget.Source_*_neutral_8wekyb3d8bbwe\Public"
@@ -28,7 +28,7 @@ if($Env:TERM_PROGRAM -ne 'vscode'){
 #OH-MY-POSH
 oh-my-posh init `
     $(if ($PSVersionTable.PSVersion.Major -gt 5) { "pwsh" } else { "powershell" }) `
-        --config "$OneDrive_PROFILE\ohmyposhCustome.omp.json" | Invoke-Expression
+        --config "$PROFILE_FOLDER\ohmyposhCustome.omp.json" | Invoke-Expression
 
 
 #winget
