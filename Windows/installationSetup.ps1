@@ -18,8 +18,8 @@ New-Item -Path "$Env:USERPROFILE\Documents\WindowsPowerShell" -ItemType Director
 New-Item -Path "$Env:USERPROFILE\Documents\PowerShell" -ItemType Directory
 
 #Create symbolic link to powershell profile file
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Linux\profile.ps1" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1"
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Linux\profile.ps1" -Path "$Env:USERPROFILE\Documents\PowerShell\profile.ps1"
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Windows\Profile.ps1" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\Profile.ps1"
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Windows\Profile.ps1" -Path "$Env:USERPROFILE\Documents\PowerShell\Profile.ps1"
 
 
 #OH-MY-POSH
