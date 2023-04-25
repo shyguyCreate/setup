@@ -5,5 +5,6 @@
 ```
 ### **Installation for Windows**
 ```
-Invoke-Expression (Invoke-WebRequest -Uri https://raw.githubusercontent.com/shyguyCreate/installation-Setup/main/Windows/Microsoft.PowerShell_profile.ps1).Content
+> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+> Invoke-Expression (Invoke-WebRequest -Uri https://raw.githubusercontent.com/shyguyCreate/installation-Setup/main/Windows/Microsoft.PowerShell_profile.ps1).Content
 ```
