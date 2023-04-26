@@ -32,5 +32,5 @@ New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\ohmyposh\oh
 
 
 #Install Powershell modules
-Install-Module -Name Terminal-Icons
-Install-Module -Name PSReadLine -Force
+Install-Module -Name Terminal-Icons -Scope CurrentUser
+Install-Module -Name PSReadLine -Force -Scope CurrentUser
