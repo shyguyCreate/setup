@@ -12,6 +12,9 @@ sudo apt dist-upgrade
 #Update Ubuntu distro
 sudo do-release-upgrade
 
+#Install build tools
+sudo apt-get install build-essential procps curl file git
+
 
 #Add variables to .bashrc
 echo '

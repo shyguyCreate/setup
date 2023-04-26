@@ -23,7 +23,7 @@ New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Set
 
 
 #OH-MY-POSH
-winget install oh-my-posh -s winget
+winget install JanDeDobbeleer.OhMyPosh -s winget
 #Get ohmyposh config from gist
 git clone https://gist.github.com/387ff25579b25bff63a6bc1a7635be27.git "$Env:USERPROFILE\Github\gist\ohmyposh"
 #Create symbolic link of ohmyposh to powershell profile file
