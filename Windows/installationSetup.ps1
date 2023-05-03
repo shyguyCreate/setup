@@ -5,7 +5,7 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 #NerdFonts
 Invoke-WebRequest -Uri "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip" -OutFile "$Env:USERPROFILE\Downloads\CascadiaCode.zip"
 Expand-Archive -Path "$Env:USERPROFILE\Downloads\CascadiaCode.zip" -DestinationPath "$Env:USERPROFILE\Downloads\CascadiaCode"
-Invoke-Item -Path "$Env:USERPROFILE\Downloads\CascadiaCode\Caskaydia Cove Nerd Font Complete Windows Compatible *.otf"
+Invoke-Item -Path "$Env:USERPROFILE\Downloads\CascadiaCode\CaskaydiaCoveNerdFont-*.ttf"
 
 
 #Make directory for Github and gists

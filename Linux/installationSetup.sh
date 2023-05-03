@@ -84,13 +84,10 @@ echo 'Change ZSH_THEME in zshrc to "powerlevel10k/powerlevel10k"'
 
 #Download Meslo Nerd Fonts
 wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Meslo.zip -O $HOME/Downloads/Meslo.zip
-#Extract files
-ark -b $HOME/Downloads/Meslo.zip --destination $HOME/Downloads/Meslo\ NF
+#Extract fonts
+mkdir $HOME/Downloads/Meslo; ark -b $HOME/Downloads/Meslo.zip --destination $HOME/Downloads/Meslo
 #Install fonts globally
-sudo cp $HOME/Downloads/Meslo\ NF/Meslo\ LG\ S\ Regular\ Nerd\ Font\ Complete.ttf /usr/local/share/fonts/m
-sudo cp $HOME/Downloads/Meslo\ NF/Meslo\ LG\ S\ Italic\ Nerd\ Font\ Complete.ttf /usr/local/share/fonts/m
-sudo cp $HOME/Downloads/Meslo\ NF/Meslo\ LG\ S\ Bold\ Nerd\ Font\ Complete.ttf /usr/local/share/fonts/m
-sudo cp $HOME/Downloads/Meslo\ NF/Meslo\ LG\ S\ Bold\ Italic\ Nerd\ Font\ Complete.ttf /usr/local/share/fonts/m
+sudo mkdir /usr/local/share/fonts/Meslo; sudo cp $HOME/Downloads/Meslo/MesloLGSNerdFont-*.ttf /usr/local/share/fonts/Meslo
 
 
 #Install brew
@@ -155,6 +152,7 @@ pwsh -NoProfile -c "& { Install-Module -Name PSReadLine -Scope CurrentUser -Forc
 sudo pacman -S bash-language-server --needed
 #Install aditional software
 sudo pacman -S firefox onlyoffice-desktopeditors vlc obs-studio gimp shotcut --needed
+
 
 #Install zoom from script
 source $HOME/Github/installation-Setup/Linux/zoomInstaller.sh
