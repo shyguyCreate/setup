@@ -27,6 +27,7 @@ Set-PSReadLineKeyHandler End EndOfLine
 Set-PSReadLineKeyHandler RightArrow ForwardChar
 Set-PSReadLineKeyHandler Ctrl+] GotoBrace
 Set-PSReadLineKeyHandler Ctrl+RightArrow NextWord
+Set-PSReadLineKeyHandler Alt+F7 ClearHistory
 Set-PSReadLineKeyHandler Ctrl+s ForwardSearchHistory
 Set-PSReadLineKeyHandler F8 HistorySearchBackward
 Set-PSReadLineKeyHandler Shift+F8 HistorySearchForward
