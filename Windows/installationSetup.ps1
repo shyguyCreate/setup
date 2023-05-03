@@ -1,5 +1,5 @@
 #ExecutionPolicy
-#Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
 
 #NerdFonts
@@ -18,8 +18,8 @@ New-Item -Path "$Env:USERPROFILE\Documents\WindowsPowerShell" -ItemType Director
 New-Item -Path "$Env:USERPROFILE\Documents\PowerShell" -ItemType Directory
 
 #Create symbolic link to powershell profile file
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Windows\Profile.ps1" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\Profile.ps1"
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Windows\Profile.ps1" -Path "$Env:USERPROFILE\Documents\PowerShell\Profile.ps1"
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1"
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\PowerShell\profile.ps1"
 
 
 #OH-MY-POSH
@@ -32,5 +32,5 @@ New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\ohmyposh\oh
 
 
 #Install Powershell modules
-Install-Module -Name Terminal-Icons -Scope CurrentUser
-Install-Module -Name PSReadLine -Force -Scope CurrentUser
+Install-Module -Name Terminal-Icons -Scope CurrentUser -Force
+Install-Module -Name PSReadLine -Scope CurrentUser -Force
