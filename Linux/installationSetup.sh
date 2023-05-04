@@ -1,7 +1,7 @@
 ################ GET ALL PACKAGES AND DEPENDECIES FOR BROADCOM WIFI DRIVER ################
 
 #Create directories for pacman cache and db
-#mkdir /tmp/blankdb $HOME/BroadcomPackages
+#mkdir -p /tmp/blankdb $HOME/BroadcomPackages
 
 #Rename pacman CacheDir to force download of all packages and dependecies
 #sudo mv $(echo ${$(pacman -v 2>/dev/null | grep Cache | awk '{print $3}')%/}) $(echo ${$(pacman -v 2>/dev/null | grep Cache | awk '{print $3}')%/}Tmp)
@@ -85,9 +85,9 @@ echo 'Change ZSH_THEME in zshrc to "powerlevel10k/powerlevel10k"'
 #Download Meslo Nerd Fonts
 wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Meslo.zip -O $HOME/Downloads/Meslo.zip
 #Extract fonts
-mkdir $HOME/Downloads/Meslo; ark -b $HOME/Downloads/Meslo.zip --destination $HOME/Downloads/Meslo
+mkdir -p $HOME/Downloads/Meslo && ark -b $HOME/Downloads/Meslo.zip --destination $_
 #Install fonts globally
-sudo mkdir /usr/local/share/fonts/Meslo; sudo cp $HOME/Downloads/Meslo/MesloLGSNerdFont-*.ttf /usr/local/share/fonts/Meslo
+sudo mkdir -p /usr/local/share/fonts/Meslo && sudo cp $HOME/Downloads/Meslo/MesloLGSNerdFont-*.ttf $_
 
 
 #Install brew
@@ -126,22 +126,22 @@ sudo snap install code --classic
 
 #Install powershell
 sudo snap install powershell --classic
-[[ -d "$HOME/.config/powershell/" ]] || mkdir "$HOME/.config/powershell/"
+mkdir -p $HOME/.config/powershell
 
 #Make directory for Github and gists
-mkdir "$HOME/Github/gist"
-#Clone git repository
-git clone https://github.com/shyguyCreate/installation-Setup.git "$HOME/Github/installation-Setup"
+mkdir -p $HOME/Github/gist
+#Clone git repository from this script
+git clone https://github.com/shyguyCreate/installation-Setup.git $HOME/Github/installation-Setup
 
 #Create symbolic link to powershell profile file
-ln -s "$HOME/Github/installation-Setup/Linux/profile.ps1" "$HOME/.config/powershell/profile.ps1"
+ln -s $HOME/Github/installation-Setup/Linux/profile.ps1 $HOME/.config/powershell/profile.ps1
 
 #Install Oh-My-Posh
 brew install jandedobbeleer/oh-my-posh/oh-my-posh
 #Get ohmyposh config from gist
-git clone https://gist.github.com/387ff25579b25bff63a6bc1a7635be27.git "$HOME/Github/gist/ohmyposh"
+git clone https://gist.github.com/387ff25579b25bff63a6bc1a7635be27.git $HOME/Github/gist/ohmyposh
 #Create symbolic link of ohmyposh to powershell profile file
-ln -s "$HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json" "$HOME/.config/powershell/ohmyposhCustome.omp.json"
+ln -s $HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json $HOME/.config/powershell/ohmyposhCustome.omp.json
 
 #Install Powershell modules
 pwsh -NoProfile -c "& { Install-Module -Name Terminal-Icons -Scope CurrentUser -Force }"
