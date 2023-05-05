@@ -84,8 +84,8 @@ echo 'Change ZSH_THEME in zshrc to "powerlevel10k/powerlevel10k"'
 
 #Download Meslo Nerd Fonts
 wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Meslo.zip -O $HOME/Downloads/Meslo.zip
-#Extract fonts
-mkdir -p $HOME/Downloads/Meslo && ark -b $HOME/Downloads/Meslo.zip --destination $_
+#Remove font folder if exist and Extract fonts
+rm -rf $HOME/Downloads/Meslo  &&  mkdir -p $_  &&  ark -b $HOME/Downloads/Meslo.zip --destination $_
 #Install fonts globally
 sudo mkdir -p /usr/local/share/fonts/Meslo && sudo cp $HOME/Downloads/Meslo/MesloLGSNerdFont-*.ttf $_
 

@@ -2,9 +2,13 @@
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
 
-#NerdFonts
+#Download CascadiaCode Nerd Fonts
 Invoke-WebRequest -Uri "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip" -OutFile "$Env:USERPROFILE\Downloads\CascadiaCode.zip"
+#Remove font folder if exist
+if (Test-Path "$Env:USERPROFILE\Downloads\CascadiaCode") { Remove-Item "$Env:USERPROFILE\Downloads\CascadiaCode" -Recurse }
+#Extract fonts
 Expand-Archive -Path "$Env:USERPROFILE\Downloads\CascadiaCode.zip" -DestinationPath "$Env:USERPROFILE\Downloads\CascadiaCode"
+#Open fonts to install them
 Invoke-Item -Path "$Env:USERPROFILE\Downloads\CascadiaCode\CaskaydiaCoveNerdFont-*.ttf"
 
 
