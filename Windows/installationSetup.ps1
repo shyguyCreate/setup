@@ -18,12 +18,12 @@ New-Item -Path "$Env:USERPROFILE\Github\gist" -ItemType Directory
 git clone https://github.com/shyguyCreate/installation-Setup.git "$Env:USERPROFILE\Github\installation-Setup"
 
 #Make folders for profiles
-New-Item -Path "$Env:USERPROFILE\Documents\WindowsPowerShell" -ItemType Directory
-New-Item -Path "$Env:USERPROFILE\Documents\PowerShell" -ItemType Directory
+New-Item -Path "$Env:USERPROFILE\Documents\WindowsPowerShell" -ItemType Directory -Force > $null
+New-Item -Path "$Env:USERPROFILE\Documents\PowerShell" -ItemType Directory -Force > $null
 
 #Create symbolic link to powershell profile file
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1"
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\PowerShell\profile.ps1"
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\PowerShell\profile.ps1" -Force > $null
 
 
 #OH-MY-POSH
@@ -31,8 +31,8 @@ winget install JanDeDobbeleer.OhMyPosh -s winget
 #Get ohmyposh config from gist
 git clone https://gist.github.com/387ff25579b25bff63a6bc1a7635be27.git "$Env:USERPROFILE\Github\gist\ohmyposh"
 #Create symbolic link of ohmyposh to powershell profile file
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\ohmyposh\ohmyposhCustome.omp.json" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\ohmyposhCustome.omp.json"
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\ohmyposh\ohmyposhCustome.omp.json" -Path "$Env:USERPROFILE\Documents\PowerShell\ohmyposhCustome.omp.json"
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\ohmyposh\ohmyposhCustome.omp.json" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\ohmyposhCustome.omp.json" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\ohmyposh\ohmyposhCustome.omp.json" -Path "$Env:USERPROFILE\Documents\PowerShell\ohmyposhCustome.omp.json" -Force > $null
 
 
 #Install Powershell modules
