@@ -2,7 +2,7 @@
 Set-Alias onedrive -Value "$Env:LOCALAPPDATA\Microsoft\OneDrive\OneDrive.exe"
 
 #Variables
-Set-Variable PROFILE -Value $PROFILE.CurrentUserAllHosts
+#Set-Variable PROFILE -Value $PROFILE.CurrentUserAllHosts
 Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
 Set-Variable WINGET_LOGS -Value "$Env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir"
 Set-Variable WINGET_PACKAGES_TEMP -Value "$Env:TEMP\Winget"
