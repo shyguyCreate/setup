@@ -153,10 +153,11 @@ sudo pacman -S bash-language-server --needed
 #Install aditional software
 sudo pacman -S firefox onlyoffice-desktopeditors vlc obs-studio gimp shotcut --needed
 
-
+#Clone zoomInstaller gist
+git clone https://gist.github.com/fdec7db1dfe9588c0c3d735d142fcf41.git $HOME/Github/gist/zoomInstaller
 #Install zoom from script
-source $HOME/Github/installation-Setup/Linux/zoomInstaller.sh
+source $HOME/Github/gist/zoomInstaller/zoomInstaller.sh
 #Add alias to update zoom
 echo "
-alias zoomUpdate='source \$HOME/Github/installation-Setup/Linux/zoomInstaller.sh'
+alias zoomUpdate='source \$HOME/Github/gist/zoomInstaller/zoomInstaller.sh'
 " >> $HOME/.zshrc
