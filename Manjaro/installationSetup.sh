@@ -22,7 +22,7 @@
 
 
 #Install downloaded packages and dependecies
-sudo pacman -U $HOME/BroadcomPackages/*[^sig] --needed
+sudo pacman -U $HOME/BroadcomPackages/*[^sig] --asdeps --needed
 
 #Remove modules and load wl for broadcom wifi driver and update dependencies
 sudo rmmod b43 ssb
@@ -57,6 +57,10 @@ git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
 mkdir -p $HOME/Github/gist
 #Clone git repository from this script
 git clone https://github.com/shyguyCreate/installation-Setup.git $HOME/Github/installation-Setup
+#Clone ohmyposh config from gist
+git clone https://gist.github.com/387ff25579b25bff63a6bc1a7635be27.git $HOME/Github/gist/ohmyposh
+#Clone zoomInstaller script from gist
+git clone https://gist.github.com/fdec7db1dfe9588c0c3d735d142fcf41.git $HOME/Github/gist/zoomInstaller
 
 
 #Get yay to install google-chrome
@@ -99,16 +103,14 @@ fi
 #Use brew in the same session without reloading
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
-
-#Install github cli
-brew install go gh
+#Install Go Github-Cli Oh-My-Posh
+brew install go ghjandedobbeleer/oh-my-posh/oh-my-posh
 
 
 #Install snap
 sudo pacman -S snapd --needed
 sudo systemctl enable --now snapd.socket
 sudo ln -s /var/lib/snapd/snap /snap
-
 
 #Install vscode
 sudo snap install code --classic
@@ -118,28 +120,26 @@ sudo snap install code --classic
 sudo snap install powershell --classic
 mkdir -p $HOME/.config/powershell
 
-#Create symbolic link to powershell profile file
+#Create symbolic link of profile.ps1 to powershell profile folder
 ln -s $HOME/Github/installation-Setup/Manjaro/profile.ps1 $HOME/.config/powershell/profile.ps1
-
-#Install Oh-My-Posh
-brew install jandedobbeleer/oh-my-posh/oh-my-posh
-#Get ohmyposh config from gist
-git clone https://gist.github.com/387ff25579b25bff63a6bc1a7635be27.git $HOME/Github/gist/ohmyposh
-#Create symbolic link of ohmyposh to powershell profile file
+#Create symbolic link of ohmyposh to powershell profile folder
 ln -s $HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json $HOME/.config/powershell/ohmyposhCustome.omp.json
 
 #Install Powershell modules
 pwsh -NoProfile -c "& { Install-Module -Name Terminal-Icons -Scope CurrentUser -Force }"
 pwsh -NoProfile -c "& { Install-Module -Name PSReadLine -Scope CurrentUser -Force }"
-
+ 
 
 #Install bash-language-server for bash completion inside text editors
 sudo pacman -S bash-language-server --needed
-#Install aditional software
-sudo pacman -S firefox onlyoffice-desktopeditors vlc obs-studio gimp shotcut --needed
 
-#Clone zoomInstaller gist
-git clone https://gist.github.com/fdec7db1dfe9588c0c3d735d142fcf41.git $HOME/Github/gist/zoomInstaller
+#Install firefox with ACC support
+sudo pacman -S firefox gstreamer --needed
+
+#Install aditional software
+sudo pacman -S onlyoffice-desktopeditors vlc obs-studio gimp shotcut --needed
+
+
 #Install zoom from script
 source $HOME/Github/gist/zoomInstaller/zoomInstaller.sh
 #Add alias to update zoom
