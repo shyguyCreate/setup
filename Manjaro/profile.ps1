@@ -28,7 +28,7 @@ if($Env:TERM_PROGRAM -ne 'vscode'){
 }
 
 #Set-PSReadLineKeyHandler with keys in Windows folder
-. $Env:HOME/Github/installation-Setup/Linux/Get-PSReadLineKeyHandler.ps1
+. $Env:HOME/Github/installation-Setup/share/Get-PSReadLineKeyHandler.ps1
 
 
 #OH-MY-POSH

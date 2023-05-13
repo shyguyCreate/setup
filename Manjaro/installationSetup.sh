@@ -134,7 +134,7 @@ mkdir -p $HOME/Github/gist
 git clone https://github.com/shyguyCreate/installation-Setup.git $HOME/Github/installation-Setup
 
 #Create symbolic link to powershell profile file
-ln -s $HOME/Github/installation-Setup/Linux/profile.ps1 $HOME/.config/powershell/profile.ps1
+ln -s $HOME/Github/installation-Setup/Manjaro/profile.ps1 $HOME/.config/powershell/profile.ps1
 
 #Install Oh-My-Posh
 brew install jandedobbeleer/oh-my-posh/oh-my-posh
