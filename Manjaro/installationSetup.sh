@@ -43,7 +43,7 @@ sudo systemctl enable --now cups
 sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
 #Enable Avahi support for hostname resolution
-echo 'Edit /etc/nsswitch.conf and change the hosts line to look like this:
+echo '\nEdit /etc/nsswitch.conf and change the hosts line to look like this:
 "hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"'
 
 
@@ -53,6 +53,12 @@ git config --global user.name shyguyCreate
 git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
 
 
+#Make directory for Github and gists
+mkdir -p $HOME/Github/gist
+#Clone git repository from this script
+git clone https://github.com/shyguyCreate/installation-Setup.git $HOME/Github/installation-Setup
+
+
 #Get yay to install google-chrome
 git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 yay -S google-chrome
@@ -60,26 +66,10 @@ yay -S google-chrome
 
 #Install zsh
 sudo pacman -S zsh --needed
+#Install powerlevel10k
+sudo pacman -S zsh-theme-powerlevel10k --needed && echo 'Run "p10k configure" to create new prompt'
 #Install zsh plugins
 sudo pacman -S zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search --needed
-
-
-#Install Oh-My-Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-#Show Oh-My-Zsh prompt (in Manjaro)
-echo 'Comment this lines from /usr/share/zsh/manjaro-zsh-prompt to show Oh-My-Zsh prompt
-      source /usr/share/zsh/p10k-portable.zsh
-      source /usr/share/zsh/p10k.zsh'
-#Combine zshrc files
-if [ -f ~/.zshrc.pre-oh-my-zsh ]; then
-    mv ~/.zshrc ~/.zshrc.oh-my-zsh && cat ~/.zshrc.pre-oh-my-zsh ~/.zshrc.oh-my-zsh > ~/.zshrc
-fi
-
-
-#Install powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-#Change ZSH_THEME in zshrc
-echo 'Change ZSH_THEME in zshrc to "powerlevel10k/powerlevel10k"'
 
 
 #Download Meslo Nerd Fonts
@@ -127,11 +117,6 @@ sudo snap install code --classic
 #Install powershell
 sudo snap install powershell --classic
 mkdir -p $HOME/.config/powershell
-
-#Make directory for Github and gists
-mkdir -p $HOME/Github/gist
-#Clone git repository from this script
-git clone https://github.com/shyguyCreate/installation-Setup.git $HOME/Github/installation-Setup
 
 #Create symbolic link to powershell profile file
 ln -s $HOME/Github/installation-Setup/Manjaro/profile.ps1 $HOME/.config/powershell/profile.ps1
