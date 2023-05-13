@@ -12,10 +12,10 @@ Set-ExecutionPolicy RemoteSigned -Scope Process -Force; Invoke-Expression (Invok
 
 ### **Installation of Ubuntu WSL**
 ```
-Set-ExecutionPolicy RemoteSigned -Scope Process -Force; Invoke-Expression (Invoke-WebRequest -Uri https://raw.githubusercontent.com/shyguyCreate/installation-Setup/main/Windows/WSL/ubuntuInstallation.ps1).Content
+Set-ExecutionPolicy RemoteSigned -Scope Process -Force; Invoke-Expression (Invoke-WebRequest -Uri https://raw.githubusercontent.com/shyguyCreate/installation-Setup/main/WSL/ubuntuInstallation.ps1).Content
 ```
 
 ### **Setup for Ubuntu WSL**
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/shyguyCreate/installation-Setup/main/Windows/WSL/ubuntuSetup.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/shyguyCreate/installation-Setup/main/WSL/ubuntuSetup.sh)"
 ```
