@@ -61,6 +61,8 @@ git clone https://github.com/shyguyCreate/installation-Setup.git $HOME/Github/in
 git clone https://gist.github.com/387ff25579b25bff63a6bc1a7635be27.git $HOME/Github/gist/ohmyposh
 #Clone zoomInstaller script from gist
 git clone https://gist.github.com/fdec7db1dfe9588c0c3d735d142fcf41.git $HOME/Github/gist/zoomInstaller
+#Clone Meslo NF Installer script from gist
+git clone https://gist.github.com/3174d5463d717f7d7a8c67e45cd914be.git $HOME/Github/gist/meslofontsInstaller
 
 
 #Get yay to install google-chrome
@@ -74,14 +76,6 @@ sudo pacman -S zsh --needed
 sudo pacman -S zsh-theme-powerlevel10k --needed && echo 'Run "p10k configure" to create new prompt'
 #Install zsh plugins
 sudo pacman -S zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search --needed
-
-
-#Download Meslo Nerd Fonts
-wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Meslo.zip -O $HOME/Downloads/Meslo.zip
-#Remove font folder if exist and Extract fonts
-rm -rf $HOME/Downloads/Meslo  &&  mkdir -p $_  &&  ark -b $HOME/Downloads/Meslo.zip --destination $_
-#Install fonts globally
-sudo mkdir -p /usr/local/share/fonts/Meslo && sudo cp $HOME/Downloads/Meslo/MesloLGSNerdFont-*.ttf $_
 
 
 #Install brew
@@ -139,6 +133,13 @@ sudo pacman -S firefox gstreamer --needed
 #Install aditional software
 sudo pacman -S onlyoffice-desktopeditors vlc obs-studio gimp shotcut --needed
 
+
+#Install Meslo Nerd Fonts from script
+source $HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh -f
+#Add alias to update Meslo Nerd Fonts
+echo "
+alias mesloUpdate='source \$HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh'
+" >> $HOME/.zshrc
 
 #Install zoom from script
 source $HOME/Github/gist/zoomInstaller/zoomInstaller.sh
