@@ -99,7 +99,7 @@ fi
 #Use brew in the same session without reloading
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
-#Install Go Github-Cli Oh-My-Posh
+#Install go gh ohmyposh
 brew install go ghjandedobbeleer/oh-my-posh/oh-my-posh
 
 
@@ -123,27 +123,13 @@ sudo pacman -S onlyoffice-desktopeditors vlc obs-studio gimp shotcut --needed
 
 
 #Install Meslo Nerd Fonts from script
-source $HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh -f
-#Add alias to update Meslo Nerd Fonts
-echo "
-alias mesloUpdate='source \$HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh'
-" >> $HOME/.zshrc
-
+source $HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh
 
 #Install zoom from script
 source $HOME/Github/gist/zoomInstaller/zoomInstaller.sh
-#Add alias to update zoom
-echo "
-alias zoomUpdate='source \$HOME/Github/gist/zoomInstaller/zoomInstaller.sh'
-" >> $HOME/.zshrc
 
-
-#Install powershell
+#Install powershell from script
 source $HOME/Github/gist/pwshInstaller/pwshInstaller.sh
-#Add alias to update zoom
-echo "
-alias pwshUpdate='source \$HOME/Github/gist/pwshInstaller/pwshInstaller.sh'
-" >> $HOME/.zshrc
 
 #Create directory for pwsh profile folder
 mkdir -p $HOME/.config/powershell
@@ -155,3 +141,11 @@ ln -s $HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json $HOME/.config/powershe
 #Install Powershell modules
 pwsh -NoProfile -c "& { Install-Module -Name Terminal-Icons -Scope CurrentUser -Force }"
 pwsh -NoProfile -c "& { Install-Module -Name PSReadLine -Scope CurrentUser -Force }"
+
+#Add alias to update zoom meslo-fonts pwsh
+echo '
+alias \
+  zoomUpdate="source $HOME/Github/gist/zoomInstaller/zoomInstaller.sh" \
+  mesloUpdate="source $HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh" \
+  pwshUpdate="source $HOME/Github/gist/pwshInstaller/pwshInstaller.sh"
+' >> $HOME/.zshrc
