@@ -67,11 +67,6 @@ git clone https://gist.github.com/3174d5463d717f7d7a8c67e45cd914be.git $HOME/Git
 git clone https://gist.github.com/fdec7db1dfe9588c0c3d735d142fcf41.git $HOME/Github/gist/zoomInstaller
 
 
-#Get yay to install google-chrome
-git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
-yay -S google-chrome
-
-
 #Install zsh
 sudo pacman -S zsh --needed
 #Install powerlevel10k
@@ -100,7 +95,7 @@ fi
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #Install go gh ohmyposh
-brew install go ghjandedobbeleer/oh-my-posh/oh-my-posh
+brew install go gh jandedobbeleer/oh-my-posh/oh-my-posh
 
 
 #Install snap
@@ -112,14 +107,23 @@ sudo ln -s /var/lib/snapd/snap /snap
 sudo snap install code --classic
  
 
-#Install bash-language-server for bash completion inside text editors
-sudo pacman -S bash-language-server --needed
+#Install yay to check zoom updates and packages no longer in repo
+sudo pacman -S yay --needed
 
-#Install firefox with ACC support
-sudo pacman -S firefox gstreamer --needed
+#Install bash-language-server for completion inside text editors
+sudo pacman -S bash-completion bash-language-server --needed
 
-#Install aditional software
-sudo pacman -S onlyoffice-desktopeditors vlc obs-studio gimp shotcut --needed
+#Install firefox with ACC support and chromium
+sudo pacman -S firefox gstreamer chromium --needed
+
+#Install office suite
+sudo pacman -S onlyoffice-desktopeditors --needed
+
+#Install image and video editor
+sudo pacman -S gimp shotcut --needed
+
+#Install media player and recorder
+sudo pacman -S vlc obs-studio --needed
 
 
 #Install Meslo Nerd Fonts from script
@@ -131,6 +135,7 @@ source $HOME/Github/gist/zoomInstaller/zoomInstaller.sh
 #Install powershell from script
 source $HOME/Github/gist/pwshInstaller/pwshInstaller.sh
 
+
 #Create directory for pwsh profile folder
 mkdir -p $HOME/.config/powershell
 #Create symbolic link of profile.ps1 to powershell profile folder
@@ -139,8 +144,9 @@ ln -s $HOME/Github/installation-Setup/Manjaro/profile.ps1 $HOME/.config/powershe
 ln -s $HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json $HOME/.config/powershell/ohmyposhCustome.omp.json
 
 #Install Powershell modules
-pwsh -NoProfile -c "& { Install-Module -Name Terminal-Icons -Scope CurrentUser -Force }"
-pwsh -NoProfile -c "& { Install-Module -Name PSReadLine -Scope CurrentUser -Force }"
+/usr/bin/pwsh -NoProfile -c "& { Install-Module -Name Terminal-Icons -Scope CurrentUser -Force }"
+/usr/bin/pwsh -NoProfile -c "& { Install-Module -Name PSReadLine -Scope CurrentUser -Force }"
+
 
 #Add alias to update zoom meslo-fonts pwsh
 echo '
