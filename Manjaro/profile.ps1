@@ -1,11 +1,5 @@
 #Aliases
 
-#GNOME Apps
-#Set-Alias notepad -Value gnome-text-editor
-#Set-Alias explorer -Value nautilus
-#KDE Apps
-Set-Alias notepad -Value kate
-Set-Alias explorer -Value dolphin
 
 #Variables
 #Set-Variable PROFILE -Value $PROFILE.CurrentUserAllHosts
