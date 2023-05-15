@@ -1,7 +1,6 @@
 #Update system
 sudo pacman -Syu
 
-
 #Install GUI for printer
 sudo pacman -S system-config-printer --needed
 #Add printer support for USB
