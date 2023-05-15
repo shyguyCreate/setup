@@ -7,7 +7,7 @@ packagesDir=$HOME/BroadcomPackages
 if [[ -d $packagesDir ]]
 then
   #Install downloaded packages as dependecies
-  sudo pacman -U $packagesDir/*[^sig] --asdeps --needed
+  sudo pacman -U $packagesDir/*.tar.zst --asdeps --needed
 fi
 
 #Check if device has broadcom wireless network device
