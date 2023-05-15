@@ -107,7 +107,7 @@ source $HOME/Github/gist/pwshInstaller/pwshInstaller.sh
 #Create directory for pwsh profile folder
 mkdir -p $HOME/.config/powershell
 #Create symbolic link of profile.ps1 to powershell profile folder
-ln -s $HOME/Github/installation-Setup/Manjaro/profile.ps1 $HOME/.config/powershell/profile.ps1
+ln -s $HOME/Github/installation-Setup/share/profile.ps1 $HOME/.config/powershell/profile.ps1
 #Create symbolic link of ohmyposh to powershell profile folder
 ln -s $HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json $HOME/.config/powershell/ohmyposhCustome.omp.json
 
