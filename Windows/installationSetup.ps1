@@ -15,7 +15,7 @@ Invoke-Item -Path "$Env:USERPROFILE\Downloads\CascadiaCode\CaskaydiaCoveNerdFont
 #Make directory for Github and gists
 New-Item -Path "$Env:USERPROFILE\Github\gist" -ItemType Directory -Force > $null
 #Clone git repository
-git clone https://github.com/shyguyCreate/installation-Setup.git "$Env:USERPROFILE\Github\installation-Setup"
+git clone https://github.com/shyguyCreate/installation-Scripts.git "$Env:USERPROFILE\Github\installation-Scripts"
 
 
 #Make folders for profiles
@@ -25,8 +25,8 @@ New-Item -Path "$Env:USERPROFILE\Documents\PowerShell" -ItemType Directory -Forc
 #Create symbolic link of profile script to powershell profile folder only if admin
 if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
 {
-    New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1" -Force > $null
-    New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Setup\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\PowerShell\profile.ps1" -Force > $null
+    New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Scripts\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1" -Force > $null
+    New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Scripts\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\PowerShell\profile.ps1" -Force > $null
 }
 
 

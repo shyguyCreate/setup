@@ -22,7 +22,7 @@ if($Env:TERM_PROGRAM -ne 'vscode'){
 }
 
 #Set-PSReadLineKeyHandler with keys in share folder
-. $Env:HOME/Github/installation-Setup/share/keyHandler.ps1
+. $Env:HOME/Github/installation-Scripts/share/keyHandler.ps1
 
 
 #OH-MY-POSH

@@ -23,7 +23,7 @@ git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
 #Make directory for Github and gists
 mkdir -p $HOME/Github/gist
 #Clone git repository from this script
-git clone https://github.com/shyguyCreate/installation-Setup.git $HOME/Github/installation-Setup
+git clone https://github.com/shyguyCreate/installation-Scripts.git $HOME/Github/installation-Scripts
 #Clone pwshInstaller script from gist
 git clone https://gist.github.com/86b8b157c90d6b2ebcb1eb98c4a701e8.git $HOME/Github/gist/pwshInstaller
 #Clone ohmyposh config from gist
@@ -106,7 +106,7 @@ source $HOME/Github/gist/pwshInstaller/pwshInstaller.sh
 #Create directory for pwsh profile folder
 mkdir -p $HOME/.config/powershell
 #Create symbolic link of profile.ps1 to powershell profile folder
-ln -s $HOME/Github/installation-Setup/share/profile.ps1 $HOME/.config/powershell/profile.ps1
+ln -s $HOME/Github/installation-Scripts/share/profile.ps1 $HOME/.config/powershell/profile.ps1
 #Create symbolic link of ohmyposh to powershell profile folder
 ln -s $HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json $HOME/.config/powershell/ohmyposhCustome.omp.json
 
