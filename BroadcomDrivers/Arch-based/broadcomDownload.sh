@@ -11,10 +11,7 @@ mkdir -p $tmpDir $packagesDir
 #Rename pacman CacheDir to force download of all packages and dependecies
 sudo mv $cacheDir ${cacheDir}Tmp
 
-#Print network controller to know what wifi driver to install
-lspci | grep network -i
-
-#Print kernel release to know what linux-headers to install
+#Print kernel version to know what linux-headers to install
 uname -r
 
 #Download all packages and dependecies for broadcom wifi driver inside custom CacheDir
