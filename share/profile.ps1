@@ -21,8 +21,8 @@ if($Env:TERM_PROGRAM -ne 'vscode'){
     Set-PSReadLineOption -PredictionViewStyle ListView
 }
 
-#Set-PSReadLineKeyHandler with keys in Windows folder
-. $Env:HOME/Github/installation-Setup/share/Get-PSReadLineKeyHandler.ps1
+#Set-PSReadLineKeyHandler with keys in share folder
+. $Env:HOME/Github/installation-Setup/share/keyHandler.ps1
 
 
 #OH-MY-POSH
