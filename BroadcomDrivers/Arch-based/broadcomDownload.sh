@@ -4,12 +4,13 @@
 tmpDir=/tmp/blankdb
 packagesDir=$HOME/BroadcomPackages
 cacheDir=$(echo ${$(pacman -v 2>/dev/null | grep Cache | awk '{print $3}')%/})
+cacheDirTmp=${cacheDir}Tmp
 
 #Create directories for pacman cache and db
 mkdir -p $tmpDir $packagesDir
 
 #Rename pacman CacheDir to force download of all packages and dependecies
-sudo mv $cacheDir ${cacheDir}Tmp
+sudo mv $cacheDir $cacheDirTmp
 
 #Print kernel version to know what linux-headers to install
 uname -r
@@ -18,6 +19,6 @@ uname -r
 sudo pacman -Syyw --cachedir $packagesDir --dbpath $tmpDir base-devel linux-headers broadcom-wl-dkms
 
 #Revert rename of pacman CacheDir
-sudo mv ${cacheDir}Tmp $cacheDir
+sudo mv $cacheDirTmp $cacheDir
 
 ###########################################################################################

@@ -1,6 +1,6 @@
 # Broadcom Package Driver for Arch-based distros
 
-Scripts that download and install packages needed for **Broadcom wireless network device** based on information provided in the [Arch wiki](https://wiki.archlinux.org/title/broadcom_wireless).
+Download script and install script for packages needed by the **Broadcom wireless network device** based on information provided in the [Arch wiki](https://wiki.archlinux.org/title/broadcom_wireless).
 
 ### Download packages for driver
 Packages are downloaded using `pacman` but not installed, instead they are saved to `$HOME/BroadcomPackages` to use them for an offline installation.
