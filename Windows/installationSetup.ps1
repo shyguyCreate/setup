@@ -1,5 +1,11 @@
+#Requires -RunAsAdministrator
+
 #ExecutionPolicy
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+
+#Install Powershell modules
+Install-Module -Name Terminal-Icons -Scope CurrentUser -Force
+Install-Module -Name PSReadLine -Scope CurrentUser -Force
 
 
 #Download CascadiaCode Nerd Fonts
@@ -22,12 +28,9 @@ git clone https://github.com/shyguyCreate/installation-Scripts.git "$Env:USERPRO
 New-Item -Path "$Env:USERPROFILE\Documents\WindowsPowerShell" -ItemType Directory -Force > $null
 New-Item -Path "$Env:USERPROFILE\Documents\PowerShell" -ItemType Directory -Force > $null
 
-#Create symbolic link of profile script to powershell profile folder only if admin
-if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
-{
-    New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Scripts\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1" -Force > $null
-    New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Scripts\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\PowerShell\profile.ps1" -Force > $null
-}
+#Create symbolic link of profile script to powershell profile folder
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Scripts\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Scripts\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\PowerShell\profile.ps1" -Force > $null
 
 
 #OH-MY-POSH
@@ -35,21 +38,6 @@ winget install JanDeDobbeleer.OhMyPosh -s winget
 #Get ohmyposh config from gist
 git clone https://gist.github.com/387ff25579b25bff63a6bc1a7635be27.git "$Env:USERPROFILE\Github\gist\ohmyposh"
 
-#Create symbolic link of ohmyposh config file to powershell profile folder only if admin
-if ((New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
-{
-    New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\ohmyposh\ohmyposhCustome.omp.json" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\ohmyposhCustome.omp.json" -Force > $null
-    New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\ohmyposh\ohmyposhCustome.omp.json" -Path "$Env:USERPROFILE\Documents\PowerShell\ohmyposhCustome.omp.json" -Force > $null
-}
-
-
-#Install Powershell modules
-Install-Module -Name Terminal-Icons -Scope CurrentUser -Force
-Install-Module -Name PSReadLine -Scope CurrentUser -Force
-
-
-#Show message to host to run in script as admin
-if ( -not (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
-{
-    Write-Host "`nRun powershell as admin to add symliks for powershell profile and ohmyposh config file" -ForegroundColor Yellow -BackgroundColor Black
-}
+#Create symbolic link of ohmyposh config file to powershell profile folder
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\ohmyposh\ohmyposhCustome.omp.json" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\ohmyposhCustome.omp.json" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\ohmyposh\ohmyposhCustome.omp.json" -Path "$Env:USERPROFILE\Documents\PowerShell\ohmyposhCustome.omp.json" -Force > $null
