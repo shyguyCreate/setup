@@ -11,7 +11,7 @@ sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
 #Enable Avahi support for hostname resolution
 echo -e '\nEdit /etc/nsswitch.conf and change the hosts line to look like this:
-"hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"'
+"hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"\n'
 
 
 #Install git and add user name and email
@@ -23,9 +23,11 @@ git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
 #Install zsh
 sudo pacman -S zsh --needed
 #Install powerlevel10k
-sudo pacman -S zsh-theme-powerlevel10k --needed && echo 'Run "p10k configure" to create new prompt'
+sudo pacman -S zsh-theme-powerlevel10k --needed && echo -e '\nRun "p10k configure" to create new prompt\n'
 #Install zsh plugins
 sudo pacman -S zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search --needed
+#Change default shell to zsh
+chsh -s $(which zsh)
 
 
 #Install yay to check updates for packages installed manually
