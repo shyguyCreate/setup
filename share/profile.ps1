@@ -1,6 +1,3 @@
-#Aliases
-
-
 #Variables
 #Set-Variable PROFILE -Value $PROFILE.CurrentUserAllHosts
 Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
@@ -27,3 +24,11 @@ if($Env:TERM_PROGRAM -ne 'vscode'){
 
 #OH-MY-POSH
 oh-my-posh init pwsh --config "$PROFILE_FOLDER/ohmyposhCustome.omp.json" | Invoke-Expression
+
+function Update-OhMyPosh
+{
+    #Create directory for ohmyposh installation
+    mkdir -p $HOME/.local/bin
+    #Update ohmyposh
+    curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
+}
