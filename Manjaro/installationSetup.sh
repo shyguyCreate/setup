@@ -20,16 +20,6 @@ git config --global user.name shyguyCreate
 git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
 
 
-#Make directory for Github and gists
-mkdir -p $HOME/Github/gist
-#Clone git repository from this script
-git clone https://github.com/shyguyCreate/installation-Scripts.git $HOME/Github/installation-Scripts
-#Clone Meslo NF Installer script from gist
-git clone https://gist.github.com/3174d5463d717f7d7a8c67e45cd914be.git $HOME/Github/gist/meslofontsInstaller
-#Clone zoomInstaller script from gist
-git clone https://gist.github.com/fdec7db1dfe9588c0c3d735d142fcf41.git $HOME/Github/gist/zoomInstaller
-
-
 #Install zsh
 sudo pacman -S zsh --needed
 #Install powerlevel10k
@@ -55,6 +45,16 @@ sudo pacman -S gimp shotcut --needed
 
 #Install media player and recorder
 sudo pacman -S vlc obs-studio --needed
+
+
+#Make directory for Github and gists
+mkdir -p $HOME/Github/gist
+#Clone git repository from this script
+git clone https://github.com/shyguyCreate/installation-Scripts.git $HOME/Github/installation-Scripts
+#Clone Meslo NF Installer script from gist
+git clone https://gist.github.com/3174d5463d717f7d7a8c67e45cd914be.git $HOME/Github/gist/meslofontsInstaller
+#Clone zoomInstaller script from gist
+git clone https://gist.github.com/fdec7db1dfe9588c0c3d735d142fcf41.git $HOME/Github/gist/zoomInstaller
 
 
 #Install Meslo Nerd Fonts from script
