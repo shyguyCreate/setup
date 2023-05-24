@@ -10,12 +10,12 @@ sudo systemctl enable --now cups
 sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
 #Enable Avahi support for hostname resolution
-echo '\nEdit /etc/nsswitch.conf and change the hosts line to look like this:
+echo -e '\nEdit /etc/nsswitch.conf and change the hosts line to look like this:
 "hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"'
 
 
 #Install git and add user name and email
-sudo pacman -S git --needed
+sudo pacman -S git github-cli --needed
 git config --global user.name shyguyCreate
 git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
 
@@ -38,29 +38,6 @@ sudo pacman -S zsh-theme-powerlevel10k --needed && echo 'Run "p10k configure" to
 sudo pacman -S zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search --needed
 
 
-#Install brew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-#Write brew lines to .zshrc
-echo '
-#BREW
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-#BREW COMPLETION
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-  autoload -Uz compinit
-  compinit
-fi
-' >> $HOME/.zshrc
-#Use brew in the same session without reloading
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
-#Install go gh ohmyposh
-brew install go gh
- 
-
 #Install yay to check updates for packages installed manually
 sudo pacman -S yay --needed
 
@@ -82,14 +59,10 @@ sudo pacman -S vlc obs-studio --needed
 
 #Install Meslo Nerd Fonts from script
 source $HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh
+#Add alias to update meslo-fonts
+echo 'alias mesloUpdate="source $HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh"' >> $HOME/.zshrc
 
 #Install zoom from script
 source $HOME/Github/gist/zoomInstaller/zoomInstaller.sh
-
-
-#Add alias to update zoom meslo-fonts pwsh
-echo '
-alias \
-  zoomUpdate="source $HOME/Github/gist/zoomInstaller/zoomInstaller.sh" \
-  mesloUpdate="source $HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh" \
-' >> $HOME/.zshrc
+#Add alias to update zoom
+echo 'alias zoomUpdate="source $HOME/Github/gist/zoomInstaller/zoomInstaller.sh"' >> $HOME/.zshrc

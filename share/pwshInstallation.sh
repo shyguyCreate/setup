@@ -8,6 +8,8 @@ git clone https://gist.github.com/387ff25579b25bff63a6bc1a7635be27.git $HOME/Git
 
 #Install powershell from script
 source $HOME/Github/gist/pwshInstaller/pwshInstaller.sh
+#Add alias to update pwsh
+echo 'alias pwshUpdate="source $HOME/Github/gist/pwshInstaller/pwshInstaller.sh"' >> $HOME/.zshrc
 
 
 #Create directory for pwsh profile folder
@@ -19,34 +21,11 @@ ln -s $HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json $HOME/.config/powershe
 
 
 #Install Powershell modules
-/usr/bin/pwsh -NoProfile -c "& { Install-Module -Name Terminal-Icons -Scope CurrentUser -Force }"
-/usr/bin/pwsh -NoProfile -c "& { Install-Module -Name PSReadLine -Scope CurrentUser -Force }"
+pwsh -NoProfile -c "& { Install-Module -Name Terminal-Icons -Scope CurrentUser -Force }"
+pwsh -NoProfile -c "& { Install-Module -Name PSReadLine -Scope CurrentUser -Force }"
 
 
-#Install brew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-#Write brew lines to .zshrc
-echo '
-#BREW
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-#BREW COMPLETION
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-  autoload -Uz compinit
-  compinit
-fi
-' >> $HOME/.zshrc
-#Use brew in the same session without reloading
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
-#Install go ohmyposh
-brew install go jandedobbeleer/oh-my-posh/oh-my-posh
-
-
-#Add alias to update zoom meslo-fonts pwsh
-echo '
-alias pwshUpdate="source $HOME/Github/gist/pwshInstaller/pwshInstaller.sh"
-' >> $HOME/.zshrc
+#Create directory for ohmyposh installation
+mkdir -p $HOME/.local/bin
+#Install ohmyposh
+curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
