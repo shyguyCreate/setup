@@ -1,6 +1,12 @@
 #Update system
 sudo pacman -Syyu
 
+#Install doas (alternative to sudo)
+sudo pacman -S opendoas
+#Add config file to access root
+echo "permit :wheel" | sudo tee -a /etc/doas.conf
+
+
 #Install GUI for printer
 sudo pacman -S system-config-printer --needed
 #Add printer support for USB
