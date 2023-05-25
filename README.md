@@ -8,11 +8,6 @@
 ```
 > ***Advice:*** if your device has a **Broadcom wireless network device** and needs drivers for it, check the scripts inside the [Arch-based folder](./BroadcomDrivers/Arch-based). If you are not sure about your device, run this in your terminal `lspci | grep network -i`.
 
-#### Install powershell in Linux
-```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/shyguyCreate/installation-Scripts/main/share/pwshInstallation.sh)"
-```
-
 ------------------------
 
 ## Setup for Windows

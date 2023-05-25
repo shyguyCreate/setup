@@ -63,21 +63,43 @@ git clone https://github.com/shyguyCreate/installation-Scripts.git $HOME/Github/
 git clone https://gist.github.com/06679a4028cb574a946d026c713efa37.git $HOME/Github/gist/vscodiumInstaller
 #Clone Meslo NF Installer script from gist
 git clone https://gist.github.com/3174d5463d717f7d7a8c67e45cd914be.git $HOME/Github/gist/meslofontsInstaller
+#Clone pwshInstaller script from gist
+git clone https://gist.github.com/86b8b157c90d6b2ebcb1eb98c4a701e8.git $HOME/Github/gist/pwshInstaller
+#Clone ohmyposh config from gist
+git clone https://gist.github.com/387ff25579b25bff63a6bc1a7635be27.git $HOME/Github/gist/ohmyposh
 #Clone zoomInstaller script from gist
 git clone https://gist.github.com/fdec7db1dfe9588c0c3d735d142fcf41.git $HOME/Github/gist/zoomInstaller
 
 
-#Install vscodium from script
+#Install vscodium pwsh meslo-fonts zoom from script
 source $HOME/Github/gist/vscodiumInstaller/vscodiumInstaller.sh
-#Add alias to update vscodium
-echo 'alias codiumUpdate="source $HOME/Github/gist/vscodiumInstaller/vscodiumInstaller.sh"' >> $HOME/.zshrc
-
-#Install Meslo Nerd Fonts from script
+source $HOME/Github/gist/pwshInstaller/pwshInstaller.sh
 source $HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh
-#Add alias to update meslo-fonts
-echo 'alias mesloUpdate="source $HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh"' >> $HOME/.zshrc
-
-#Install zoom from script
 source $HOME/Github/gist/zoomInstaller/zoomInstaller.sh
-#Add alias to update zoom
-echo 'alias zoomUpdate="source $HOME/Github/gist/zoomInstaller/zoomInstaller.sh"' >> $HOME/.zshrc
+
+
+#Install ohmyposh
+mkdir -p $HOME/.local/bin && curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
+
+
+#Create directory for pwsh profile folder
+mkdir -p $HOME/.config/powershell
+#Create symbolic link of profile.ps1 to powershell profile folder
+ln -s $HOME/Github/installation-Scripts/share/profile.ps1 $HOME/.config/powershell/profile.ps1
+#Create symbolic link of ohmyposh to powershell profile folder
+ln -s $HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json $HOME/.config/powershell/ohmyposhCustome.omp.json
+
+
+#Install Powershell modules
+pwsh -NoProfile -c "& { Install-Module -Name Terminal-Icons -Scope CurrentUser -Force }"
+pwsh -NoProfile -c "& { Install-Module -Name PSReadLine -Scope CurrentUser -Force }"
+
+
+#Add alias to update vscodium pwsh meslo-fonts zoom
+echo '
+alias \
+    codiumUpdate="source $HOME/Github/gist/vscodiumInstaller/vscodiumInstaller.sh" \
+    pwshUpdate="source $HOME/Github/gist/pwshInstaller/pwshInstaller.sh"
+    mesloUpdate="source $HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh" \
+    zoomUpdate="source $HOME/Github/gist/zoomInstaller/zoomInstaller.sh"
+' >> $HOME/.zshrc
