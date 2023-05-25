@@ -53,11 +53,18 @@ sudo pacman -S vlc obs-studio --needed
 mkdir -p $HOME/Github/gist
 #Clone git repository from this script
 git clone https://github.com/shyguyCreate/installation-Scripts.git $HOME/Github/installation-Scripts
+#Clone vscodiumInstaller script from gist
+git clone https://gist.github.com/06679a4028cb574a946d026c713efa37.git $HOME/Github/gist/vscodiumInstaller
 #Clone Meslo NF Installer script from gist
 git clone https://gist.github.com/3174d5463d717f7d7a8c67e45cd914be.git $HOME/Github/gist/meslofontsInstaller
 #Clone zoomInstaller script from gist
 git clone https://gist.github.com/fdec7db1dfe9588c0c3d735d142fcf41.git $HOME/Github/gist/zoomInstaller
 
+
+#Install vscodium from script
+source $HOME/Github/gist/vscodiumInstaller/vscodiumInstaller.sh
+#Add alias to update vscodium
+echo 'alias codiumUpdate="source $HOME/Github/gist/vscodiumInstaller/vscodiumInstaller.sh"' >> $HOME/.zshrc
 
 #Install Meslo Nerd Fonts from script
 source $HOME/Github/gist/meslofontsInstaller/meslofontsInstaller.sh
