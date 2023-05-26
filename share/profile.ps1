@@ -3,11 +3,11 @@
 Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
 
 
-#Terminal Icons
-Import-Module -Name Terminal-Icons
-
-#PSReadLine
+#Import modules
 Import-Module PSReadLine
+Import-Module posh-git
+Import-Module Terminal-Icons
+
 
 #PSReadLineOption
 Set-PSReadLineOption -HistorySavePath "$PROFILE_FOLDER/ConsoleHost_history.txt"

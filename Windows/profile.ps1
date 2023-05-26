@@ -9,11 +9,11 @@ Set-Variable WINGET_PACKAGES_TEMP -Value "$Env:TEMP\Winget"
 Set-Variable WINGET_DB_FILE -Value "$Env:ProgramFiles\WindowsApps\Microsoft.Winget.Source_*_neutral_8wekyb3d8bbwe\Public"
 
 
-#Terminal Icons
-Import-Module -Name Terminal-Icons
-
-#PSReadLine
+#Import modules
 Import-Module PSReadLine
+Import-Module posh-git
+Import-Module Terminal-Icons
+
 
 #PSReadLineOption
 Set-PSReadLineOption -HistorySavePath "$PROFILE_FOLDER\ConsoleHost_history.txt"

@@ -91,8 +91,9 @@ ln -s $HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json $HOME/.config/powershe
 
 
 #Install Powershell modules
-pwsh -NoProfile -c "& { Install-Module -Name Terminal-Icons -Scope CurrentUser -Force }"
 pwsh -NoProfile -c "& { Install-Module -Name PSReadLine -Scope CurrentUser -Force }"
+pwsh -NoProfile -c "& { Install-Module -Name posh-git -Scope CurrentUser -Force }"
+pwsh -NoProfile -c "& { Install-Module -Name Terminal-Icons -Scope CurrentUser -Force }"
 
 
 #Add alias to update vscodium pwsh meslo-fonts zoom

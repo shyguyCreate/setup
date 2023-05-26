@@ -4,8 +4,9 @@
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
 #Install Powershell modules
+Install-Module -Name posh-git -Scope CurrentUser -Force
+Install-Module PSReadLine -Scope CurrentUser -Force
 Install-Module -Name Terminal-Icons -Scope CurrentUser -Force
-Install-Module -Name PSReadLine -Scope CurrentUser -Force
 
 
 #Download CascadiaCode Nerd Fonts
