@@ -23,7 +23,7 @@ if($Env:TERM_PROGRAM -ne 'vscode'){
 
 
 #OH-MY-POSH
-oh-my-posh init pwsh --config "$PROFILE_FOLDER/ohmyposhCustome.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "$PROFILE_FOLDER/ohmyposh.omp.json" | Invoke-Expression
 
 function Update-OhMyPosh
 {

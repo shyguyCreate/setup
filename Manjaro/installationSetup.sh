@@ -65,8 +65,6 @@ git clone https://gist.github.com/06679a4028cb574a946d026c713efa37.git $HOME/Git
 git clone https://gist.github.com/3174d5463d717f7d7a8c67e45cd914be.git $HOME/Github/gist/meslofontsInstaller
 #Clone pwshInstaller script from gist
 git clone https://gist.github.com/86b8b157c90d6b2ebcb1eb98c4a701e8.git $HOME/Github/gist/pwshInstaller
-#Clone ohmyposh config from gist
-git clone https://gist.github.com/387ff25579b25bff63a6bc1a7635be27.git $HOME/Github/gist/ohmyposh
 #Clone zoomInstaller script from gist
 git clone https://gist.github.com/fdec7db1dfe9588c0c3d735d142fcf41.git $HOME/Github/gist/zoomInstaller
 
@@ -87,7 +85,7 @@ mkdir -p $HOME/.config/powershell
 #Create symbolic link of profile.ps1 to powershell profile folder
 ln -s $HOME/Github/installation-Scripts/share/profile.ps1 $HOME/.config/powershell/profile.ps1
 #Create symbolic link of ohmyposh to powershell profile folder
-ln -s $HOME/Github/gist/ohmyposh/ohmyposhCustome.omp.json $HOME/.config/powershell/ohmyposhCustome.omp.json
+ln -s $HOME/Github/installation-Scripts/share/ohmyposh.omp.json $HOME/.config/powershell/ohmyposh.omp.json
 
 
 #Install Powershell modules

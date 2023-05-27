@@ -28,7 +28,7 @@ if($Env:TERM_PROGRAM -ne 'vscode'){
 #OH-MY-POSH
 oh-my-posh init `
     $(if ($PSVersionTable.PSVersion.Major -gt 5) { "pwsh" } else { "powershell" }) `
-        --config "$PROFILE_FOLDER\ohmyposhCustome.omp.json" | Invoke-Expression
+        --config "$PROFILE_FOLDER\ohmyposh.omp.json" | Invoke-Expression
 
 
 #winget
