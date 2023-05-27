@@ -22,7 +22,7 @@ Invoke-Item -Path "$Env:USERPROFILE\Downloads\CascadiaCode\CaskaydiaCoveNerdFont
 #Make directory for Github and gists
 New-Item -Path "$Env:USERPROFILE\Github\gist" -ItemType Directory -Force > $null
 #Clone git repository
-git clone https://github.com/shyguyCreate/installation-Scripts.git "$Env:USERPROFILE\Github\installation-Scripts"
+git clone https://github.com/shyguyCreate/install-Scripts.git "$Env:USERPROFILE\Github\install-Scripts"
 
 
 #Make folders for profiles
@@ -30,13 +30,13 @@ New-Item -Path "$Env:USERPROFILE\Documents\WindowsPowerShell" -ItemType Director
 New-Item -Path "$Env:USERPROFILE\Documents\PowerShell" -ItemType Directory -Force > $null
 
 #Create symbolic link of profile script to powershell profile folder
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Scripts\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1" -Force > $null
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\installation-Scripts\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\PowerShell\profile.ps1" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\install-Scripts\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\install-Scripts\Windows\profile.ps1" -Path "$Env:USERPROFILE\Documents\PowerShell\profile.ps1" -Force > $null
 
 
 #OH-MY-POSH
 winget install JanDeDobbeleer.OhMyPosh -s winget
 
 #Create symbolic link of ohmyposh config file to powershell profile folder
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\installation-Scripts\share\ohmyposh.omp.json" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\ohmyposh.omp.json" -Force > $null
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\installation-Scripts\share\ohmyposh.omp.json" -Path "$Env:USERPROFILE\Documents\PowerShell\ohmyposh.omp.json" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\install-Scripts\share\ohmyposh.omp.json" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\ohmyposh.omp.json" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\install-Scripts\share\ohmyposh.omp.json" -Path "$Env:USERPROFILE\Documents\PowerShell\ohmyposh.omp.json" -Force > $null

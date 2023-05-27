@@ -58,7 +58,7 @@ sudo pacman -S vlc obs-studio --needed
 #Make directory for Github and gists
 mkdir -p $HOME/Github/gist
 #Clone git repository from this script
-git clone https://github.com/shyguyCreate/installation-Scripts.git $HOME/Github/installation-Scripts
+git clone https://github.com/shyguyCreate/install-Scripts.git $HOME/Github/install-Scripts
 #Clone vscodiumInstaller script from gist
 git clone https://gist.github.com/06679a4028cb574a946d026c713efa37.git $HOME/Github/gist/vscodiumInstaller
 #Clone Meslo NF Installer script from gist
@@ -83,9 +83,9 @@ mkdir -p $HOME/.local/bin && curl -s https://ohmyposh.dev/install.sh | bash -s -
 #Create directory for pwsh profile folder
 mkdir -p $HOME/.config/powershell
 #Create symbolic link of profile.ps1 to powershell profile folder
-ln -s $HOME/Github/installation-Scripts/share/profile.ps1 $HOME/.config/powershell/profile.ps1
+ln -s $HOME/Github/install-Scripts/share/profile.ps1 $HOME/.config/powershell/profile.ps1
 #Create symbolic link of ohmyposh to powershell profile folder
-ln -s $HOME/Github/installation-Scripts/share/ohmyposh.omp.json $HOME/.config/powershell/ohmyposh.omp.json
+ln -s $HOME/Github/install-Scripts/share/ohmyposh.omp.json $HOME/.config/powershell/ohmyposh.omp.json
 
 
 #Install Powershell modules

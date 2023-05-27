@@ -36,6 +36,6 @@ mkdir -p $HOME/.local/bin && curl -s https://ohmyposh.dev/install.sh | bash -s -
 #Write oh-my-posh lines to .profile
 echo '
 #OH-MY-POSH
-eval "$(oh-my-posh init bash --config "$/mnt/c/Users/$USER/Github/installation-Scripts/share/ohmyposh.omp.json")"
+eval "$(oh-my-posh init bash --config "$/mnt/c/Users/$USER/Github/install-Scripts/share/ohmyposh.omp.json")"
 alias oh-my-posh-Update="curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin"
 ' >> $HOME/.profile

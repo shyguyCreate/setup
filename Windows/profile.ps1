@@ -45,4 +45,4 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
 #Get-PSReadLineKeyHandler output to file in share folder
 Get-PSReadLineKeyHandler | ForEach-Object { 
     Write-Output ("Set-PSReadLineKeyHandler " + $_.Key + " " + $_.Function) 
-} | Out-File "$Env:USERPROFILE\Github\installation-Scripts\share\keyHandler.ps1"
+} | Out-File "$Env:USERPROFILE\Github\install-Scripts\share\keyHandler.ps1"
