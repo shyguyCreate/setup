@@ -38,5 +38,5 @@ New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\install-Scripts\
 winget install JanDeDobbeleer.OhMyPosh -s winget
 
 #Create symbolic link of ohmyposh config file to powershell profile folder
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\install-Scripts\share\ohmyposh.omp.json" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\ohmyposh.omp.json" -Force > $null
-New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\gist\install-Scripts\share\ohmyposh.omp.json" -Path "$Env:USERPROFILE\Documents\PowerShell\ohmyposh.omp.json" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\install-Scripts\share\ohmyposh.omp.json" -Path "$Env:USERPROFILE\Documents\WindowsPowerShell\ohmyposh.omp.json" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$Env:USERPROFILE\Github\install-Scripts\share\ohmyposh.omp.json" -Path "$Env:USERPROFILE\Documents\PowerShell\ohmyposh.omp.json" -Force > $null
