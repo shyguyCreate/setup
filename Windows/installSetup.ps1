@@ -1,7 +1,9 @@
 #Check if script is run as admin
 if (-not (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
 {
-    Start-Process powershell.exe "-NoProfile -NoLogo -ExecutionPolicy RemoteSigned -Command { Invoke-Expression (Invoke-WebRequest -Uri https://raw.githubusercontent.com/shyguyCreate/install-Scripts/main/Windows/installSetup.ps1).Content }" -Verb RunAs
+    Start-Process powershell.exe `
+        '-NoProfile -NoLogo -NoExit -ExecutionPolicy RemoteSigned -Command "& { Invoke-Expression (Invoke-WebRequest -Uri https://raw.githubusercontent.com/shyguyCreate/install-Scripts/main/Windows/installSetup.ps1).Content }"' `
+            -Verb RunAs
     return
 }
 
