@@ -13,7 +13,7 @@ sudo apt dist-upgrade
 sudo do-release-upgrade
 
 #Install build tools
-sudo apt-get install build-essential procps curl file git
+sudo apt-get install build-essential procps curl file git zip unzip
 
 
 #Add variables to .profile
@@ -30,6 +30,8 @@ git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
 
 
 #Install ohmyposh
+export PATH="$HOME/.local/bin:$PATH"
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.profile
 mkdir -p $HOME/.local/bin && curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
 
 
@@ -38,4 +40,4 @@ echo '
 #OH-MY-POSH
 eval "$(oh-my-posh init bash --config "$/mnt/c/Users/$USER/Github/install-Scripts/share/ohmyposh.omp.json")"
 alias oh-my-posh-Update="curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin"
-' >> $HOME/.profile
+' >> $HOME/.bashrc
