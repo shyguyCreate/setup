@@ -83,9 +83,9 @@ mkdir -p $HOME/.local/bin && curl -s https://ohmyposh.dev/install.sh | bash -s -
 #Create directory for pwsh profile folder
 mkdir -p $HOME/.config/powershell
 #Create symbolic link of profile.ps1 to powershell profile folder
-ln -s $HOME/Github/install-Scripts/share/profile.ps1 $HOME/.config/powershell/profile.ps1
+ln -sf $HOME/Github/install-Scripts/share/profile.ps1 $HOME/.config/powershell/profile.ps1
 #Create symbolic link of ohmyposh to powershell profile folder
-ln -s $HOME/Github/install-Scripts/share/ohmyposh.omp.json $HOME/.config/powershell/ohmyposh.omp.json
+ln -sf $HOME/Github/install-Scripts/share/ohmyposh.omp.json $HOME/.config/powershell/ohmyposh.omp.json
 
 
 #Install Powershell modules

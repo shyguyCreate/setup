@@ -28,5 +28,5 @@ oh-my-posh init pwsh --config "$PROFILE_FOLDER/ohmyposh.omp.json" | Invoke-Expre
 function Update-OhMyPosh
 {
     #Update ohmyposh
-    mkdir -p $HOME/.local/bin && curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
+    curl -s https://ohmyposh.dev/install.sh | bash -s
 }

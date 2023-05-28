@@ -9,8 +9,6 @@ sudo apt upgrade
 #Upgrade additional distro packages
 sudo apt dist-upgrade
 
-#Update Ubuntu distro
-sudo do-release-upgrade
 
 #Install build tools
 sudo apt-get install build-essential procps curl file git zip unzip
@@ -18,7 +16,8 @@ sudo apt-get install build-essential procps curl file git zip unzip
 
 #Add variables to .profile
 echo '
-#Variables
+# Windows variables
+export cDRIVE="/mnt/c"
 export WINHOME="/mnt/c/Users/$USER"
 ' >> $HOME/.profile
 
@@ -30,14 +29,17 @@ git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
 
 
 #Install ohmyposh
-export PATH="$HOME/.local/bin:$PATH"
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> $HOME/.profile
-mkdir -p $HOME/.local/bin && curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
+mkdir -p $HOME/.local/bin && export PATH="$HOME/.local/bin:$PATH"
+curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
 
 
 #Write oh-my-posh lines to .profile
 echo '
 #OH-MY-POSH
-eval "$(oh-my-posh init bash --config "$/mnt/c/Users/$USER/Github/install-Scripts/share/ohmyposh.omp.json")"
-alias oh-my-posh-Update="curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin"
-' >> $HOME/.bashrc
+eval "$(oh-my-posh init bash --config "$WINHOME/Github/install-Scripts/share/ohmyposh.omp.json")"
+alias oh-my-posh-Update="curl -s https://ohmyposh.dev/install.sh | bash -s"
+' >> $HOME/.profile
+
+
+#Update Ubuntu distro
+sudo do-release-upgrade
