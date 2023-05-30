@@ -15,7 +15,7 @@ sudo apt-get install build-essential procps curl file git zip unzip
 
 
 #Add variables to .profile
-echo '
+echo -n '
 # Windows variables
 export cDRIVE="/mnt/c"
 export WINHOME="/mnt/c/Users/$USER"
@@ -40,7 +40,7 @@ curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
 
 
 #Write oh-my-posh lines to .profile
-echo '
+echo -n '
 #OH-MY-POSH
 eval "$(oh-my-posh init bash --config "$HOME/Github/install-Scripts/share/ohmyposh.omp.json")"
 alias oh-my-posh-Update="curl -s https://ohmyposh.dev/install.sh | bash -s"

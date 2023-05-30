@@ -4,7 +4,7 @@ sudo pacman -Syyu
 #Install doas (alternative to sudo)
 sudo pacman -S opendoas
 #Add config file to access root
-echo "permit :wheel" | sudo tee -a /etc/doas.conf
+echo "permit :wheel" | sudo tee -a /etc/doas.conf > /dev/null
 
 
 #Install GUI for printer
@@ -93,7 +93,7 @@ pwsh -NoProfile -c "& { Install-Module -Name posh-git,PSReadLine,Terminal-Icons 
 
 
 #Add alias to update vscodium pwsh meslo-fonts zoom
-echo '
+echo -n '
 alias \
     codiumUpdate="source $HOME/Github/gist/vscodiumInstaller/vscodiumInstaller.sh" \
     pwshUpdate="source $HOME/Github/gist/pwshInstaller/pwshInstaller.sh"
