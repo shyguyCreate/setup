@@ -16,8 +16,7 @@ sudo systemctl enable --now cups
 sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
 #Enable Avahi support for hostname resolution
-echo -e '\nEdit /etc/nsswitch.conf and change the hosts line to look like this:
-"hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"\n'
+sudo patch --no-backup-if-mismatch --merge -sd /etc < $HOME/Github/install-Scripts/Manjaro/nsswitch.conf.diff
 
 
 #Install zsh and plugins
@@ -27,9 +26,9 @@ chsh -s $(which zsh)
 
 #Install powerlevel10k and configure it
 sudo pacman -S zsh-theme-powerlevel10k --needed
-patch -d $HOME < $HOME/Github/install-Scripts/Manjaro/.zshrc.diff
+patch -sd $HOME < $HOME/Github/install-Scripts/Manjaro/.zshrc.diff
 cp $HOME/Github/install-Scripts/share/.p10k.zsh $HOME
-patch -d $HOME < $HOME/Github/install-Scripts/share/.p10k.zsh.diff
+patch -sd $HOME < $HOME/Github/install-Scripts/share/.p10k.zsh.diff
 
 
 #Install yay to check updates for packages installed manually
