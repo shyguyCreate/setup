@@ -20,20 +20,16 @@ echo -e '\nEdit /etc/nsswitch.conf and change the hosts line to look like this:
 "hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns"\n'
 
 
-#Install git and add user name and email
-sudo pacman -S git github-cli --needed
-git config --global user.name shyguyCreate
-git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
-
-
-#Install zsh
-sudo pacman -S zsh --needed
-#Install powerlevel10k
-sudo pacman -S zsh-theme-powerlevel10k --needed && echo -e '\nRun "p10k configure" to create new prompt\n'
-#Install zsh plugins
-sudo pacman -S zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search --needed
+#Install zsh and plugins
+sudo pacman -S zsh zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search --needed
 #Change default shell to zsh
 chsh -s $(which zsh)
+
+#Install powerlevel10k and configure it
+sudo pacman -S zsh-theme-powerlevel10k --needed
+patch -d $HOME < $HOME/Github/install-Scripts/Manjaro/.zshrc.diff
+cp $HOME/Github/install-Scripts/share/.p10k.zsh $HOME
+patch -d $HOME < $HOME/Github/install-Scripts/share/.p10k.zsh.diff
 
 
 #Install yay to check updates for packages installed manually
@@ -53,6 +49,12 @@ sudo pacman -S gimp shotcut --needed
 
 #Install media player and recorder
 sudo pacman -S vlc obs-studio --needed
+
+
+#Install git and add user name and email
+sudo pacman -S git github-cli --needed
+git config --global user.name shyguyCreate
+git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
 
 
 #Make directory for Github and gists
