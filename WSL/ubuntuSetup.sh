@@ -26,6 +26,7 @@ export WINHOME="/mnt/c/Users/$USER"
 git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager-core.exe"
 git config --global user.name shyguyCreate
 git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
+git config --global init.defaultBranch main
 
 
 #Make directory for Github and gists
