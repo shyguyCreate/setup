@@ -4,9 +4,7 @@ Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
 
 
 #Import modules
-Import-Module PSReadLine
-Import-Module posh-git
-Import-Module Terminal-Icons
+Import-Module posh-git,PSReadLine,Terminal-Icons
 
 
 #PSReadLineOption
@@ -17,9 +15,6 @@ Set-PSReadLineOption -EditMode Windows
 if($Env:TERM_PROGRAM -ne 'vscode'){
     Set-PSReadLineOption -PredictionViewStyle ListView
 }
-
-#Set-PSReadLineKeyHandler with keys in share folder
-. $Env:HOME/Github/install-Scripts/share/keyHandler.ps1
 
 
 #OH-MY-POSH

@@ -6,13 +6,10 @@ Set-Alias onedrive -Value "$Env:LOCALAPPDATA\Microsoft\OneDrive\OneDrive.exe"
 Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
 Set-Variable WINGET_LOGS -Value "$Env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir"
 Set-Variable WINGET_PACKAGES_TEMP -Value "$Env:TEMP\Winget"
-Set-Variable WINGET_DB_FILE -Value "$Env:ProgramFiles\WindowsApps\Microsoft.Winget.Source_*_neutral_8wekyb3d8bbwe\Public"
 
 
 #Import modules
-Import-Module PSReadLine
-Import-Module posh-git
-Import-Module Terminal-Icons
+Import-Module posh-git,PSReadLine,Terminal-Icons
 
 
 #PSReadLineOption
@@ -41,8 +38,3 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
             [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
         }
 }
-
-#Get-PSReadLineKeyHandler output to file in share folder
-Get-PSReadLineKeyHandler | ForEach-Object { 
-    Write-Output ("Set-PSReadLineKeyHandler " + $_.Key + " " + $_.Function) 
-} | Out-File "$Env:USERPROFILE\Github\install-Scripts\share\keyHandler.ps1"
