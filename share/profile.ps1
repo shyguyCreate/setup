@@ -50,14 +50,14 @@ if ("InlineView" -eq (Get-PSReadLineOption | Select-Object -ExpandProperty Predi
 #Add key binding to insert paired quotes
 Set-PSReadLineKeyHandler -Chord '"',"'" `
                          -BriefDescription SmartInsertQuote `
-                         -LongDescription "Insert paired quotes if not already on a quote" `
+                         -LongDescription "Insert paired quotes" `
                          -ScriptBlock {
     param($key, $arg)
 
     $line = $null
     $cursor = $null
     [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
-
+    
     if ($line.Length -gt $cursor -and $line[$cursor] -eq $key.KeyChar) {
         #Add another quote if next character is also a quote
         [Microsoft.PowerShell.PSConsoleReadLine]::Insert($key.KeyChar)
@@ -68,6 +68,29 @@ Set-PSReadLineKeyHandler -Chord '"',"'" `
         [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
         [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor - 1)
     }
+}
+
+#Add key binding to insert matching braces
+Set-PSReadLineKeyHandler -Key '(','{','[' `
+                         -BriefDescription SmartInsertBraces `
+                         -LongDescription "Insert matching braces" `
+                         -ScriptBlock {
+    param($key, $arg)
+
+    $closeChar = switch ($key.KeyChar)
+    {
+        '(' { [char]')'; break }
+        '{' { [char]'}'; break }
+        '[' { [char]']'; break }
+    }
+
+    $line = $null
+    $cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+    
+    [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)$closeChar")
+    [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
+
 }
 
 
