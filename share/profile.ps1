@@ -13,15 +13,15 @@ oh-my-posh init pwsh --config "$PROFILE_FOLDER/ohmyposh.omp.json" | Invoke-Expre
 
 function Update-OhMyPosh
 {
-    if ( $IsLinux )
+    if ($IsLinux)
     {
         curl -s https://ohmyposh.dev/install.sh | bash -s
     }
-    if ( $IsWindows )
+    if ($IsWindows)
     {
         winget upgrade JanDeDobbeleer.OhMyPosh -s winget
     }
-    if ( $IsMacOS )
+    if ($IsMacOS)
     {
         brew update && brew upgrade oh-my-posh
     }
@@ -42,15 +42,15 @@ if($Env:TERM_PROGRAM -ne 'vscode')
 #Search for the item in the history that starts with the current input when no ListView
 if ("InlineView" -eq (Get-PSReadLineOption | Select-Object -ExpandProperty PredictionViewStyle))
 {
-    Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
-    Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+    Set-PSReadLineKeyHandler -Chord UpArrow -Function HistorySearchBackward
+    Set-PSReadLineKeyHandler -Chord DownArrow -Function HistorySearchForward
 }
 
 
-#Add key binding to insert paired quotes
+#Add key binding to insert matching quotes
 Set-PSReadLineKeyHandler -Chord '"',"'" `
                          -BriefDescription SmartInsertQuote `
-                         -LongDescription "Insert paired quotes" `
+                         -LongDescription "Insert matching quotes" `
                          -ScriptBlock {
     param($key, $arg)
 
@@ -65,17 +65,20 @@ Set-PSReadLineKeyHandler -Chord '"',"'" `
     else {
         #Insert matching quotes, move cursor to be in between the quotes
         [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)" * 2)
-        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
-        [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor - 1)
+        [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
     }
 }
 
 #Add key binding to insert matching braces
-Set-PSReadLineKeyHandler -Key '(','{','[' `
+Set-PSReadLineKeyHandler -Chord '(','{','[' `
                          -BriefDescription SmartInsertBraces `
                          -LongDescription "Insert matching braces" `
                          -ScriptBlock {
     param($key, $arg)
+
+    $line = $null
+    $cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
 
     $closeChar = switch ($key.KeyChar)
     {
@@ -83,17 +86,20 @@ Set-PSReadLineKeyHandler -Key '(','{','[' `
         '{' { [char]'}'; break }
         '[' { [char]']'; break }
     }
-
-    $line = $null
-    $cursor = $null
-    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
     
-    [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)$closeChar")
-    [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
+    if ($line.Length -gt $cursor -and $line[$cursor] -eq $key.KeyChar) {
+        #Add another brace if next character is also a brace
+        [Microsoft.PowerShell.PSConsoleReadLine]::Insert($key.KeyChar)
+    }
+    else {
+        #Insert matching braces, move cursor to be in between the braces
+        [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)$closeChar")
+        [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
+    }
 
 }
 
-Set-PSReadLineKeyHandler -Key Backspace `
+Set-PSReadLineKeyHandler -Chord Backspace `
                          -BriefDescription SmartBackspace `
                          -LongDescription "Delete previous character or matching quotes and braces" `
                          -ScriptBlock {
@@ -103,24 +109,25 @@ Set-PSReadLineKeyHandler -Key Backspace `
     $cursor = $null
     [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
 
-    $toMatch = switch ($line[$cursor])
-    {
-            '"' { [char]'"'; break }
-            "'" { [char]"'"; break }
-            ')' { [char]'('; break }
-            ']' { [char]'['; break }
-            '}' { [char]'{'; break }
+    if ($cursor -le 0) {
+        return
     }
 
-    if ($line[$cursor-1] -eq $toMatch)
+    $toMatch = switch ($line[$cursor])
     {
-        #Remove char before cursor and in cursor
-        [Microsoft.PowerShell.PSConsoleReadLine]::Delete($cursor - 1, 2)
+        '"' { [char]'"'; break }
+        "'" { [char]"'"; break }
+        ')' { [char]'('; break }
+        ']' { [char]'['; break }
+        '}' { [char]'{'; break }
     }
-    else
-    {
-        #Delete char in cursor (like normal backspace)
-        [Microsoft.PowerShell.PSConsoleReadLine]::BackwardDeleteChar($key, $arg)
+
+    #Delete char before cursor (like normal backspace)
+    [Microsoft.PowerShell.PSConsoleReadLine]::BackwardDeleteChar($key, $arg)
+
+    if ($line[$cursor-1] -eq $toMatch) {
+        #Remove char in cursor if equal to match
+        [Microsoft.PowerShell.PSConsoleReadLine]::DeleteChar($key, $arg)
     }
 }
 
