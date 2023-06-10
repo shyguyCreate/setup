@@ -31,11 +31,11 @@
           "powerline_symbol": "\ue0b0",
           "foreground": "#ffffff",
           "foreground_templates": [
-            "{{ if not (eq .Name \"pwsh\" \"powershell\") }}#000000{{ end }}"
+            "{{ if ne .Name \"pwsh\" \"powershell\" }}#000000{{ end }}"
           ],
           "background": "#006aac",
           "background_templates": [
-            "{{ if not (eq .Name \"pwsh\" \"powershell\") }}#929ca1{{ end }}"
+            "{{ if ne .Name \"pwsh\" \"powershell\" }}#929ca1{{ end }}"
           ],
           "template": " \uf489 {{ .Name }} "
         },

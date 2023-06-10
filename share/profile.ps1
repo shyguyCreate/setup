@@ -7,6 +7,27 @@ Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
 Import-Module posh-git,PSReadLine,Terminal-Icons
 
 
+#OH-MY-POSH
+oh-my-posh init pwsh --config "$PROFILE_FOLDER/ohmyposh.omp.json" | Invoke-Expression
+
+
+function Update-OhMyPosh
+{
+    if ( $IsLinux )
+    {
+        curl -s https://ohmyposh.dev/install.sh | bash -s
+    }
+    if ( $IsWindows )
+    {
+        winget upgrade JanDeDobbeleer.OhMyPosh -s winget
+    }
+    if ( $IsMacOS )
+    {
+        brew update && brew upgrade oh-my-posh
+    }
+}
+
+
 #PSReadLineOption
 Set-PSReadLineOption -HistorySavePath "$PROFILE_FOLDER/ConsoleHost_history.txt"
 Set-PSReadLineOption -PredictionSource History
@@ -24,6 +45,7 @@ if ("InlineView" -eq (Get-PSReadLineOption | Select-Object -ExpandProperty Predi
     Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
     Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 }
+
 
 #Add key binding to insert paired quotes
 Set-PSReadLineKeyHandler -Chord '"',"'" `
@@ -49,42 +71,23 @@ Set-PSReadLineKeyHandler -Chord '"',"'" `
 }
 
 
-if ( -not $IsWindows )
-{
-    #OH-MY-POSH
-    oh-my-posh init pwsh --config "$PROFILE_FOLDER/ohmyposh.omp.json" | Invoke-Expression
+############# Specific to Windows systems ####################
+if ( -not $IsWindows ) {
+    return
 }
 
-if ( $IsLinux )
-{
-    function Update-OhMyPosh
-    {
-        #Update ohmyposh
-        curl -s https://ohmyposh.dev/install.sh | bash -s
-    }
-}
-
-if ( $IsWindows )
-{
-    #Variables
-    Set-Variable WINGET_LOGS -Value "$Env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir"
-    Set-Variable WINGET_PACKAGES_TEMP -Value "$Env:TEMP\Winget"
-    
-    
-    #OH-MY-POSH
-    oh-my-posh init `
-    $(if ($PSVersionTable.PSVersion.Major -gt 5) { "pwsh" } else { "powershell" }) `
-        --config "$PROFILE_FOLDER\ohmyposh.omp.json" | Invoke-Expression
+#Variables
+Set-Variable WINGET_LOGS -Value "$Env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir"
+Set-Variable WINGET_PACKAGES_TEMP -Value "$Env:TEMP\Winget"
 
 
-    #winget
-    Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
-    param($wordToComplete, $commandAst, $cursorPosition)
-        [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
-        $Local:word = $wordToComplete.Replace('"', '""')
-        $Local:ast = $commandAst.ToString().Replace('"', '""')
-        winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
-            [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
-        }
+#winget
+Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
+param($wordToComplete, $commandAst, $cursorPosition)
+    [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
+    $Local:word = $wordToComplete.Replace('"', '""')
+    $Local:ast = $commandAst.ToString().Replace('"', '""')
+    winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
+        [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
     }
 }
