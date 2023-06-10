@@ -93,6 +93,37 @@ Set-PSReadLineKeyHandler -Key '(','{','[' `
 
 }
 
+Set-PSReadLineKeyHandler -Key Backspace `
+                         -BriefDescription SmartBackspace `
+                         -LongDescription "Delete previous character or matching quotes and braces" `
+                         -ScriptBlock {
+    param($key, $arg)
+
+    $line = $null
+    $cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+
+    $toMatch = switch ($line[$cursor])
+    {
+            '"' { [char]'"'; break }
+            "'" { [char]"'"; break }
+            ')' { [char]'('; break }
+            ']' { [char]'['; break }
+            '}' { [char]'{'; break }
+    }
+
+    if ($line[$cursor-1] -eq $toMatch)
+    {
+        #Remove char before cursor and in cursor
+        [Microsoft.PowerShell.PSConsoleReadLine]::Delete($cursor - 1, 2)
+    }
+    else
+    {
+        #Delete char in cursor (like normal backspace)
+        [Microsoft.PowerShell.PSConsoleReadLine]::BackwardDeleteChar($key, $arg)
+    }
+}
+
 
 ############# Specific to Windows systems ####################
 if ( -not $IsWindows ) {
