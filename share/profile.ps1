@@ -79,6 +79,10 @@ Set-PSReadLineKeyHandler -Chord '(','{','[' `
     $line = $null
     $cursor = $null
     [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+    
+    $selectionStart = $null
+    $selectionLength = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetSelectionState([ref]$selectionStart, [ref]$selectionLength)
 
     $closeChar = switch ($key.KeyChar)
     {
@@ -87,7 +91,14 @@ Set-PSReadLineKeyHandler -Chord '(','{','[' `
         '[' { [char]']'; break }
     }
     
-    if ($line.Length -gt $cursor -and $line[$cursor] -eq $key.KeyChar) {
+    if ($selectionStart -ne -1)
+    {
+      #Text is selected, wrap it in brackets
+      [Microsoft.PowerShell.PSConsoleReadLine]::Replace($selectionStart, $selectionLength, $key.KeyChar + $line.SubString($selectionStart, $selectionLength) + $closeChar)
+      [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($selectionStart + $selectionLength + 2)
+    } 
+    elseif ($line.Length -gt $cursor -and $line[$cursor] -eq $key.KeyChar)
+    {
         #Add another brace if next character is also a brace
         [Microsoft.PowerShell.PSConsoleReadLine]::Insert($key.KeyChar)
     }
@@ -125,7 +136,8 @@ Set-PSReadLineKeyHandler -Chord Backspace `
     #Delete char before cursor (like normal backspace)
     [Microsoft.PowerShell.PSConsoleReadLine]::BackwardDeleteChar($key, $arg)
 
-    if ($line[$cursor-1] -eq $toMatch) {
+    if ($line[$cursor-1] -eq $toMatch) 
+    {
         #Remove char in cursor if equal to match
         [Microsoft.PowerShell.PSConsoleReadLine]::DeleteChar($key, $arg)
     }
