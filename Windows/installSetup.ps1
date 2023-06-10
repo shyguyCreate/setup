@@ -46,6 +46,6 @@ git clone https://github.com/shyguyCreate/install-Scripts.git $repoDir
 New-Item -Path $powershellDir,$pwshDir -ItemType Directory -Force > $null
 
 #Create symbolic link of profile script to powershell profile folder
-New-Item -ItemType SymbolicLink -Value "$repoDir\Windows\profile.ps1" -Path $powershellDir,$pwshDir -Name "profile.ps1" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$repoDir\share\profile.ps1" -Path $powershellDir,$pwshDir -Name "profile.ps1" -Force > $null
 #Create symbolic link of ohmyposh config file to powershell profile folder
 New-Item -ItemType SymbolicLink -Value "$repoDir\share\ohmyposh.omp.json" -Path $powershellDir,$pwshDir -Name "ohmyposh.omp.json" -Force > $null
