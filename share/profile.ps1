@@ -76,7 +76,8 @@ if ("InlineView" -eq (Get-PSReadLineOption | Select-Object -ExpandProperty Predi
         $cursor = $null
         [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
 
-        if ($cursor -lt $line.Length) {
+        if ($cursor -lt $line.Length)
+        {
             [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine($key, $arg)
         }
         else {
@@ -96,26 +97,25 @@ Set-PSReadLineKeyHandler -Chord '"',"'",'(','{','[' `
     $line = $null
     $cursor = $null
     [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
-    
+
     $selectionStart = $null
     $selectionLength = $null
     [Microsoft.PowerShell.PSConsoleReadLine]::GetSelectionState([ref]$selectionStart, [ref]$selectionLength)
 
-    $closeChar = switch ($key.KeyChar)
-    {
+    $closeChar = switch ($key.KeyChar) {
         '"' { [char]'"'; break }
         "'" { [char]"'"; break }
         '(' { [char]')'; break }
         '{' { [char]'}'; break }
         '[' { [char]']'; break }
     }
-    
+
     if ($selectionStart -ne -1)
     {
       #Text is selected, wrap it in quotes or braces
       [Microsoft.PowerShell.PSConsoleReadLine]::Replace($selectionStart, $selectionLength, $key.KeyChar + $line.SubString($selectionStart, $selectionLength) + $closeChar)
       [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($selectionStart + $selectionLength + 2)
-    } 
+    }
     elseif ($line.Length -gt $cursor -and $line[$cursor] -eq $key.KeyChar)
     {
         #Add another quotes or brace if next character is the same char
@@ -144,23 +144,23 @@ Set-PSReadLineKeyHandler -Chord Backspace `
         return
     }
 
-    $toMatch = switch ($line[$cursor])
+    if ($cursor -lt $line.Length)
     {
-        '"' { [char]'"'; break }
-        "'" { [char]"'"; break }
-        ')' { [char]'('; break }
-        ']' { [char]'['; break }
-        '}' { [char]'{'; break }
-    }
+        $toMatch = switch ($line[$cursor]) {
+            '"' { [char]'"'; break }
+            "'" { [char]"'"; break }
+            ')' { [char]'('; break }
+            ']' { [char]'['; break }
+            '}' { [char]'{'; break }
+        }
 
+        if ($line[$cursor-1] -eq $toMatch) {
+            #Remove char in cursor if equal to match
+            [Microsoft.PowerShell.PSConsoleReadLine]::DeleteChar($key, $arg)
+        }
+    }
     #Delete char before cursor (like normal backspace)
     [Microsoft.PowerShell.PSConsoleReadLine]::BackwardDeleteChar($key, $arg)
-
-    if ($line[$cursor-1] -eq $toMatch) 
-    {
-        #Remove char in cursor if equal to match
-        [Microsoft.PowerShell.PSConsoleReadLine]::DeleteChar($key, $arg)
-    }
 }
 
 
