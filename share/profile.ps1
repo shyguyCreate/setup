@@ -44,6 +44,45 @@ if ("InlineView" -eq (Get-PSReadLineOption | Select-Object -ExpandProperty Predi
 {
     Set-PSReadLineKeyHandler -Chord UpArrow -Function HistorySearchBackward
     Set-PSReadLineKeyHandler -Chord DownArrow -Function HistorySearchForward
+
+    #Add key binding to only move forward one word in suggestion
+    Set-PSReadLineKeyHandler -Key RightArrow `
+                         -BriefDescription ForwardCharAndAcceptNextSuggestionWord `
+                         -LongDescription "Move cursor one character to the right or accept the next word in suggestion when it's at the end of current editing line" `
+                         -ScriptBlock {
+        param($key, $arg)
+
+        $line = $null
+        $cursor = $null
+        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+
+        if ($cursor -lt $line.Length)
+        {
+            [Microsoft.PowerShell.PSConsoleReadLine]::ForwardChar($key, $arg)
+        }
+        else {
+            [Microsoft.PowerShell.PSConsoleReadLine]::AcceptNextSuggestionWord($key, $arg)
+        }
+    }
+
+    #Add key binding to enter suggestion with End key
+    Set-PSReadLineKeyHandler -Key End `
+                         -BriefDescription EndOfLineAndAcceptSuggestion `
+                         -LongDescription "Move cursor to the end or accept suggestion when it's at the end of current editing line" `
+                         -ScriptBlock {
+        param($key, $arg)
+
+        $line = $null
+        $cursor = $null
+        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+
+        if ($cursor -lt $line.Length) {
+            [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine($key, $arg)
+        }
+        else {
+            [Microsoft.PowerShell.PSConsoleReadLine]::AcceptSuggestion($key, $arg)
+        }
+    }
 }
 
 
@@ -90,6 +129,7 @@ Set-PSReadLineKeyHandler -Chord '"',"'",'(','{','[' `
 
 }
 
+#Add key binding to delete matching quotes or braces with backspace
 Set-PSReadLineKeyHandler -Chord Backspace `
                          -BriefDescription SmartBackspace `
                          -LongDescription "Delete previous char or matching quotes and braces" `
