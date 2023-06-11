@@ -116,7 +116,9 @@ Set-PSReadLineKeyHandler -Chord '"',"'",'(','{','[' `
       [Microsoft.PowerShell.PSConsoleReadLine]::Replace($selectionStart, $selectionLength, $key.KeyChar + $line.SubString($selectionStart, $selectionLength) + $closeChar)
       [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($selectionStart + $selectionLength + 2)
     }
-    elseif ($line.Length -gt $cursor -and $line[$cursor] -eq $key.KeyChar)
+    elseif (($line[$cursor] -eq $key.KeyChar) -or
+            ('"',"'" -eq $key.KeyChar -and $line[$cursor-1],$line[$cursor+1] -match '\w') -or
+            ('(','{','[' -eq $key.KeyChar -and $line[$cursor+1] -match '\w'))
     {
         #Add another quotes or brace if next character is the same char
         [Microsoft.PowerShell.PSConsoleReadLine]::Insert($key.KeyChar)
@@ -126,7 +128,6 @@ Set-PSReadLineKeyHandler -Chord '"',"'",'(','{','[' `
         [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)$closeChar")
         [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
     }
-
 }
 
 #Add key binding to delete matching quotes or braces with backspace
