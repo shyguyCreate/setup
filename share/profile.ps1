@@ -163,6 +163,21 @@ Set-PSReadLineKeyHandler -Chord Backspace `
     [Microsoft.PowerShell.PSConsoleReadLine]::BackwardDeleteChar($key, $arg)
 }
 
+#Add key binding to delete save current line in history without executing
+Set-PSReadLineKeyHandler -Key F12 `
+                         -BriefDescription SaveToHistory `
+                         -LongDescription "Save current line in history but do not execute" `
+                         -ScriptBlock {
+    param($key, $arg)
+    
+    $line = $null
+    $cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+
+    [Microsoft.PowerShell.PSConsoleReadLine]::AddToHistory($line)
+    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+}
+
 
 ############# Specific to Windows systems ####################
 if ( -not $IsWindows ) {
