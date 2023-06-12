@@ -23,7 +23,7 @@ function Update-OhMyPosh
     }
     if ($IsMacOS)
     {
-        brew update && brew upgrade oh-my-posh
+        brew update; brew upgrade oh-my-posh
     }
 }
 
@@ -87,10 +87,43 @@ if ("InlineView" -eq (Get-PSReadLineOption | Select-Object -ExpandProperty Predi
 }
 
 
-#Add key binding to insert matching quotes or braces
-Set-PSReadLineKeyHandler -Chord '"',"'",'(','{','[' `
-                         -BriefDescription SmartInsertQuotesOrBraces `
-                         -LongDescription "Insert matching quotes or braces" `
+#Add key binding to insert matching quotes
+Set-PSReadLineKeyHandler -Chord '"',"'" `
+                         -BriefDescription SmartInsertQuotes `
+                         -LongDescription "Insert matching quotes" `
+                         -ScriptBlock {
+    param($key, $arg)
+
+    $line = $null
+    $cursor = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+
+    $selectionStart = $null
+    $selectionLength = $null
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetSelectionState([ref]$selectionStart, [ref]$selectionLength)
+
+    if ($selectionStart -ne -1)
+    {
+      #Text is selected, wrap it in quotes
+      [Microsoft.PowerShell.PSConsoleReadLine]::Replace($selectionStart, $selectionLength, $key.KeyChar + $line.SubString($selectionStart, $selectionLength) + $key.KeyChar)
+      [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($selectionStart + $selectionLength + 2)
+    }
+    elseif ($line[$cursor-1],$line[$cursor] -match '\S')
+    {
+        #Add another quotes if next character is the same char
+        [Microsoft.PowerShell.PSConsoleReadLine]::Insert($key.KeyChar)
+    }
+    else {
+        #Insert matching quotes, move cursor in between
+        [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)" * 2)
+        [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
+    }
+}
+
+#Add key binding to insert matching braces
+Set-PSReadLineKeyHandler -Chord '(','{','[' `
+                         -BriefDescription SmartInsertBraces `
+                         -LongDescription "Insert matching braces" `
                          -ScriptBlock {
     param($key, $arg)
 
@@ -103,8 +136,6 @@ Set-PSReadLineKeyHandler -Chord '"',"'",'(','{','[' `
     [Microsoft.PowerShell.PSConsoleReadLine]::GetSelectionState([ref]$selectionStart, [ref]$selectionLength)
 
     $closeChar = switch ($key.KeyChar) {
-        '"' { [char]'"'; break }
-        "'" { [char]"'"; break }
         '(' { [char]')'; break }
         '{' { [char]'}'; break }
         '[' { [char]']'; break }
@@ -112,19 +143,17 @@ Set-PSReadLineKeyHandler -Chord '"',"'",'(','{','[' `
 
     if ($selectionStart -ne -1)
     {
-      #Text is selected, wrap it in quotes or braces
+      #Text is selected, wrap it in braces
       [Microsoft.PowerShell.PSConsoleReadLine]::Replace($selectionStart, $selectionLength, $key.KeyChar + $line.SubString($selectionStart, $selectionLength) + $closeChar)
       [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($selectionStart + $selectionLength + 2)
     }
-    elseif (($line[$cursor] -eq $key.KeyChar) -or
-            ('"',"'" -eq $key.KeyChar -and $line[$cursor-1],$line[$cursor+1] -match '\w') -or
-            ('(','{','[' -eq $key.KeyChar -and $line[$cursor+1] -match '\w'))
+    elseif ($line[$cursor] -match '\S')
     {
-        #Add another quotes or brace if next character is the same char
+        #Add another brace if next character is the same char
         [Microsoft.PowerShell.PSConsoleReadLine]::Insert($key.KeyChar)
     }
     else {
-        #Insert matching quotes or braces, move cursor to be in between
+        #Insert matching braces, move cursor in between
         [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)$closeChar")
         [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
     }
