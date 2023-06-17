@@ -12,7 +12,6 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
 
 #Script variables
-$fontsDir="$Env:USERPROFILE\Downloads\CascadiaCode"
 $githubDir="$Env:USERPROFILE\Github"
 $repoDir="$githubDir\install-Scripts"
 $powershellDir="$Env:USERPROFILE\Documents\WindowsPowerShell"
@@ -22,18 +21,6 @@ $pwshDir="$Env:USERPROFILE\Documents\PowerShell"
 #Install Powershell modules
 powershell.exe -NoProfile -c "& { Install-Module -Name posh-git,PSReadLine,Terminal-Icons -Scope CurrentUser -Force }"
 pwsh.exe -NoProfile -c "& { Install-Module -Name posh-git,PSReadLine,Terminal-Icons -Scope CurrentUser -Force }"
-
-
-#Download CascadiaCode Nerd Fonts
-Invoke-WebRequest -Uri "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip" -OutFile "$fontsDir.zip"
-#Remove font folder if exist
-if (Test-Path $fontsDir) { Remove-Item $fontsDir -Recurse }
-#Extract fonts
-Expand-Archive -Path "$fontsDir.zip" -DestinationPath "$fontsDir"
-#Keep only normal fonts
-Remove-Item -Path "$fontsDir\*" -Exclude "CaskaydiaCoveNerdFont-*.ttf"
-#Open fonts directory
-explorer.exe $fontsDir
 
 
 #Make directory for Github and gists
@@ -49,3 +36,9 @@ New-Item -Path $powershellDir,$pwshDir -ItemType Directory -Force > $null
 New-Item -ItemType SymbolicLink -Value "$repoDir\share\profile.ps1" -Path $powershellDir,$pwshDir -Name "profile.ps1" -Force > $null
 #Create symbolic link of ohmyposh config file to powershell profile folder
 New-Item -ItemType SymbolicLink -Value "$repoDir\share\ohmyposh.omp.json" -Path $powershellDir,$pwshDir -Name "ohmyposh.omp.json" -Force > $null
+
+
+#Clone gist to download CaskaydiaCove Nerd Fonts
+git clone https://gist.github.com/3efd051938218c9cb947af4354b70111.git "$githubDir\gist\caskaydiaCove-Downloader"
+#Run gist script 
+. "$githubDir\gist\caskaydiaCove-Downloader\caskaydiaCove-Downloader.ps1"
