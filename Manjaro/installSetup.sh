@@ -63,20 +63,29 @@ cp $HOME/Github/install-Scripts/share/.p10k.zsh $HOME
 patch -sd $HOME < $HOME/Github/install-Scripts/share/.p10k.zsh.diff
 
 
-#Clone, install and add alias to update vscodium
-git clone https://gist.github.com/06679a4028cb574a946d026c713efa37.git $HOME/Github/gist/vscodium-Installer
-source $HOME/Github/gist/vscodium-Installer/vscodium-Installer.sh
-echo 'alias codiumUpdate="source $HOME/Github/gist/vscodium-Installer/vscodium-Installer.sh"' >> $HOME/.zshrc
+#Clone install-Programs repo
+installPrograms="$HOME/Github/install-Programs"
+git clone https://github.com/shyguyCreate/install-Programs.git "$installPrograms"
 
-#Clone, install and add alias to update pwsh
-git clone https://gist.github.com/86b8b157c90d6b2ebcb1eb98c4a701e8.git $HOME/Github/gist/pwsh-Installer
-source $HOME/Github/gist/pwsh-Installer/pwsh-Installer.sh
-echo 'alias pwshUpdate="source $HOME/Github/gist/pwsh-Installer/pwsh-Installer.sh"' >> $HOME/.zshrc
+#Install and add alias to update vscodium
+source "$installPrograms/codium.sh"
+echo "alias codiumUpdate='source $installPrograms/codium.sh'" >> "$HOME/.zshrc"
 
-#Clone, install and add alias to update meslo-fonts
-git clone https://gist.github.com/3174d5463d717f7d7a8c67e45cd914be.git $HOME/Github/gist/mesloLGS-Installer
-source $HOME/Github/gist/mesloLGS-Installer/mesloLGS-Installer.sh
-echo 'alias mesloUpdate="source $HOME/Github/gist/mesloLGS-Installer/mesloLGS-Installer.sh"' >> $HOME/.zshrc
+#Install and add alias to update gh
+source "$installPrograms/gh.sh"
+echo "alias codiumUpdate='source $installPrograms/gh.sh'" >> "$HOME/.zshrc"
+
+#Install and add alias to update meslo-fonts
+source "$installPrograms/mesloLGS.sh"
+echo "alias mesloUpdate='source $installPrograms/mesloLGS.sh'" >> "$HOME/.zshrc"
+
+#Install and add alias to update pwsh
+source "$installPrograms/pwsh.sh"
+echo "alias pwshUpdate='source $installPrograms/pwsh.sh'" >> "$HOME/.zshrc"
+
+#Install and add alias to update meslo-fonts
+source "$installPrograms/shellcheck.sh"
+echo "alias mesloUpdate='source $installPrograms/shellcheck.sh'" >> "$HOME/.zshrc"
 
 
 #Install Powershell modules
