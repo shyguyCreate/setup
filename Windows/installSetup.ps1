@@ -40,5 +40,5 @@ New-Item -ItemType SymbolicLink -Value "$repoDir\share\ohmyposh.omp.json" -Path 
 
 #Clone gist to download CaskaydiaCove Nerd Fonts
 git clone https://gist.github.com/3efd051938218c9cb947af4354b70111.git "$githubDir\gist\caskaydiaCove-Downloader"
-#Run gist script 
+#Run gist script
 . "$githubDir\gist\caskaydiaCove-Downloader\caskaydiaCove-Downloader.ps1"

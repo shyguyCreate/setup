@@ -199,7 +199,7 @@ Set-PSReadLineKeyHandler -Key F12 `
                          -LongDescription "Save current line in history but do not execute" `
                          -ScriptBlock {
     param($key, $arg)
-    
+
     $line = $null
     $cursor = $null
     [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)

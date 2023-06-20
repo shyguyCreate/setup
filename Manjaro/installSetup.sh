@@ -1,3 +1,5 @@
+#!/bin/sh
+
 #Update system
 sudo pacman -Syyu
 
@@ -34,9 +36,10 @@ git config --global init.defaultBranch main
 
 
 #Make directory for Github and gists
-mkdir -p $HOME/Github/gist
+mkdir -p "$HOME/Github/gist"
 #Clone git repository from this script
-git clone https://github.com/shyguyCreate/install-Scripts.git $HOME/Github/install-Scripts
+installScripts="$HOME/Github/install-Scripts"
+git clone https://github.com/shyguyCreate/install-Scripts.git "$installScripts"
 
 
 #Install GUI for printer
@@ -48,19 +51,19 @@ sudo systemctl enable --now cups
 sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
 #Enable Avahi support for hostname resolution
-sudo patch --no-backup-if-mismatch --merge -sd /etc < $HOME/Github/install-Scripts/Manjaro/nsswitch.conf.diff
+sudo cat "$installScripts/Manjaro/nsswitch.conf.diff" | patch --no-backup-if-mismatch --merge -sd /etc
 
 
 #Install zsh and plugins
 sudo pacman -S zsh zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search --needed
 #Change default shell to zsh
-[[ $(basename $SHELL) != "zsh" ]] && chsh -s $(which zsh)
+[ "$(basename "$SHELL")" != "zsh" ] && chsh -s "$(which zsh)"
 
 #Install powerlevel10k and configure it
 sudo pacman -S zsh-theme-powerlevel10k --needed
-patch -sd $HOME < $HOME/Github/install-Scripts/Manjaro/.zshrc.diff
-cp $HOME/Github/install-Scripts/share/.p10k.zsh $HOME
-patch -sd $HOME < $HOME/Github/install-Scripts/share/.p10k.zsh.diff
+patch -sd "$HOME" < "$installScripts/Manjaro/.zshrc.diff"
+cp "$installScripts/share/.p10k.zsh" "$HOME"
+patch -sd "$HOME" < "$installScripts/share/.p10k.zsh.diff"
 
 
 #Clone install-Programs repo
@@ -68,23 +71,23 @@ installPrograms="$HOME/Github/install-Programs"
 git clone https://github.com/shyguyCreate/install-Programs.git "$installPrograms"
 
 #Install and add alias to update vscodium
-source "$installPrograms/codium.sh"
+. "$installPrograms/codium.sh"
 echo "alias codiumUpdate='source $installPrograms/codium.sh'" >> "$HOME/.zshrc"
 
 #Install and add alias to update gh
-source "$installPrograms/gh.sh"
+. "$installPrograms/gh.sh"
 echo "alias codiumUpdate='source $installPrograms/gh.sh'" >> "$HOME/.zshrc"
 
 #Install and add alias to update meslo-fonts
-source "$installPrograms/mesloLGS.sh"
+. "$installPrograms/mesloLGS.sh"
 echo "alias mesloUpdate='source $installPrograms/mesloLGS.sh'" >> "$HOME/.zshrc"
 
 #Install and add alias to update pwsh
-source "$installPrograms/pwsh.sh"
+. "$installPrograms/pwsh.sh"
 echo "alias pwshUpdate='source $installPrograms/pwsh.sh'" >> "$HOME/.zshrc"
 
 #Install and add alias to update meslo-fonts
-source "$installPrograms/shellcheck.sh"
+. "$installPrograms/shellcheck.sh"
 echo "alias mesloUpdate='source $installPrograms/shellcheck.sh'" >> "$HOME/.zshrc"
 
 
@@ -93,12 +96,12 @@ pwsh -NoProfile -c "& { Install-Module -Name posh-git,PSReadLine,Terminal-Icons 
 
 
 #Install ohmyposh
-mkdir -p $HOME/.local/bin && curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
+mkdir -p "$HOME/.local/bin" && curl -s https://ohmyposh.dev/install.sh | bash -s -- -d "$HOME/.local/bin"
 
 
 #Create directory for pwsh profile folder
-mkdir -p $HOME/.config/powershell
+mkdir -p "$HOME/.config/powershell"
 #Create symbolic link of profile.ps1 to powershell profile folder
-ln -sf $HOME/Github/install-Scripts/share/profile.ps1 $HOME/.config/powershell/profile.ps1
+ln -sf "$installScripts/share/profile.ps1" "$HOME/.config/powershell/profile.ps1"
 #Create symbolic link of ohmyposh to powershell profile folder
-ln -sf $HOME/Github/install-Scripts/share/ohmyposh.omp.json $HOME/.config/powershell/ohmyposh.omp.json
+ln -sf "$installScripts/share/ohmyposh.omp.json" "$HOME/.config/powershell/ohmyposh.omp.json"
