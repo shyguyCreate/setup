@@ -82,6 +82,10 @@ echo "alias codiumUpdate='source $installPrograms/gh.sh'" >> "$HOME/.zshrc"
 . "$installPrograms/mesloLGS.sh"
 echo "alias mesloUpdate='source $installPrograms/mesloLGS.sh'" >> "$HOME/.zshrc"
 
+#Install and add alias to update oh-my-posh
+. "$installPrograms/oh-my-posh.sh"
+echo "alias oh-my-poshUpdate='source $installPrograms/oh-my-posh.sh'" >> "$HOME/.zshrc"
+
 #Install and add alias to update pwsh
 . "$installPrograms/pwsh.sh"
 echo "alias pwshUpdate='source $installPrograms/pwsh.sh'" >> "$HOME/.zshrc"

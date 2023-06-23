@@ -11,23 +11,6 @@ Import-Module posh-git,PSReadLine,Terminal-Icons
 oh-my-posh init pwsh --config "$PROFILE_FOLDER/ohmyposh.omp.json" | Invoke-Expression
 
 
-function Update-OhMyPosh
-{
-    if ($IsLinux)
-    {
-        curl -s https://ohmyposh.dev/install.sh | bash -s
-    }
-    if ($IsWindows)
-    {
-        winget upgrade JanDeDobbeleer.OhMyPosh -s winget
-    }
-    if ($IsMacOS)
-    {
-        brew update; brew upgrade oh-my-posh
-    }
-}
-
-
 #PSReadLineOption
 Set-PSReadLineOption -HistorySavePath "$PROFILE_FOLDER/ConsoleHost_history.txt"
 Set-PSReadLineOption -PredictionSource History
