@@ -12,10 +12,8 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
 
 #Script variables
-$githubDir="$Env:USERPROFILE\Github"
-$repoDir="$githubDir\install-Scripts"
-$powershellDir="$Env:USERPROFILE\Documents\WindowsPowerShell"
-$pwshDir="$Env:USERPROFILE\Documents\PowerShell"
+$repoDir="$Env:USERPROFILE\Github\install-Scripts"
+$profilesDir="$Env:USERPROFILE\Documents\WindowsPowerShell","$Env:USERPROFILE\Documents\PowerShell"
 
 
 #Install Powershell modules
@@ -24,21 +22,21 @@ pwsh.exe -NoProfile -c "& { Install-Module -Name posh-git,PSReadLine,Terminal-Ic
 
 
 #Make directory for Github and gists
-New-Item -Path "$githubDir\gist" -ItemType Directory -Force > $null
+New-Item -Path "$Env:USERPROFILE\Github\gist" -ItemType Directory -Force > $null
 #Clone git repository
 git clone https://github.com/shyguyCreate/install-Scripts.git $repoDir
 
 
 #Make folders for profiles
-New-Item -Path $powershellDir,$pwshDir -ItemType Directory -Force > $null
+New-Item -Path $profilesDir -ItemType Directory -Force > $null
 
 #Create symbolic link of profile script to powershell profile folder
-New-Item -ItemType SymbolicLink -Value "$repoDir\share\profile.ps1" -Path $powershellDir,$pwshDir -Name "profile.ps1" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$repoDir\share\profile.ps1" -Path $profilesDir -Name "profile.ps1" -Force > $null
+#Create symbolic link of Windows_profile script to powershell profile folder
+New-Item -ItemType SymbolicLink -Value "$repoDir\Windows\Windows_profile.ps1" -Path $profilesDir -Name "Windows_profile.ps1" -Force > $null
 #Create symbolic link of ohmyposh config file to powershell profile folder
-New-Item -ItemType SymbolicLink -Value "$repoDir\share\ohmyposh.omp.json" -Path $powershellDir,$pwshDir -Name "ohmyposh.omp.json" -Force > $null
+New-Item -ItemType SymbolicLink -Value "$repoDir\share\ohmyposh.omp.json" -Path $profilesDir -Name "ohmyposh.omp.json" -Force > $null
 
 
-#Clone gist to download CaskaydiaCove Nerd Fonts
-git clone https://gist.github.com/3efd051938218c9cb947af4354b70111.git "$githubDir\gist\caskaydiaCove-Downloader"
-#Run gist script
-. "$githubDir\gist\caskaydiaCove-Downloader\caskaydiaCove-Downloader.ps1"
+#Install CaskaydiaCove Nerd Font
+powershell.exe -c "& { Update-CaskaydiaCoveNF }"

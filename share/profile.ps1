@@ -1,5 +1,5 @@
 #Variables
-#Set-Variable PROFILE -Value $PROFILE.CurrentUserAllHosts
+if ($null -ne $PROFILE.CurrentUserAllHosts) { Set-Variable PROFILE -Value $PROFILE.CurrentUserAllHosts }
 Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
 
 
@@ -193,22 +193,7 @@ Set-PSReadLineKeyHandler -Key F12 `
 
 
 ############# Specific to Windows systems ####################
-if ( -not $IsWindows ) {
-    return
-}
-
-#Variables
-Set-Variable WINGET_LOGS -Value "$Env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir"
-Set-Variable WINGET_PACKAGES_TEMP -Value "$Env:TEMP\Winget"
-
-
-#winget
-Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
-param($wordToComplete, $commandAst, $cursorPosition)
-    [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
-    $Local:word = $wordToComplete.Replace('"', '""')
-    $Local:ast = $commandAst.ToString().Replace('"', '""')
-    winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
-        [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
-    }
+if ($IsWindows -and (Test-Path "$PROFILE_FOLDER\Windows_profile.ps1" ))
+{
+    . "$PROFILE_FOLDER\Windows_profile.ps1"
 }
