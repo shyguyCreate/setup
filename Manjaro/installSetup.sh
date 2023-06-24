@@ -51,7 +51,7 @@ sudo systemctl enable --now cups
 sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
 #Enable Avahi support for hostname resolution
-sudo cat "$installScripts/Manjaro/nsswitch.conf.diff" | patch --no-backup-if-mismatch --merge -sd /etc
+sudo patch --no-backup-if-mismatch --merge -sd /etc < "$installScripts/Arch-based/nsswitch.conf.diff"
 
 
 #Install zsh and plugins
