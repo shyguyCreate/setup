@@ -29,7 +29,7 @@ sudo pacman -S vlc obs-studio --needed
 
 
 #Install git gh and set username email and initial branch
-sudo pacman -S git github-cli --needed
+sudo pacman -S git --needed
 git config --global user.name shyguyCreate
 git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
 git config --global init.defaultBranch main

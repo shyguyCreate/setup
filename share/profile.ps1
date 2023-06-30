@@ -193,7 +193,7 @@ Set-PSReadLineKeyHandler -Key F12 `
 
 
 ############# Specific to Windows systems ####################
-if ($IsWindows -and (Test-Path "$PROFILE_FOLDER\Windows_profile.ps1" ))
+if (($IsWindows -or $PSVersionTable.PSVersion.Major -le 5) -and (Test-Path "$PROFILE_FOLDER\Windows_profile.ps1"))
 {
     . "$PROFILE_FOLDER\Windows_profile.ps1"
 }

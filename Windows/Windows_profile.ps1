@@ -15,7 +15,7 @@ param($wordToComplete, $commandAst, $cursorPosition)
 }
 
 
-Update-CaskaydiaCoveNF ([switch] $Force)
+function Update-CaskaydiaCoveNF ([switch] $Force)
 {
     #Checks if the CaskaydiaCoveNF var exist to reduce number of calls to github api
     if ($Force -or ($null -eq $CaskaydiaCoveNF))
