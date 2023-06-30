@@ -61,7 +61,7 @@ sudo pacman -S zsh zsh-completions zsh-autosuggestions zsh-syntax-highlighting z
 
 #Install powerlevel10k and configure it
 sudo pacman -S zsh-theme-powerlevel10k --needed
-patch -sd "$HOME" < "$installScripts/Manjaro/.zshrc.diff"
+cp "$installScripts/Manjaro/.zshrc" "$HOME"
 cp "$installScripts/share/.p10k.zsh" "$HOME"
 patch -sd "$HOME" < "$installScripts/share/.p10k.zsh.diff"
 
