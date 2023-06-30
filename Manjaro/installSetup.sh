@@ -70,38 +70,14 @@ patch -sd "$HOME" < "$installScripts/share/.p10k.zsh.diff"
 installPrograms="$HOME/Github/install-Programs"
 git clone https://github.com/shyguyCreate/install-Programs.git "$installPrograms"
 
-#Install and add alias to update vscodium
-. "$installPrograms/codium.sh"
-echo "alias codiumUpdate='source $installPrograms/codium.sh'" >> "$HOME/.zshrc"
-
-#Install and add alias to update gh
-. "$installPrograms/gh.sh"
-echo "alias codiumUpdate='source $installPrograms/gh.sh'" >> "$HOME/.zshrc"
-
-#Install and add alias to update meslo-fonts
-. "$installPrograms/mesloLGS.sh"
-echo "alias mesloUpdate='source $installPrograms/mesloLGS.sh'" >> "$HOME/.zshrc"
-
-#Install and add alias to update oh-my-posh
-. "$installPrograms/oh-my-posh.sh"
-echo "alias oh-my-poshUpdate='source $installPrograms/oh-my-posh.sh'" >> "$HOME/.zshrc"
-
-#Install and add alias to update pwsh
-. "$installPrograms/pwsh.sh"
-echo "alias pwshUpdate='source $installPrograms/pwsh.sh'" >> "$HOME/.zshrc"
-
-#Install and add alias to update meslo-fonts
-. "$installPrograms/shellcheck.sh"
-echo "alias mesloUpdate='source $installPrograms/shellcheck.sh'" >> "$HOME/.zshrc"
+#Install all programs inside git repo
+for script in "$installPrograms"/*; do
+    chmod +x "$script"; "$script"
+done
 
 
 #Install Powershell modules
 pwsh -NoProfile -c "& { Install-Module -Name posh-git,PSReadLine,Terminal-Icons -Scope CurrentUser -Force }"
-
-
-#Install ohmyposh
-mkdir -p "$HOME/.local/bin" && curl -s https://ohmyposh.dev/install.sh | bash -s -- -d "$HOME/.local/bin"
-
 
 #Create directory for pwsh profile folder
 mkdir -p "$HOME/.config/powershell"
