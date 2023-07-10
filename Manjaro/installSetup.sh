@@ -6,7 +6,7 @@ sudo pacman -Syyu
 #Install doas (alternative to sudo)
 sudo pacman -S opendoas
 #Add config file to access root
-echo "permit :wheel" | sudo tee -a /etc/doas.conf > /dev/null
+[ -f /etc/doas.conf ] && grep -qxF "permit :wheel" /etc/doas.conf || echo "permit :wheel" | sudo tee -a /etc/doas.conf > /dev/null
 
 
 #Install yay to check updates for packages installed manually
@@ -54,16 +54,32 @@ sudo systemctl enable avahi-daemon.service
 sudo patch --no-backup-if-mismatch --merge -sd /etc < "$installScripts/Arch-based/nsswitch.conf.diff"
 
 
-#Install zsh and plugins
-sudo pacman -S zsh zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search --needed
+#Install zsh
+sudo pacman -S zsh --needed
+#And uninstall plugins
+sudo pacman -Rns manjaro-zsh-config zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search zsh-theme-powerlevel10k
+
+#Add config dir for zsh
+ZDOTDIR="$HOME/.config/zsh"
+mkdir -p "$ZDOTDIR"
+#Add config file to change ZDOTDIR
+[ -f /etc/zsh/zshenv ] && grep -qxF "export ZDOTDIR=\$HOME/.config/zsh" /etc/zsh/zshenv || echo "export ZDOTDIR=\$HOME/.config/zsh" | sudo tee -a /etc/zsh/zshenv > /dev/null
+
+
+#Add zsh plugins
+git clone --depth=1 https://github.com/zsh-users/zsh-completions.git "$ZDOTDIR/zsh-completions"
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git "$ZDOTDIR/zsh-autosuggestions"
+git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git "$ZDOTDIR/zsh-history-substring-search"
+git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZDOTDIR/zsh-syntax-highlighting"
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZDOTDIR/powerlevel10k"
+
 #Change default shell to zsh
 [ "$(basename "$SHELL")" != "zsh" ] && chsh -s "$(which zsh)"
 
 #Install powerlevel10k and configure it
-sudo pacman -S zsh-theme-powerlevel10k --needed
-cp "$installScripts/Manjaro/.zshrc" "$HOME"
-cp "$installScripts/share/.p10k.zsh" "$HOME"
-patch -sd "$HOME" < "$installScripts/share/.p10k.zsh.diff"
+cp "$installScripts/share/.zshrc" "$ZDOTDIR"
+cp "$installScripts/share/.p10k.zsh" "$ZDOTDIR"
+patch -sd "$ZDOTDIR" < "$installScripts/share/.p10k.zsh.diff"
 
 
 #Clone install-Programs repo
