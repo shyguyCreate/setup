@@ -59,28 +59,8 @@ sudo pacman -S zsh --needed
 #And uninstall plugins
 sudo pacman -Rns manjaro-zsh-config zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search zsh-theme-powerlevel10k
 
-#Add config dir for zsh
-ZDOTDIR="$HOME/.config/zsh"
-mkdir -p "$ZDOTDIR"
-#Add config file to change ZDOTDIR
-[ -f /etc/zsh/zshenv ] && grep -qxF "export ZDOTDIR=\$HOME/.config/zsh" /etc/zsh/zshenv || echo "export ZDOTDIR=\$HOME/.config/zsh" | sudo tee -a /etc/zsh/zshenv > /dev/null
-
-
-#Add zsh plugins
-git clone --depth=1 https://github.com/zsh-users/zsh-completions.git "$ZDOTDIR/zsh-completions"
-git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git "$ZDOTDIR/zsh-autosuggestions"
-git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git "$ZDOTDIR/zsh-history-substring-search"
-git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZDOTDIR/zsh-syntax-highlighting"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZDOTDIR/powerlevel10k"
-
-#Change default shell to zsh
-[ "$(basename "$SHELL")" != "zsh" ] && chsh -s "$(which zsh)"
-
-#Install powerlevel10k and configure it
-cp "$installScripts/share/.zshrc" "$ZDOTDIR"
-cp "$installScripts/share/.p10k.zsh" "$ZDOTDIR"
-patch -sd "$ZDOTDIR" < "$installScripts/share/.p10k.zsh.diff"
-
+#Configure zsh
+. "$installScripts/zsh/zsh-Setup.sh"
 
 #Clone install-Programs repo
 installPrograms="$HOME/Github/install-Programs"
