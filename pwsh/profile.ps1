@@ -8,7 +8,7 @@ Import-Module posh-git,PSReadLine,Terminal-Icons
 
 
 #OH-MY-POSH
-oh-my-posh init pwsh --config "$PROFILE_FOLDER/ohmyposh.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "$PROFILE_FOLDER/.omp.json" | Invoke-Expression
 
 
 #PSReadLineOption
@@ -193,7 +193,7 @@ Set-PSReadLineKeyHandler -Key F12 `
 
 
 ############# Specific to Windows systems ####################
-if (($IsWindows -or $PSVersionTable.PSVersion.Major -le 5) -and (Test-Path "$PROFILE_FOLDER\Windows_profile.ps1"))
+if (($IsWindows -or $PSVersionTable.PSVersion.Major -le 5) -and (Test-Path "$PROFILE_FOLDER\profileMS.ps1"))
 {
-    . "$PROFILE_FOLDER\Windows_profile.ps1"
+    . "$PROFILE_FOLDER\profileMS.ps1"
 }

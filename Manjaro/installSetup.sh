@@ -51,7 +51,7 @@ sudo systemctl enable --now cups
 sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
 #Enable Avahi support for hostname resolution
-sudo patch --no-backup-if-mismatch --merge -sd /etc < "$installScripts/Arch-based/nsswitch.conf.diff"
+sudo patch --no-backup-if-mismatch --merge -sd /etc < "$installScripts/share/nsswitch.conf.diff"
 
 
 #Install zsh
@@ -72,12 +72,5 @@ for script in "$installPrograms"/*; do
 done
 
 
-#Install Powershell modules
-pwsh -NoProfile -c "& { Install-Module -Name posh-git,PSReadLine,Terminal-Icons -Scope CurrentUser -Force }"
-
-#Create directory for pwsh profile folder
-mkdir -p "$HOME/.config/powershell"
-#Create symbolic link of profile.ps1 to powershell profile folder
-ln -sf "$installScripts/share/profile.ps1" "$HOME/.config/powershell/profile.ps1"
-#Create symbolic link of ohmyposh to powershell profile folder
-ln -sf "$installScripts/share/ohmyposh.omp.json" "$HOME/.config/powershell/ohmyposh.omp.json"
+#Configure pwsh
+pwsh -NoProfile -File "$installScripts/pwsh/pwsh-Setup.ps1"

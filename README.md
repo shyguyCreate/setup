@@ -6,7 +6,7 @@
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/shyguyCreate/install-Scripts/main/Manjaro/installSetup.sh)"
 ```
-> ***Advice:*** if your device has a **Broadcom wireless network device** and needs drivers for it, check the scripts inside the [BroadcomDrivers folder](./Arch-based/BroadcomDrivers). If you are not sure about your device, run this in your terminal `lspci | grep network -i`.
+> ***Advice:*** if your device has a **Broadcom wireless network device** and needs drivers for it, check the scripts inside the [BroadcomDrivers folder](./BroadcomDrivers). If you are not sure about your device, run this in your terminal `lspci | grep network -i`.
 
 ------------------------
 

@@ -10,32 +10,22 @@ if (-not (New-Object Security.Principal.WindowsPrincipal([Security.Principal.Win
 #ExecutionPolicy
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
-
-#Script variables
-$repoDir="$Env:USERPROFILE\Github\install-Scripts"
-$profilesDir="$Env:USERPROFILE\Documents\WindowsPowerShell","$Env:USERPROFILE\Documents\PowerShell"
-
-
-#Install Powershell modules
-powershell.exe -NoProfile -c "& { Install-Module -Name posh-git,PSReadLine,Terminal-Icons -Scope CurrentUser -Force }"
-pwsh.exe -NoProfile -c "& { Install-Module -Name posh-git,PSReadLine,Terminal-Icons -Scope CurrentUser -Force }"
+#Install programs
+winget install -e --id Git.Git -s winget
+winget install -e --id Microsoft.PowerShell -s winget
+winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
 
 
 #Make directory for Github and gists
 New-Item -Path "$Env:USERPROFILE\Github\gist" -ItemType Directory -Force > $null
-#Clone git repository
-git clone https://github.com/shyguyCreate/install-Scripts.git $repoDir
+#Clone git repository from this script
+$installScripts="$Env:USERPROFILE\Github\install-Scripts"
+git clone https://github.com/shyguyCreate/install-Scripts.git $installScripts
 
 
-#Make folders for profiles
-New-Item -Path $profilesDir -ItemType Directory -Force > $null
-
-#Create symbolic link of profile script to powershell profile folder
-New-Item -ItemType SymbolicLink -Value "$repoDir\share\profile.ps1" -Path $profilesDir -Name "profile.ps1" -Force > $null
-#Create symbolic link of Windows_profile script to powershell profile folder
-New-Item -ItemType SymbolicLink -Value "$repoDir\Windows\Windows_profile.ps1" -Path $profilesDir -Name "Windows_profile.ps1" -Force > $null
-#Create symbolic link of ohmyposh config file to powershell profile folder
-New-Item -ItemType SymbolicLink -Value "$repoDir\share\ohmyposh.omp.json" -Path $profilesDir -Name "ohmyposh.omp.json" -Force > $null
+#Install Powershell modules
+powershell.exe -NoProfile -File "$installScripts\pwsh\pwsh-Setup.ps1"
+pwsh.exe -NoProfile -File "$installScripts\pwsh\pwsh-Setup.ps1"
 
 
 #Install CaskaydiaCove Nerd Font
