@@ -9,18 +9,18 @@ Install-Module -Name posh-git,PSReadLine,Terminal-Icons -Scope CurrentUser -Forc
 
 
 #Directory of this repository
-[IO.Path]::Combine("$HOME","Github","install-Scripts") | Set-Variable -Name installScripts
+Set-Variable -Name machineSetup -Value ([IO.Path]::Combine("$HOME","Github","machine-Setup"))
 
-if (Test-Path $installScripts -PathType Container)
+if (Test-Path $machineSetup -PathType Container)
 {
     #Create symbolic link of profile script to powershell profile folder
-    New-Item -ItemType SymbolicLink -Value ([IO.Path]::Combine("$installScripts","pwsh","profile.ps1")) -Path $PROFILE_FOLDER -Name "profile.ps1" -Force > $null
+    New-Item -ItemType SymbolicLink -Value ([IO.Path]::Combine("$machineSetup","pwsh","profile.ps1")) -Path $PROFILE_FOLDER -Name "profile.ps1" -Force > $null
     #Create symbolic link of ohmyposh config file to powershell profile folder
-    New-Item -ItemType SymbolicLink -Value ([IO.Path]::Combine("$installScripts","pwsh",".omp.json")) -Path $PROFILE_FOLDER -Name ".omp.json" -Force > $null
+    New-Item -ItemType SymbolicLink -Value ([IO.Path]::Combine("$machineSetup","pwsh",".omp.json")) -Path $PROFILE_FOLDER -Name ".omp.json" -Force > $null
 
     if ($IsWindows)
     {
         #Create symbolic link of profileMS script to powershell profile folder
-        New-Item -ItemType SymbolicLink -Value ([IO.Path]::Combine("$installScripts","pwsh","profileMS.ps1")) -Path $PROFILE_FOLDER -Name "profileMS.ps1" -Force > $null
+        New-Item -ItemType SymbolicLink -Value ([IO.Path]::Combine("$machineSetup","pwsh","profileMS.ps1")) -Path $PROFILE_FOLDER -Name "profileMS.ps1" -Force > $null
     }
 }

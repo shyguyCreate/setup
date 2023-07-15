@@ -5,13 +5,13 @@ Download script and install script for packages needed by the **Broadcom wireles
 ### Download packages for driver
 Packages are downloaded using `pacman` but not installed, instead they are saved to `$HOME/BroadcomPackages` to use them for an offline installation.
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/shyguyCreate/install-Scripts/main/BroadcomDrivers/Arch-based/broadcomDownload.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/shyguyCreate/machine-Setup/main/Drivers/BroadcomWireless/download.sh)"
 ```
 
 ### Install packages for driver
 Packages are retrieved from `$HOME/BroadcomPackages` and installed using `pacman`. And modules are removed and loaded for the driver to work.
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/shyguyCreate/install-Scripts/main/BroadcomDrivers/Arch-based/broadcomInstall.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/shyguyCreate/machine-Setup/main/Drivers/BroadcomWireless/install.sh)"
 ```
 
 -----------

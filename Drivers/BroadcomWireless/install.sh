@@ -1,9 +1,9 @@
 #!/bin/sh
 
-################ INSTALL PACKAGES AND DEPENDECIES FOR BROADCOM WIFI DRIVER ################
+################ INSTALL PACKAGES AND DEPENDECIES FOR BROADCOM WIRELESS DRIVER ################
 
 #Variables
-packagesDir="$HOME/BroadcomPackages"
+packagesDir="$HOME/BroadcomWireless"
 
 #Test if packages from the preinstall script are in this machine
 if [ -d "$packagesDir" ]

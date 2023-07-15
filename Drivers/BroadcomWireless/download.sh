@@ -1,10 +1,10 @@
 #!/bin/sh
 
-################ GET ALL PACKAGES AND DEPENDECIES FOR BROADCOM WIFI DRIVER ################
+################ GET ALL PACKAGES AND DEPENDECIES FOR BROADCOM WIRELESS DRIVER ################
 
 #Variables
 tmpDir="/tmp/blankdb"
-packagesDir="$HOME/BroadcomPackages"
+packagesDir="$HOME/BroadcomWireless"
 cacheDir="$(pacman -v 2>/dev/null | grep Cache | awk '{print $3}')"
 cacheDirTmp="${cacheDir%/}Tmp"
 
@@ -17,7 +17,7 @@ sudo mv "$cacheDir" "$cacheDirTmp"
 #Print kernel version to know what linux-headers to install
 uname -r
 
-#Download all packages and dependecies for broadcom wifi driver inside custom CacheDir
+#Download all packages and dependecies for broadcom wireless driver inside custom CacheDir
 sudo pacman -Syyw --cachedir "$packagesDir" --dbpath "$tmpDir" base-devel linux-headers broadcom-wl-dkms
 
 #Revert rename of pacman CacheDir

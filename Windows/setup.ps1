@@ -2,7 +2,7 @@
 if (-not (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
 {
     Start-Process powershell.exe `
-        '-NoProfile -NoLogo -NoExit -ExecutionPolicy RemoteSigned -Command "& { Invoke-Expression (Invoke-WebRequest -Uri https://raw.githubusercontent.com/shyguyCreate/install-Scripts/main/Windows/installSetup.ps1).Content }"' `
+        '-NoProfile -NoLogo -NoExit -ExecutionPolicy RemoteSigned -Command "& { Invoke-Expression (Invoke-WebRequest -Uri https://raw.githubusercontent.com/shyguyCreate/machine-Setup/main/Windows/installSetup.ps1).Content }"' `
             -Verb RunAs
     return
 }
@@ -19,13 +19,13 @@ winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
 #Make directory for Github and gists
 New-Item -Path "$Env:USERPROFILE\Github\gist" -ItemType Directory -Force > $null
 #Clone git repository from this script
-$installScripts="$Env:USERPROFILE\Github\install-Scripts"
-git clone https://github.com/shyguyCreate/install-Scripts.git $installScripts
+$machineSetup="$Env:USERPROFILE\Github\machine-Setup"
+git clone https://github.com/shyguyCreate/machine-Setup.git $machineSetup
 
 
 #Install Powershell modules
-powershell.exe -NoProfile -File "$installScripts\pwsh\pwsh-Setup.ps1"
-pwsh.exe -NoProfile -File "$installScripts\pwsh\pwsh-Setup.ps1"
+powershell.exe -NoProfile -File "$machineSetup\pwsh\pwsh-Setup.ps1"
+pwsh.exe -NoProfile -File "$machineSetup\pwsh\pwsh-Setup.ps1"
 
 
 #Install CaskaydiaCove Nerd Font

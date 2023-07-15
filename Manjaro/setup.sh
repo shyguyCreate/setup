@@ -38,8 +38,8 @@ git config --global init.defaultBranch main
 #Make directory for Github and gists
 mkdir -p "$HOME/Github/gist"
 #Clone git repository from this script
-installScripts="$HOME/Github/install-Scripts"
-git clone https://github.com/shyguyCreate/install-Scripts.git "$installScripts"
+machineSetup="$HOME/Github/machine-Setup"
+git clone https://github.com/shyguyCreate/machine-Setup.git "$machineSetup"
 
 
 #Install GUI for printer
@@ -51,7 +51,7 @@ sudo systemctl enable --now cups
 sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
 #Enable Avahi support for hostname resolution
-sudo patch --no-backup-if-mismatch --merge -sd /etc < "$installScripts/share/nsswitch.conf.diff"
+sudo patch --no-backup-if-mismatch --merge -sd /etc < "$machineSetup/share/nsswitch.conf.diff"
 
 
 #Install zsh
@@ -60,7 +60,7 @@ sudo pacman -S zsh --needed
 sudo pacman -Rns manjaro-zsh-config zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search zsh-theme-powerlevel10k
 
 #Configure zsh
-. "$installScripts/zsh/zsh-Setup.sh"
+. "$machineSetup/zsh/zsh-Setup.sh"
 
 #Clone install-Programs repo
 installPrograms="$HOME/Github/install-Programs"
@@ -73,4 +73,4 @@ done
 
 
 #Configure pwsh
-pwsh -NoProfile -File "$installScripts/pwsh/pwsh-Setup.ps1"
+pwsh -NoProfile -File "$machineSetup/pwsh/pwsh-Setup.ps1"

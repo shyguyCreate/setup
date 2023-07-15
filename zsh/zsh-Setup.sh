@@ -19,12 +19,12 @@ git -C "$ZDOTDIR" clone --depth=1 https://github.com/romkatv/powerlevel10k.git
 
 
 #Directory of this repository
-installScripts="$HOME/Github/install-Scripts"
+machineSetup="$HOME/Github/machine-Setup"
 
-if [ -d "$installScripts" ]
+if [ -d "$machineSetup" ]
 then
     #Configure zsh with dot files
-    cp "$installScripts/zsh/.zshrc" "$ZDOTDIR"
-    cp "$installScripts/zsh/.p10k.zsh" "$ZDOTDIR"
-    patch -sd "$ZDOTDIR" < "$installScripts/zsh/.p10k.zsh.diff"
+    cp "$machineSetup/zsh/.zshrc" "$ZDOTDIR"
+    cp "$machineSetup/zsh/.p10k.zsh" "$ZDOTDIR"
+    patch -sd "$ZDOTDIR" < "$machineSetup/zsh/.p10k.zsh.diff"
 fi

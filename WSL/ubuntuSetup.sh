@@ -32,7 +32,8 @@ git config --global init.defaultBranch main
 #Make directory for Github and gists
 mkdir -p "$HOME/Github/gist"
 #Clone git repository from this script
-git clone https://github.com/shyguyCreate/install-Scripts.git "$HOME/Github/install-Scripts"
+machineSetup="$HOME/Github/machine-Setup"
+git clone https://github.com/shyguyCreate/machine-Setup.git "$machineSetup"
 
 
 #Install ohmyposh
@@ -43,7 +44,7 @@ curl -s https://ohmyposh.dev/install.sh | bash -s -- -d "$HOME/.local/bin"
 #Write oh-my-posh lines to .profile
 echo "
 #OH-MY-POSH
-eval \"\$(oh-my-posh init bash --config '$HOME/Github/install-Scripts/pwsh/.omp.json')\"
+eval \"\$(oh-my-posh init bash --config '$machineSetup/pwsh/.omp.json')\"
 alias oh-my-posh-Update='curl -s https://ohmyposh.dev/install.sh | bash -s'" \
 >> "$HOME/.profile"
 
