@@ -20,6 +20,8 @@ SAVEHIST=10000
 
 #Add custom key bindings
 [ -f "$ZDOTDIR/.keys.zsh" ] && source "$ZDOTDIR/.keys.zsh"
+#Add custom alias
+[ -f "$ZDOTDIR/.alias.zsh" ] && source "$ZDOTDIR/.alias.zsh"
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
