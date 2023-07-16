@@ -25,6 +25,7 @@ if [ -d "$machineSetup" ]
 then
     #Configure zsh with dot files
     cp "$machineSetup/zsh/.zshrc" "$ZDOTDIR"
+    cp "$machineSetup/zsh/.keys.zsh" "$ZDOTDIR"
     cp "$machineSetup/zsh/.p10k.zsh" "$ZDOTDIR"
     patch -sd "$ZDOTDIR" < "$machineSetup/zsh/.p10k.zsh.diff"
 fi
