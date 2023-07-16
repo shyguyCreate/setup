@@ -9,7 +9,7 @@ ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 
 HISTSIZE=10000
 HISTFILE="$ZDOTDIR/.history"
-SAVEHIST=10000
+SAVEHIST=5000
 
 #Start zsh plugins
 [ -d "$ZDOTDIR/zsh-completions/src" ] && fpath=("$ZDOTDIR/zsh-completions/src" $fpath)
