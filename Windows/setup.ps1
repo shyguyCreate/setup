@@ -20,7 +20,13 @@ winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
 New-Item -Path "$Env:USERPROFILE\Github\gist" -ItemType Directory -Force > $null
 #Clone git repository from this script
 $machineSetup="$Env:USERPROFILE\Github\machine-Setup"
-git clone https://github.com/shyguyCreate/machine-Setup.git $machineSetup
+if (Test-Path "$machineSetup\.git" -PathType Container) 
+{
+    git clone https://github.com/shyguyCreate/machine-Setup.git $machineSetup
+}else {
+    git -C "$machineSetup" pull -q
+}
+    
 
 
 #Install Powershell modules

@@ -39,7 +39,12 @@ git config --global init.defaultBranch main
 mkdir -p "$HOME/Github/gist"
 #Clone git repository from this script
 machineSetup="$HOME/Github/machine-Setup"
-git clone https://github.com/shyguyCreate/machine-Setup.git "$machineSetup"
+if [ ! -d "$machineSetup/.git" ]
+then
+    git clone https://github.com/shyguyCreate/machine-Setup.git "$machineSetup"
+else
+    git -C "$machineSetup" pull -q
+fi
 
 
 #Install GUI for printer
@@ -64,7 +69,12 @@ sudo pacman -Rns manjaro-zsh-config zsh-completions zsh-autosuggestions zsh-synt
 
 #Clone install-Programs repo
 installPrograms="$HOME/Github/install-Programs"
-git clone https://github.com/shyguyCreate/install-Programs.git "$installPrograms"
+if [ ! -d "$installPrograms/.git" ]
+then
+    git clone https://github.com/shyguyCreate/install-Programs.git "$installPrograms"
+else
+    git -C "$installPrograms" pull -q
+fi
 
 #Install all programs inside git repo
 for script in "$installPrograms"/*; do

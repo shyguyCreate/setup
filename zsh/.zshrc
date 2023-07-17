@@ -14,6 +14,16 @@ SAVEHIST=5000
 
 autoload -U colors && colors
 zmodload -i zsh/terminfo
+zmodload -i zsh/datetime
+
+
+#Update zsh plugins
+[ -d "$ZDOTDIR/zsh-completions/.git" ] && git -C "$ZDOTDIR/zsh-completions" fetch --depth 1 -q && git -C "$ZDOTDIR/zsh-completions" reset --hard FETCH_HEAD -q
+[ -d "$ZDOTDIR/zsh-autosuggestions/.git" ] && git -C "$ZDOTDIR/zsh-autosuggestions" fetch --depth 1 -q && git -C "$ZDOTDIR/zsh-autosuggestions" reset --hard FETCH_HEAD -q
+[ -d "$ZDOTDIR/zsh-syntax-highlighting/.git" ] && git -C "$ZDOTDIR/zsh-syntax-highlighting" fetch --depth 1 -q && git -C "$ZDOTDIR/zsh-syntax-highlighting" reset --hard FETCH_HEAD -q
+[ -d "$ZDOTDIR/zsh-history-substring-search/.git" ] && git -C "$ZDOTDIR/zsh-history-substring-search" fetch --depth 1 -q && git -C "$ZDOTDIR/zsh-history-substring-search" reset --hard FETCH_HEAD -q
+[ -d "$ZDOTDIR/powerlevel10k/.git" ] && git -C "$ZDOTDIR/powerlevel10k" fetch --depth 1 -q && git -C "$ZDOTDIR/powerlevel10k" reset --hard FETCH_HEAD -q
+
 
 #Add custom zsh setopts
 [ -f "$ZDOTDIR/.setopt.zsh" ] && source "$ZDOTDIR/.setopt.zsh"
@@ -23,6 +33,7 @@ zmodload -i zsh/terminfo
 [ -f "$ZDOTDIR/.keys.zsh" ] && source "$ZDOTDIR/.keys.zsh"
 #Add custom alias
 [ -f "$ZDOTDIR/.alias.zsh" ] && source "$ZDOTDIR/.alias.zsh"
+
 
 #Add zsh-completions to fpath
 [ -d "$ZDOTDIR/zsh-completions/src" ] && fpath=("$ZDOTDIR/zsh-completions/src" $fpath)
@@ -34,8 +45,8 @@ compinit
 
 #Start zsh plugins
 [ -f "$ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "$ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
-[ -f "$ZDOTDIR/zsh-history-substring-search/zsh-history-substring-search.zsh" ] && source "$ZDOTDIR/zsh-history-substring-search/zsh-history-substring-search.zsh"
 [ -f "$ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source "$ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[ -f "$ZDOTDIR/zsh-history-substring-search/zsh-history-substring-search.zsh" ] && source "$ZDOTDIR/zsh-history-substring-search/zsh-history-substring-search.zsh"
 
 
 #Start powerlevel10k theme
@@ -59,7 +70,6 @@ then
           fi
       done
   }
-
   #Add aliases for all programs inside repo
   for script in "$installPrograms"/*.sh; do
       if [ -x $script ]; then

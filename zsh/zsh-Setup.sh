@@ -10,8 +10,8 @@ mkdir -p "$ZDOTDIR"
 #Add zsh plugins
 git -C "$ZDOTDIR" clone --depth=1 https://github.com/zsh-users/zsh-completions.git
 git -C "$ZDOTDIR" clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git
-git -C "$ZDOTDIR" clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git
 git -C "$ZDOTDIR" clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
+git -C "$ZDOTDIR" clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git
 git -C "$ZDOTDIR" clone --depth=1 https://github.com/romkatv/powerlevel10k.git
 
 #Change default shell to zsh

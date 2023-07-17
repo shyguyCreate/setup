@@ -23,7 +23,11 @@ setopt histverify
 setopt incappendhistorytime
 
 #Input/Output
+setopt clobber
 setopt interactivecomments
+
+#Shell Emulation
+setopt appendcreate
 
 #ZLE
 unsetopt beep
