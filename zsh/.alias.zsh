@@ -8,7 +8,7 @@ alias \
     cp='cp -iv' \
     mv='mv -iv' \
     rm='rm -Iv' \
-    mkd='mkdir -pv'
+    mkdir='mkdir -pv'
 
 #Aliases for ls
 alias \

@@ -9,6 +9,9 @@ setopt alwaystoend
 setopt automenu
 unsetopt menucomplete
 
+#Expansion and Globbing
+setopt globdots
+
 #History
 setopt extendedhistory
 setopt histexpiredupsfirst
