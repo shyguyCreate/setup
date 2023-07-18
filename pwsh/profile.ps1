@@ -7,7 +7,7 @@ Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
 Import-Module posh-git,PSReadLine,Terminal-Icons
 
 
-#OH-MY-POSH
+#Add config file to oh-my-posh
 oh-my-posh init pwsh --config "$PROFILE_FOLDER/.omp.json" | Invoke-Expression
 
 

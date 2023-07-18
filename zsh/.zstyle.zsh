@@ -2,7 +2,7 @@
 zstyle ':completion:*' menu select
 
 #Accept only match without double tab
-zstyle ':completion:*' accept-exact true
+zstyle ':completion:*' accept-exact '*(N)'
 
 #Use completion cache
 zstyle ':completion:*' use-cache true

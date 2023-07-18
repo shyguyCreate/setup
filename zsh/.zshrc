@@ -8,7 +8,7 @@ fi
 ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 
 HISTSIZE=10000
-HISTFILE="$ZDOTDIR/.history"
+HISTFILE="$ZDOTDIR/.zhistory"
 SAVEHIST=5000
 
 
@@ -17,12 +17,22 @@ zmodload -i zsh/terminfo
 zmodload -i zsh/datetime
 
 
-#Update zsh plugins
-[ -d "$ZDOTDIR/zsh-completions/.git" ] && git -C "$ZDOTDIR/zsh-completions" fetch --depth 1 -q && git -C "$ZDOTDIR/zsh-completions" reset --hard FETCH_HEAD -q
-[ -d "$ZDOTDIR/zsh-autosuggestions/.git" ] && git -C "$ZDOTDIR/zsh-autosuggestions" fetch --depth 1 -q && git -C "$ZDOTDIR/zsh-autosuggestions" reset --hard FETCH_HEAD -q
-[ -d "$ZDOTDIR/zsh-syntax-highlighting/.git" ] && git -C "$ZDOTDIR/zsh-syntax-highlighting" fetch --depth 1 -q && git -C "$ZDOTDIR/zsh-syntax-highlighting" reset --hard FETCH_HEAD -q
-[ -d "$ZDOTDIR/zsh-history-substring-search/.git" ] && git -C "$ZDOTDIR/zsh-history-substring-search" fetch --depth 1 -q && git -C "$ZDOTDIR/zsh-history-substring-search" reset --hard FETCH_HEAD -q
-[ -d "$ZDOTDIR/powerlevel10k/.git" ] && git -C "$ZDOTDIR/powerlevel10k" fetch --depth 1 -q && git -C "$ZDOTDIR/powerlevel10k" reset --hard FETCH_HEAD -q
+#Update zsh plugins by counting the num of days since last update
+if [ ! -f "$ZDOTDIR/.update-plugins" ] || (( 7 < ( $(( EPOCHSECONDS / 60 / 60 / 24 )) - $(cat "$ZDOTDIR/.update-plugins") ) ))
+then
+  function git_update_shallow_repo() {
+    [ -d "$1/.git" ] && git -C "$1" fetch --depth 1 -q && git -C "$1" reset --hard FETCH_HEAD -q
+  }
+  git_update_shallow_repo "$ZDOTDIR/zsh-completions"
+  git_update_shallow_repo "$ZDOTDIR/zsh-autosuggestions"
+  git_update_shallow_repo "$ZDOTDIR/zsh-syntax-highlighting"
+  git_update_shallow_repo "$ZDOTDIR/zsh-history-substring-search"
+  git_update_shallow_repo "$ZDOTDIR/powerlevel10k"
+
+  echo $(( EPOCHSECONDS / 60 / 60 / 24 )) >! "$ZDOTDIR/.update-plugins"
+
+  unset -f git_update_shallow_repo
+fi
 
 
 #Add custom zsh setopts
@@ -52,8 +62,8 @@ compinit
 #Start powerlevel10k theme
 [ -f "$ZDOTDIR/powerlevel10k/powerlevel10k.zsh-theme" ] && source "$ZDOTDIR/powerlevel10k/powerlevel10k.zsh-theme"
 
-# To customize prompt, run `p10k configure` or edit .p10k.zsh.
-[[ -f "$ZDOTDIR/.p10k.zsh" ]] && source "$ZDOTDIR/.p10k.zsh"
+#Add config file to powerlevel10k
+[ -f "$ZDOTDIR/.p10k.zsh" ] && source "$ZDOTDIR/.p10k.zsh"
 
 
 if [ -d "$HOME/Github/install-Programs" ]

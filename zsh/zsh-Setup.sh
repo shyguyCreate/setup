@@ -24,11 +24,11 @@ machineSetup="$HOME/Github/machine-Setup"
 if [ -d "$machineSetup" ]
 then
     #Configure zsh with dot files
-    cp "$machineSetup/zsh/.zshrc" "$ZDOTDIR"
-    cp "$machineSetup/zsh/.setopt.zsh" "$ZDOTDIR"
-    cp "$machineSetup/zsh/.zstyle.zsh" "$ZDOTDIR"
-    cp "$machineSetup/zsh/.keys.zsh" "$ZDOTDIR"
-    cp "$machineSetup/zsh/.alias.zsh" "$ZDOTDIR"
-    cp "$machineSetup/zsh/.p10k.zsh" "$ZDOTDIR"
-    patch -sd "$ZDOTDIR" < "$machineSetup/zsh/.p10k.zsh.diff"
+    command ln -sf "$machineSetup/zsh/.zshrc" "$ZDOTDIR"
+    command ln -sf "$machineSetup/zsh/.setopt.zsh" "$ZDOTDIR"
+    command ln -sf "$machineSetup/zsh/.zstyle.zsh" "$ZDOTDIR"
+    command ln -sf "$machineSetup/zsh/.keys.zsh" "$ZDOTDIR"
+    command ln -sf "$machineSetup/zsh/.alias.zsh" "$ZDOTDIR"
+    command cp "$machineSetup/zsh/.p10k.zsh" "$ZDOTDIR"
+    command patch -sd "$ZDOTDIR" < "$machineSetup/zsh/.p10k.zsh.diff"
 fi

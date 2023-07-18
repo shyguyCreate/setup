@@ -17,10 +17,4 @@ if (Test-Path $machineSetup -PathType Container)
     New-Item -ItemType SymbolicLink -Value ([IO.Path]::Combine("$machineSetup","pwsh","profile.ps1")) -Path $PROFILE_FOLDER -Name "profile.ps1" -Force > $null
     #Create symbolic link of ohmyposh config file to powershell profile folder
     New-Item -ItemType SymbolicLink -Value ([IO.Path]::Combine("$machineSetup","pwsh",".omp.json")) -Path $PROFILE_FOLDER -Name ".omp.json" -Force > $null
-
-    if ($IsWindows)
-    {
-        #Create symbolic link of profileMS script to powershell profile folder
-        New-Item -ItemType SymbolicLink -Value ([IO.Path]::Combine("$machineSetup","pwsh","profileMS.ps1")) -Path $PROFILE_FOLDER -Name "profileMS.ps1" -Force > $null
-    }
 }
