@@ -34,5 +34,5 @@ pwsh.exe -NoProfile -File "$machineSetup\pwsh\pwsh-Setup.ps1"
 
 
 #Install CaskaydiaCove Nerd Font
-git clone https://gist.github.com/0df1b94b223ccc421efff3ee67df5f2f.git "$Env:USERPROFILE\Github\gist\caskaydiaCoveNF"
-. "$Env:USERPROFILE\Github\gist\caskaydiaCoveNF\Update-CaskaydiaCoveNF"
+git clone https://gist.github.com/9e2772a51ef16bc59e697877de88fffc.git "$Env:USERPROFILE\Github\gist\caskaydiaCove"
+. "$Env:USERPROFILE\Github\gist\caskaydiaCove\caskaydiaCove.ps1"
