@@ -33,7 +33,12 @@ git config --global init.defaultBranch main
 mkdir -p "$HOME/Github/gist"
 #Clone git repository from this script
 machineSetup="$HOME/Github/machine-Setup"
-git clone https://github.com/shyguyCreate/machine-Setup.git "$machineSetup"
+if [ ! -d "$machineSetup/.git" ]
+then
+    git clone https://github.com/shyguyCreate/machine-Setup.git "$machineSetup"
+else
+    git -C "$machineSetup" pull -q
+fi
 
 
 #Install ohmyposh

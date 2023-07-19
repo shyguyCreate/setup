@@ -12,7 +12,7 @@ oh-my-posh init pwsh --config "$PROFILE_FOLDER/.omp.json" | Invoke-Expression
 
 
 #PSReadLineOption
-Set-PSReadLineOption -HistorySavePath "$PROFILE_FOLDER/ConsoleHost_history.txt"
+Set-PSReadLineOption -HistorySavePath "$PROFILE_FOLDER/history.txt"
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -BellStyle None
 Set-PSReadLineOption -EditMode Windows
@@ -33,7 +33,7 @@ if(Test-Path "$PROFILE_FOLDER/keys.ps1") {
 #################### Specific to Windows systems ####################
 #####################################################################
 
-if (-not $IsWindows -or $PSVersionTable.PSVersion.Major -gt 5) {
+if (-not $IsWindows -and $PSVersionTable.PSVersion.Major -gt 5) {
     return
 }
 
