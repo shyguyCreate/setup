@@ -11,8 +11,6 @@
 ------------------------
 
 ## Setup for Windows
-
-*This script needs to be run with admin priviledges.*
 ```
 Set-ExecutionPolicy RemoteSigned -Scope Process -Force; Invoke-Expression (Invoke-WebRequest -Uri https://raw.githubusercontent.com/shyguyCreate/machine-Setup/main/Windows/setup.ps1).Content
 ```
