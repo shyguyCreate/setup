@@ -22,13 +22,11 @@ Install-NewModule -Name posh-git,PSReadLine,Terminal-Icons
 
 #Directory of this repository
 Set-Variable -Name machineSetup -Value ([IO.Path]::Combine("$HOME","Github","machine-Setup"))
-
-if (Test-Path $machineSetup -PathType Container)
-{
-    #Copy profile script to powershell profile folder
-    Copy-Item -Path ([IO.Path]::Combine("$machineSetup","pwsh","profile.ps1")) -Destination $PROFILE_FOLDER -Force > $null
-    #Copy ohmyposh config file to powershell profile folder
-    Copy-Item -Path ([IO.Path]::Combine("$machineSetup","pwsh",".omp.json")) -Destination $PROFILE_FOLDER -Force > $null
-    #Copy keys file to powershell profile folder
-    Copy-Item -Path ([IO.Path]::Combine("$machineSetup","pwsh","keys.ps1")) -Destination $PROFILE_FOLDER -Force > $null
+if (-not (Test-Path "$machineSetup/.git" -PathType Container)) {
+    git clone https://github.com/shyguyCreate/machine-Setup.git "$machineSetup"
+} else {
+    git -C "$machineSetup" pull -q
 }
+
+#Configure powershell with config files
+Get-ChildItem -Path ([IO.Path]::Combine("$machineSetup","pwsh")) -Force | Copy-Item -Destination $PROFILE_FOLDER -Force > $null

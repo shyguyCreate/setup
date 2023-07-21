@@ -20,15 +20,13 @@ mkdir -p "$ZDOTDIR"
 
 #Directory of this repository
 machineSetup="$HOME/Github/machine-Setup"
-
-if [ -d "$machineSetup" ]
+if [ ! -d "$machineSetup/.git" ]
 then
-    #Configure zsh with dot files
-    command cp "$machineSetup/zsh/.zshrc" "$ZDOTDIR"
-    command cp "$machineSetup/zsh/.setopt.zsh" "$ZDOTDIR"
-    command cp "$machineSetup/zsh/.zstyle.zsh" "$ZDOTDIR"
-    command cp "$machineSetup/zsh/.keys.zsh" "$ZDOTDIR"
-    command cp "$machineSetup/zsh/.alias.zsh" "$ZDOTDIR"
-    command cp "$machineSetup/zsh/.p10k.zsh" "$ZDOTDIR"
-    command patch -sd "$ZDOTDIR" < "$machineSetup/zsh/.p10k.zsh.diff"
+    git clone https://github.com/shyguyCreate/machine-Setup.git "$machineSetup"
+else
+    git -C "$machineSetup" pull -q
 fi
+
+#Configure zsh with dot files
+command cp -r "$machineSetup/zsh/." "$ZDOTDIR"
+command patch -sd "$ZDOTDIR" < "$ZDOTDIR/.p10k.zsh.diff"
