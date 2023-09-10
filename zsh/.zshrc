@@ -1,6 +1,16 @@
-#Update zsh plugins by counting the num of days since last update
+#Load zsh modules
+autoload -U colors && colors
+zmodload -i zsh/terminfo
+zmodload -i zsh/datetime
+
+#Define ZDOTDIR if it wasn't
+ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
+
+
+#Update zsh plugins by counting the number of days since last update
 updatePlugins="$ZDOTDIR/.update-plugins"
-if [ ! -f "$updatePlugins" ] || (( 7 < ( $(( EPOCHSECONDS / 60 / 60 / 24 )) - $(cat "$updatePlugins") ) ))
+todayDate=$(( EPOCHSECONDS / 60 / 60 / 24 ))
+if [ ! -f "$updatePlugins" ] || (( ( $todayDate - $(cat "$updatePlugins") ) > 7 ))
 then
   function git_update_shallow_repo() {
     [ -d "$1/.git" ] && git -C "$1" fetch --depth 1 -q && git -C "$1" reset --hard FETCH_HEAD -q
@@ -12,12 +22,12 @@ then
   git_update_shallow_repo "$ZDOTDIR/zsh-history-substring-search"
   git_update_shallow_repo "$ZDOTDIR/powerlevel10k"
 
-  echo $(( EPOCHSECONDS / 60 / 60 / 24 )) >! "$updatePlugins"
+  echo $todayDate >! "$updatePlugins"
 
   unset -f git_update_shallow_repo
   echo "Finished!"
 fi
-unset updatePlugins
+unset updatePlugins todayDate
 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -28,16 +38,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 
-ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
-
 HISTSIZE=10000
 HISTFILE="$ZDOTDIR/.zhistory"
 SAVEHIST=5000
-
-
-autoload -U colors && colors
-zmodload -i zsh/terminfo
-zmodload -i zsh/datetime
 
 
 #Add custom zsh setopts
@@ -53,6 +56,7 @@ zmodload -i zsh/datetime
 #Add zsh-completions to fpath
 [ -d "$ZDOTDIR/zsh-completions/src" ] && fpath=("$ZDOTDIR/zsh-completions/src" $fpath)
 
+#Load completion module
 autoload -Uz compinit
 zmodload -i zsh/complist
 compinit
@@ -78,7 +82,7 @@ then
   #Check updates for all programs in one function
   update-Programs() {
       for script in "$installPrograms"/*.sh; do
-          "$script" $@
+          "$script" "$@"
       done
   }
   #Add aliases for all programs inside repo
