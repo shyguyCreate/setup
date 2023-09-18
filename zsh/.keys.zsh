@@ -29,7 +29,7 @@ bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 
 # Up arrow
-bindkey '^[[A' history-substring-search-up			
+bindkey '^[[A' history-substring-search-up
 [[ -n "${terminfo[kcuu1]}" ]] && bindkey "$terminfo[kcuu1]" history-substring-search-up
 
 # Down arrow

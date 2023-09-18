@@ -4,7 +4,7 @@ Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
 
 
 #Import modules
-Import-Module posh-git,PSReadLine,Terminal-Icons
+Import-Module posh-git, PSReadLine, Terminal-Icons
 
 
 #Add config file to oh-my-posh
@@ -18,12 +18,12 @@ Set-PSReadLineOption -BellStyle None
 Set-PSReadLineOption -EditMode Windows
 
 #VSCode terminal is too small for ListView
-if($Env:TERM_PROGRAM -ne 'vscode') {
+if ($Env:TERM_PROGRAM -ne 'vscode') {
     Set-PSReadLineOption -PredictionViewStyle ListView
 }
 
 #Add custom powershell keybings
-if(Test-Path "$PROFILE_FOLDER/keys.ps1") {
+if (Test-Path "$PROFILE_FOLDER/keys.ps1") {
     . "$PROFILE_FOLDER/keys.ps1"
 }
 
@@ -50,7 +50,7 @@ function Update-CaskaydiaCoveNF () {
 
 #winget
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
-param($wordToComplete, $commandAst, $cursorPosition)
+    param($wordToComplete, $commandAst, $cursorPosition)
     [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
     $Local:word = $wordToComplete.Replace('"', '""')
     $Local:ast = $commandAst.ToString().Replace('"', '""')
