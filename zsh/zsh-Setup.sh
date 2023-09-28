@@ -24,6 +24,23 @@ else
     git -C "$machineSetup" pull -q
 fi
 
-#Configure zsh with dot files
-command cp -r "$machineSetup/zsh/." "$ZDOTDIR"
-command patch -sd "$ZDOTDIR" < "$ZDOTDIR/.p10k.zsh.diff"
+#Get all files inside zsh folder
+for file in "$machineSetup/zsh/"*; do
+
+    #Save file with same name but in ZDOTDIR
+    zdotFile="$ZDOTDIR/$(basename "$file")"
+    backup="$zdotFile.bak"
+
+    #Copy file if not in directory or are different from one another
+    #And use diff output to make a backup if files are different
+    #Backup file will be overwritten when a newer diff is found
+    test -f "$zdotFile" \
+        && _diff=$(command diff -u "$file" "$zdotFile") \
+        || command cp "$file" "$zdotFile" \
+        && [ -n "$_diff" ] \
+        && echo  "$_diff" > "$backup" \
+        && echo "Backup was created for $(basename "$file")"
+
+    #Remove foreach variables
+    unset zdotFile backup _diff
+done

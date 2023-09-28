@@ -1,4 +1,4 @@
---- .p10k.zsh2
+--- .p10k.zsh
 +++ .p10k.zsh
 @@ -37,7 +37,7 @@
      vcs                     # git status
