@@ -5,7 +5,7 @@
 #Variables
 tmpDir="/tmp/blankdb"
 packagesDir="$HOME/BroadcomWireless"
-cacheDir="$(pacman -v 2>/dev/null | grep Cache | awk '{print $3}')"
+cacheDir="$(pacman -v 2> /dev/null | grep Cache | awk '{print $3}')"
 cacheDirTmp="${cacheDir%/}Tmp"
 
 #Create directories for pacman cache and db
