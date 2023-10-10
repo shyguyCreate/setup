@@ -14,8 +14,8 @@ sudo pacman -S yay --needed
 #Install bash-language-server for completion inside text editors
 sudo pacman -S bash-completion bash-language-server --needed
 
-#Install firefox with ACC support and chromium
-sudo pacman -S firefox gstreamer chromium --needed
+#Install firefox with AAC and MP3 support
+sudo pacman -S firefox gstreamer --needed
 
 #Install office suite
 sudo pacman -S onlyoffice-desktopeditors --needed
@@ -74,6 +74,16 @@ for script in "$installPrograms"/*; do
     chmod +x "$script"
     "$script"
 done
+
+#Clone gist repo of codium settings
+codiumSettings="$HOME/Github/gist/codium-Settings"
+if [ ! -d "$codiumSettings/.git" ]; then
+    git clone https://gist.github.com/efcf9345431ca9e4d3eb2faaa6b71564.git "$codiumSettings"
+else
+    git -C "$codiumSettings" pull -q
+fi
+#Configure codium through script
+"$codiumSettings/.config.sh"
 
 #Configure pwsh
 pwsh -NoProfile -File "$machineSetup/pwsh/pwsh-Setup.ps1"
