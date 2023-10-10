@@ -7,14 +7,21 @@ zmodload -i zsh/datetime
 ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 
 
-#Update zsh plugins by counting the number of days since last update
+#Set an update file and the current date in unix time
 updatePlugins="$ZDOTDIR/.update-plugins"
 todayDate=$(( EPOCHSECONDS / 60 / 60 / 24 ))
+
+#Update zsh plugins by counting the number of days since last update
 if [ ! -f "$updatePlugins" ] || (( ( $todayDate - $(cat "$updatePlugins") ) > 7 ))
 then
-  function git_update_shallow_repo() {
-    [ -d "$1/.git" ] && git -C "$1" fetch --depth 1 -q && git -C "$1" reset --hard FETCH_HEAD -q
+  #Function to shallow update a repo
+  git_update_shallow_repo()
+  {
+    repoDir="$1"
+    [ -d "$repoDir/.git" ] && git -C "$repoDir" fetch --depth 1 -q && git -C "$repoDir" reset --hard FETCH_HEAD -q
   }
+
+  #Update zsh plugins
   echo "Updating zsh plugins..."
   git_update_shallow_repo "$ZDOTDIR/zsh-completions"
   git_update_shallow_repo "$ZDOTDIR/zsh-autosuggestions"
@@ -22,11 +29,16 @@ then
   git_update_shallow_repo "$ZDOTDIR/zsh-history-substring-search"
   git_update_shallow_repo "$ZDOTDIR/powerlevel10k"
 
+  #Send time to update file
   echo $todayDate >! "$updatePlugins"
 
+  #Remove git update shallow function
   unset -f git_update_shallow_repo
+
   echo "Finished!"
 fi
+
+#Remove variables from the update of plugins
 unset updatePlugins todayDate
 
 
@@ -38,19 +50,24 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 
+#History file configuration options
 HISTSIZE=10000
 HISTFILE="$ZDOTDIR/.zhistory"
 SAVEHIST=5000
 
 
-#Add custom zsh setopts
-[ -f "$ZDOTDIR/.setopt.zsh" ] && source "$ZDOTDIR/.setopt.zsh"
-#Add custom zsh styles
-[ -f "$ZDOTDIR/.zstyle.zsh" ] && source "$ZDOTDIR/.zstyle.zsh"
-#Add custom key bindings
-[ -f "$ZDOTDIR/.keys.zsh" ] && source "$ZDOTDIR/.keys.zsh"
-#Add custom alias
-[ -f "$ZDOTDIR/.alias.zsh" ] && source "$ZDOTDIR/.alias.zsh"
+#Check for zsh script and source it
+check_and_source_script()
+{
+  zshScript="$1"
+  [ -f "$zshScript" ] && source "$zshScript"
+}
+
+#Source zsh config files
+check_and_source_script "$ZDOTDIR/.setopt.zsh"
+check_and_source_script "$ZDOTDIR/.zstyle.zsh"
+check_and_source_script "$ZDOTDIR/.keys.zsh"
+check_and_source_script "$ZDOTDIR/.alias.zsh"
 
 
 #Add zsh-completions to fpath
@@ -63,16 +80,14 @@ compinit
 
 
 #Start zsh plugins
-[ -f "$ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && source "$ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
-[ -f "$ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && source "$ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-[ -f "$ZDOTDIR/zsh-history-substring-search/zsh-history-substring-search.zsh" ] && source "$ZDOTDIR/zsh-history-substring-search/zsh-history-substring-search.zsh"
+check_and_source_script "$ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
+check_and_source_script "$ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+check_and_source_script "$ZDOTDIR/zsh-history-substring-search/zsh-history-substring-search.zsh"
+check_and_source_script "$ZDOTDIR/powerlevel10k/powerlevel10k.zsh-theme"
 
-
-#Start powerlevel10k theme
-[ -f "$ZDOTDIR/powerlevel10k/powerlevel10k.zsh-theme" ] && source "$ZDOTDIR/powerlevel10k/powerlevel10k.zsh-theme"
 
 #Add config file to powerlevel10k
-[ -f "$ZDOTDIR/.p10k.zsh" ] && source "$ZDOTDIR/.p10k.zsh"
+check_and_source_script "$ZDOTDIR/.p10k.zsh"
 
 
 #Check existence of repo
@@ -90,3 +105,6 @@ then
       alias "update-$(basename "${script%.sh}")"="$script"
   done
 fi
+
+#Remove variables from the update of plugins
+unset -f check_and_source_script

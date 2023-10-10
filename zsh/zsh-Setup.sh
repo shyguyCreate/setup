@@ -6,12 +6,23 @@ mkdir -p "$ZDOTDIR"
 #Add config file to change ZDOTDIR
 [ -f /etc/zsh/zshenv ] && grep -qxF "export ZDOTDIR=\$HOME/.config/zsh" /etc/zsh/zshenv || echo "export ZDOTDIR=\$HOME/.config/zsh" | sudo tee -a /etc/zsh/zshenv > /dev/null
 
+#Function to shallow clone a repo
+git_clone_shallow_repo()
+{
+    repoOwner="$1"
+    repoName="$2"
+    [ -d "$ZDOTDIR/$repoName" ] || git clone --depth=1 "https://github.com/$repoOwner/$repoName.git" "$ZDOTDIR/$repoName"
+}
+
 #Add zsh plugins
-             [ -d "$ZDOTDIR/zsh-completions" ] || git -C "$ZDOTDIR" clone --depth=1 https://github.com/zsh-users/zsh-completions.git
-         [ -d "$ZDOTDIR/zsh-autosuggestions" ] || git -C "$ZDOTDIR" clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git
-     [ -d "$ZDOTDIR/zsh-syntax-highlighting" ] || git -C "$ZDOTDIR" clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
-[ -d "$ZDOTDIR/zsh-history-substring-search" ] || git -C "$ZDOTDIR" clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git
-               [ -d "$ZDOTDIR/powerlevel10k" ] || git -C "$ZDOTDIR" clone --depth=1 https://github.com/romkatv/powerlevel10k.git
+git_clone_shallow_repo zsh-users zsh-completions
+git_clone_shallow_repo zsh-users zsh-autosuggestions
+git_clone_shallow_repo zsh-users zsh-syntax-highlighting
+git_clone_shallow_repo zsh-users zsh-history-substring-search
+git_clone_shallow_repo romkatv   powerlevel10k
+
+#Remove git clone shallow function
+unset -f git_clone_shallow_repo
 
 #Change default shell to zsh
 [ "$(basename "$SHELL")" != "zsh" ] && chsh -s "$(which zsh)"

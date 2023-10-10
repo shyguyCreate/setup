@@ -26,6 +26,18 @@ sudo pacman -S gimp shotcut --needed
 #Install media player and recorder
 sudo pacman -S vlc obs-studio --needed
 
+#Function to clone a repo or update it with pull
+git_clone_or_pull_repo()
+{
+    repoDir="$1"
+    url="$2"
+    if [ ! -d "$repoDir/.git" ]; then
+        git clone "$url" "$repoDir"
+    else
+        git -C "$repoDir" pull -q
+    fi
+}
+
 #Install git gh and set username email and initial branch
 sudo pacman -S git --needed
 git config --global user.name shyguyCreate
@@ -34,13 +46,9 @@ git config --global init.defaultBranch main
 
 #Make directory for Github and gists
 mkdir -p "$HOME/Github/gist"
-#Clone git repository from this script
+#Clone git repository of this script
 machineSetup="$HOME/Github/machine-Setup"
-if [ ! -d "$machineSetup/.git" ]; then
-    git clone https://github.com/shyguyCreate/machine-Setup.git "$machineSetup"
-else
-    git -C "$machineSetup" pull -q
-fi
+git_clone_or_pull_repo "$machineSetup" https://github.com/shyguyCreate/machine-Setup.git
 
 #Install GUI for printer
 sudo pacman -S system-config-printer --needed
@@ -63,27 +71,22 @@ sudo pacman -Rns manjaro-zsh-config zsh-completions zsh-autosuggestions zsh-synt
 
 #Clone install-Programs repo
 installPrograms="$HOME/Github/install-Programs"
-if [ ! -d "$installPrograms/.git" ]; then
-    git clone https://github.com/shyguyCreate/install-Programs.git "$installPrograms"
-else
-    git -C "$installPrograms" pull -q
-fi
+git_clone_or_pull_repo "$installPrograms" https://github.com/shyguyCreate/install-Programs.git
 
 #Install all programs inside git repo
 for script in "$installPrograms"/*; do
-    chmod +x "$script"
     "$script"
 done
 
 #Clone gist repo of codium settings
 codiumSettings="$HOME/Github/gist/codium-Settings"
-if [ ! -d "$codiumSettings/.git" ]; then
-    git clone https://gist.github.com/efcf9345431ca9e4d3eb2faaa6b71564.git "$codiumSettings"
-else
-    git -C "$codiumSettings" pull -q
-fi
+git_clone_or_pull_repo "$codiumSettings" https://gist.github.com/efcf9345431ca9e4d3eb2faaa6b71564.git
+
 #Configure codium through script
 "$codiumSettings/.config.sh"
 
 #Configure pwsh
 pwsh -NoProfile -File "$machineSetup/pwsh/pwsh-Setup.ps1"
+
+#Remove git clone/pull function
+unset -f git_clone_or_pull_repo
