@@ -18,13 +18,11 @@ Install-NewModule -Name posh-git, PSReadLine, Terminal-Icons
 
 
 #Directory of this repository
-Set-Variable -Name machineSetup -Value ([IO.Path]::Combine("$HOME", "Github", "machine-Setup"))
-if (-not (Test-Path "$machineSetup/.git" -PathType Container)) {
-    git clone https://github.com/shyguyCreate/machine-Setup.git "$machineSetup"
+Set-Variable -Name pwshFilesDir -Value ([IO.Path]::Combine("$HOME", "Github", "machine-Setup", "pwsh"))
+if (Test-Path $pwshFilesDir/*) {
+    #Configure powershell with config files
+    Get-ChildItem -Path $pwshFilesDir -Force | 
+        ForEach-Object {    
+            Copy-Item -Path $_ -Destination $PROFILE_FOLDER -Force > $null
+        }
 }
-else {
-    git -C "$machineSetup" pull -q
-}
-
-#Configure powershell with config files
-Get-ChildItem -Path ([IO.Path]::Combine("$machineSetup", "pwsh")) -Force | Copy-Item -Destination $PROFILE_FOLDER -Force > $null
