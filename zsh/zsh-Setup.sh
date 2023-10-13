@@ -30,10 +30,11 @@ unset -f git_clone_shallow_repo
 #Directory of this repository
 zshFilesDir="$HOME/Github/machine-Setup/zsh"
 if [ -d "$zshFilesDir" ] &&  [ -n "$(ls -A "$zshFilesDir")" ]; then
+
     #Get all files inside zsh folder
     for file in "$zshFilesDir/"*; do
 
-        #Save file with same name but in ZDOTDIR
+        #Save file with same name but in ZDOTDIR and a backup
         zdotFile="$ZDOTDIR/$(basename "$file")"
         backup="$zdotFile.bak"
 
@@ -46,8 +47,11 @@ if [ -d "$zshFilesDir" ] &&  [ -n "$(ls -A "$zshFilesDir")" ]; then
             && [ -n "$_diff" ] \
             && echo "$_diff" > "$backup" \
             && echo "Backup was created for $(basename "$file")"
-
-        #Remove foreach variables
-        unset zdotFile backup _diff
     done
+
+    #Remove foreach variables
+    unset zdotFile backup _diff
 fi
+
+#Remove zsh repo directory variable
+unset zshFilesDir
