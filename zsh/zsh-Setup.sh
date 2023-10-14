@@ -9,8 +9,8 @@ mkdir -p "$ZDOTDIR"
 #Function to shallow clone a repo
 git_clone_shallow_repo()
 {
-    repoOwner="$1"
-    repoName="$2"
+    local repoOwner="$1"
+    local repoName="$2"
     [ -d "$ZDOTDIR/$repoName" ] || git clone --depth=1 "https://github.com/$repoOwner/$repoName.git" "$ZDOTDIR/$repoName"
 }
 
@@ -50,7 +50,7 @@ if [ -d "$zshFilesDir" ] &&  [ -n "$(ls -A "$zshFilesDir")" ]; then
     done
 
     #Remove foreach variables
-    unset zdotFile backup _diff
+    unset zdotFile backup
 fi
 
 #Remove zsh repo directory variable

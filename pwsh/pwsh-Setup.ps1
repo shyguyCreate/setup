@@ -5,9 +5,9 @@ New-Item -Path $PROFILE_FOLDER -ItemType Directory -Force > $null
 
 
 #Checks if module is installed if not install Powershell modules
-foreach ($_name in @("posh-git", "PSReadLine", "Terminal-Icons")) {
-    if (-not (Get-InstalledModule | Where-Object { $_.Name -eq $_name })) {
-        Install-Module -Name $_name -Scope CurrentUser -Force
+foreach ($_module in @("posh-git", "PSReadLine", "Terminal-Icons")) {
+    if (-not (Get-InstalledModule | Where-Object { $_.Name -eq $_module })) {
+        Install-Module -Name $_module -Scope CurrentUser -Force
     }
 }
 

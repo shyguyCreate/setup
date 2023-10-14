@@ -17,7 +17,7 @@ then
     #Function to shallow update a repo
     git_update_shallow_repo()
     {
-        repoDir="$1"
+        local repoDir="$1"
         [ -d "$repoDir/.git" ] && git -C "$repoDir" fetch --depth 1 -q && git -C "$repoDir" reset --hard FETCH_HEAD -q
     }
 
@@ -59,7 +59,7 @@ SAVEHIST=5000
 #Check for zsh script and source it
 check_and_source_script()
 {
-    zshScript="$1"
+    local zshScript="$1"
     [ -f "$zshScript" ] && source "$zshScript"
 }
 
@@ -96,6 +96,7 @@ if [ -d "$installPrograms" ]
 then
     #Check updates for all programs in one function
     update-Programs() {
+        local script
         for script in "$installPrograms"/*.sh; do
             "$script" "$@"
         done

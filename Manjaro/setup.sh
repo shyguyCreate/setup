@@ -29,8 +29,8 @@ sudo pacman -S vlc obs-studio --needed
 #Function to clone a repo or update it with pull
 git_clone_or_pull_repo()
 {
-    repoDir="$1"
-    url="$2"
+    local repoDir="$1"
+    local url="$2"
     if [ ! -d "$repoDir/.git" ]; then
         git clone "$url" "$repoDir"
     else
@@ -38,14 +38,15 @@ git_clone_or_pull_repo()
     fi
 }
 
+#Make directory for Github and gists
+mkdir -p "$HOME/Github/gist"
+
 #Install git gh and set username email and initial branch
 sudo pacman -S git --needed
 git config --global user.name shyguyCreate
 git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
 git config --global init.defaultBranch main
 
-#Make directory for Github and gists
-mkdir -p "$HOME/Github/gist"
 #Clone git repository of this script
 machineSetup="$HOME/Github/machine-Setup"
 git_clone_or_pull_repo "$machineSetup" https://github.com/shyguyCreate/machine-Setup.git
