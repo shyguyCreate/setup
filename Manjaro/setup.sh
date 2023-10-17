@@ -41,10 +41,9 @@ git_clone_or_pull_repo()
 #Make directory for Github and gists
 mkdir -p "$HOME/Github/gist"
 
-#Install git gh and set username email and initial branch
+#Install git
 sudo pacman -S git --needed
-git config --global user.name shyguyCreate
-git config --global user.email 107062289+shyguyCreate@users.noreply.github.com
+#Set main initial branch for git
 git config --global init.defaultBranch main
 
 #Clone git repository of this script
