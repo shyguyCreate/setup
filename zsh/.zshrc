@@ -85,7 +85,6 @@ check_and_source_script "$ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlightin
 check_and_source_script "$ZDOTDIR/zsh-history-substring-search/zsh-history-substring-search.zsh"
 check_and_source_script "$ZDOTDIR/powerlevel10k/powerlevel10k.zsh-theme"
 
-
 #Add config file to powerlevel10k
 check_and_source_script "$ZDOTDIR/.p10k.zsh"
 
@@ -102,9 +101,10 @@ then
         done
     }
     #Add aliases for all programs inside repo
-    for script in "$installPrograms"/*.sh; do
-        alias "update-$(basename "${script%.sh}")"="$script"
+    for _script_ in "$installPrograms"/*.sh; do
+        alias "update-$(basename "${_script_%.sh}")"="$_script_"
     done
+    unset _script_
 fi
 
 #Remove variables from the update of plugins

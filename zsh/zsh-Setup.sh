@@ -32,25 +32,25 @@ zshFilesDir="$HOME/Github/machine-Setup/zsh"
 if [ -d "$zshFilesDir" ] &&  [ -n "$(ls -A "$zshFilesDir")" ]; then
 
     #Get all files inside zsh folder
-    for file in "$zshFilesDir/"*; do
+    for zshSetupFile in "$zshFilesDir/"*; do
 
         #Save file with same name but in ZDOTDIR and a backup
-        zdotFile="$ZDOTDIR/$(basename "$file")"
-        backup="$zdotFile.bak"
+        zshFile="$ZDOTDIR/$(basename "$zshSetupFile")"
+        backup="$zshFile.bak"
 
         #Copy file if not in directory or are different from one another
         #And use diff output to make a backup if files are different
         #Backup file will be overwritten when a newer diff is found
-        test -f "$zdotFile" \
-            && _diff=$(command diff -u "$file" "$zdotFile") \
-            || command cp "$file" "$zdotFile" \
-            && [ -n "$_diff" ] \
-            && echo "$_diff" > "$backup" \
-            && echo "Backup was created for $(basename "$file")"
+        test -f "$zshFile" \
+            && _diff_=$(command diff -u "$zshSetupFile" "$zshFile") \
+            || command cp "$zshSetupFile" "$zshFile" \
+            && [ -n "$_diff_" ] \
+            && echo "$_diff_" > "$backup" \
+            && echo "Backup was created for $(basename "$zshFile")"
     done
 
     #Remove foreach variables
-    unset zdotFile backup
+    unset zshSetupFile zshFile backup _diff_
 fi
 
 #Remove zsh repo directory variable

@@ -5,11 +5,12 @@ New-Item -Path $PROFILE_FOLDER -ItemType Directory -Force > $null
 
 
 #Checks if module is installed if not install Powershell modules
-foreach ($_module in @("posh-git", "PSReadLine", "Terminal-Icons")) {
-    if (-not (Get-InstalledModule | Where-Object { $_.Name -eq $_module })) {
-        Install-Module -Name $_module -Scope CurrentUser -Force
+foreach ($_module_ in @("posh-git", "PSReadLine", "Terminal-Icons")) {
+    if (-not (Get-InstalledModule | Where-Object { $_.Name -eq $_module_ })) {
+        Install-Module -Name $_module_ -Scope CurrentUser -Force
     }
 }
+Remove-Variable _module_
 
 
 #Directory of this repository
@@ -20,32 +21,34 @@ if (Test-Path $pwshFilesDir/*) {
     Get-ChildItem -Path $pwshFilesDir -Force |
         ForEach-Object {
 
-            #Save file with same name but in ZDOTDIR and a backup
-            $pwshFile = [IO.Path]::Combine("$PROFILE_FOLDER", "$(Split-Path $_ -Leaf)")
+            #Save file with same name but in PROFILE_FOLDER and a backup
+            $pwshSetupFile = $_.FullName
+            $pwshFile = [IO.Path]::Combine("$PROFILE_FOLDER", "$(Split-Path $pwshSetupFile -Leaf)")
             $backup = "${pwshFile}.bak"
+            $_diff_ = ""
 
             #Scriptblock that copies files to PROFILE_FOLDER
-            $copyPwshFile = { Copy-Item -Path $_ -Destination $pwshFile -Force > $null }
+            $copyPwshSetupFile = { Copy-Item -Path $pwshSetupFile -Destination $pwshFile -Force > $null }
 
             if (Test-Path $pwshFile -PathType Leaf) {
                 #Use Compare-Object output to make a backup
-                $_diff = Compare-Object (Get-Content $pwshFile) (Get-Content $_) | ForEach-Object { "$($_.SideIndicator) $($_.InputObject)" }
-                if (-not [string]::IsNullOrEmpty($_diff)) {
+                $_diff_ = Compare-Object (Get-Content $pwshFile) (Get-Content $pwshSetupFile) | ForEach-Object { "$($_.SideIndicator) $($_.InputObject)" }
+
+                if (-not [string]::IsNullOrEmpty($_diff_)) {
                     #Backup file will be overwritten when a newer difference is found
-                    Set-Content -Value $_diff -Path $backup
-                    Write-Host "Backup was created for $(Split-Path $_ -Leaf)"
-                    #Copy file if are different from one another
-                    Invoke-Command -ScriptBlock $copyPwshFile
+                    Set-Content -Value $_diff_ -Path $backup
+                    Write-Host "Backup was created for $(Split-Path $pwshFile -Leaf)"
+                    Invoke-Command -ScriptBlock $copyPwshSetupFile
                 }
             }
             else {
                 #Run script block that copy the file
-                Invoke-Command -ScriptBlock $copyPwshFile
+                Invoke-Command -ScriptBlock $copyPwshSetupFile
             }
         }
 
     #Remove foreach variables
-    Remove-Variable pwshFile, backup, copyPwshFile
+    Remove-Variable pwshSetupFile, pwshFile, backup, copyPwshSetupFile, _diff_
 }
 
 #Remove pwsh repo directory variable

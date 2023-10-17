@@ -75,9 +75,10 @@ installPrograms="$HOME/Github/install-Programs"
 git_clone_or_pull_repo "$installPrograms" https://github.com/shyguyCreate/install-Programs.git
 
 #Install all programs inside git repo
-for script in "$installPrograms"/*; do
-    "$script"
+for _script_ in "$installPrograms"/*; do
+    "$_script_"
 done
+unset _script_
 
 #Clone gist repo of codium settings
 codiumSettings="$HOME/Github/gist/codium-Settings"
