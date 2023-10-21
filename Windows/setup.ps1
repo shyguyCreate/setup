@@ -10,6 +10,7 @@ winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
 winget install -e --id Microsoft.VisualStudioCode -s winget
 winget install -e --id Google.Chrome -s winget
 winget install -e --id Microsoft.WindowsTerminal -s winget
+winget install -e --id KeePassXCTeam.KeePassXC -s winget
 winget install -e --id Microsoft.PowerToys -s winget
 winget install -e --id Meltytech.Shotcut -s winget
 winget install -e --id Zoom.Zoom -s winget
@@ -37,7 +38,7 @@ $machineSetup = "$Env:USERPROFILE\Github\machine-Setup"
 Start-GitCloneOrPull "$machineSetup" https://github.com/shyguyCreate/machine-Setup.git
 
 
-#Install Powershell modules
+#Configure powershell and pwsh
 powershell.exe -NoProfile -File "$machineSetup\pwsh\pwsh-Setup.ps1"
 pwsh.exe -NoProfile -File "$machineSetup\pwsh\pwsh-Setup.ps1"
 

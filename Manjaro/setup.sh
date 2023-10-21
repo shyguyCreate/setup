@@ -20,6 +20,9 @@ sudo pacman -S firefox gstreamer --needed
 #Install office suite
 sudo pacman -S onlyoffice-desktopeditors --needed
 
+#Install password manager
+sudo pacman -S keepassxc --needed
+
 #Install image and video editor
 sudo pacman -S gimp shotcut --needed
 
