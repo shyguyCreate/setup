@@ -91,6 +91,15 @@
       "alignment": "right",
       "segments": [
         {
+          "type": "python",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b2",
+          "invert_powerline": true,
+          "foreground": "#111111",
+          "background": "#FFDE57",
+          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} "
+        },
+        {
           "type": "executiontime",
           "style": "powerline",
           "powerline_symbol": "\ue0b2",
