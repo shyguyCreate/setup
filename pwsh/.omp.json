@@ -97,7 +97,10 @@
           "invert_powerline": true,
           "foreground": "#111111",
           "background": "#FFDE57",
-          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} "
+          "template": " \ue235 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} ",
+          "properties": {
+            "home_enabled": true
+          }
         },
         {
           "type": "executiontime",
