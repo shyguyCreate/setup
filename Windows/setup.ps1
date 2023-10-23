@@ -3,11 +3,10 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
 #Install programs
 winget install -e --id Git.Git -s winget
-#winget install -e --id GitHub.cli -s winget
+winget install -e --id GitHub.cli -s winget
 winget install -e --id Microsoft.PowerShell -s winget
 winget install -e --id JanDeDobbeleer.OhMyPosh -s winget
-#winget install -e --id VSCodium.VSCodium -s winget
-winget install -e --id Microsoft.VisualStudioCode -s winget
+winget install -e --id VSCodium.VSCodium -s winget
 winget install -e --id Google.Chrome -s winget
 winget install -e --id Microsoft.WindowsTerminal -s winget
 winget install -e --id KeePassXCTeam.KeePassXC -s winget
@@ -52,8 +51,8 @@ Start-GitCloneOrPull "$caskaydiaCove" https://gist.github.com/9e2772a51ef16bc59e
 
 
 #Clone gist repo of codium settings
-# codiumSettings="$HOME/Github/gist/codium-Settings"
-# Start-GitCloneOrPull "$codiumSettings" https://gist.github.com/efcf9345431ca9e4d3eb2faaa6b71564.git
+codiumSettings="$HOME/Github/gist/codium-Settings"
+Start-GitCloneOrPull "$codiumSettings" https://gist.github.com/efcf9345431ca9e4d3eb2faaa6b71564.git
 
 #Configure codium through script
-# "$codiumSettings/.config.ps1" ???
+"$codiumSettings/.config.ps1"

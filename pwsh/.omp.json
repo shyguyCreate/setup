@@ -150,7 +150,7 @@
       "alignment": "left",
       "segments": [
         {
-          "type": "exit",
+          "type": "status",
           "style": "diamond",
           "foreground": "#ffffff",
           "background": "#00b7a5",
