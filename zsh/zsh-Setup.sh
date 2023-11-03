@@ -43,7 +43,7 @@ if [ -d "$zshFilesDir" ] &&  [ -n "$(ls -A "$zshFilesDir")" ]; then
         #Backup file will be overwritten when a newer diff is found
         test -f "$zshFile" \
             && _diff_=$(command diff -u "$zshSetupFile" "$zshFile") \
-            || command cp "$zshSetupFile" "$zshFile" \
+            || command cp "$zshFile" "$zshSetupFile" \
             && [ -n "$_diff_" ] \
             && echo "$_diff_" > "$backup" \
             && echo "Backup was created for $(basename "$zshFile")"

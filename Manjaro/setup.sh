@@ -72,15 +72,12 @@ sudo pacman -Rns manjaro-zsh-config zsh-completions zsh-autosuggestions zsh-synt
 #Configure zsh
 . "$machineSetup/zsh/zsh-Setup.sh"
 
-#Clone install-Programs repo
-installPrograms="$HOME/Github/install-Programs"
-git_clone_or_pull_repo "$installPrograms" https://github.com/shyguyCreate/install-Programs.git
+#Clone gh-install repo
+gh_install="$HOME/Github/gh-install"
+git_clone_or_pull_repo "$gh_install" https://github.com/shyguyCreate/gh-install.git
 
 #Install all programs inside git repo
-for _script_ in "$installPrograms"/*; do
-    "$_script_"
-done
-unset _script_
+"$gh_install/gh-install.sh" -a
 
 #Clone gist repo of codium settings
 codiumSettings="$HOME/Github/gist/codium-Settings"

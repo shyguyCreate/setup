@@ -88,24 +88,14 @@ check_and_source_script "$ZDOTDIR/powerlevel10k/powerlevel10k.zsh-theme"
 #Add config file to powerlevel10k
 check_and_source_script "$ZDOTDIR/.p10k.zsh"
 
-
-#Check existence of repo
-installPrograms="$HOME/Github/install-Programs"
-if [ -d "$installPrograms" ]
-then
-    #Check updates for all programs in one function
-    update-Programs() {
-        local script
-        for script in "$installPrograms"/*.sh; do
-            "$script" "$@"
-        done
-    }
-    #Add aliases for all programs inside repo
-    for _script_ in "$installPrograms"/*.sh; do
-        alias "update-$(basename "${_script_%.sh}")"="$_script_"
-    done
-    unset _script_
-fi
-
 #Remove variables from the update of plugins
 unset -f check_and_source_script
+
+
+#Check existence of repo
+gh_install="$HOME/Github/gh-install"
+if [ -d "$gh_install" ]
+then
+    alias gh-install="$gh_install/gh-install.sh"
+fi
+unset gh_install
