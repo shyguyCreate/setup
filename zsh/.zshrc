@@ -12,7 +12,7 @@ updatePlugins="$ZDOTDIR/.update-plugins"
 todayDate=$(( EPOCHSECONDS / 60 / 60 / 24 ))
 
 #Update zsh plugins by counting the number of days since last update
-if [ ! -f "$updatePlugins" ] || (( ( $todayDate - $(cat "$updatePlugins") ) > 7 ))
+if [ ! -f "$updatePlugins" ] || (( ( $todayDate - $(cat "$updatePlugins") ) >= 7 ))
 then
     #Function to shallow update a repo
     git_update_shallow_repo()

@@ -77,7 +77,7 @@ gh_install="$HOME/Github/gh-install"
 git_clone_or_pull_repo "$gh_install" https://github.com/shyguyCreate/gh-install.git
 
 #Install all programs inside git repo
-"$gh_install/gh-install.sh" -a
+"$gh_install/gh-install.sh" all
 
 #Clone gist repo of codium settings
 codiumSettings="$HOME/Github/gist/codium-Settings"

@@ -42,8 +42,8 @@ if [ -d "$zshFilesDir" ] &&  [ -n "$(ls -A "$zshFilesDir")" ]; then
         #And use diff output to make a backup if files are different
         #Backup file will be overwritten when a newer diff is found
         test -f "$zshFile" \
-            && _diff_=$(command diff -u "$zshSetupFile" "$zshFile") \
-            || command cp "$zshFile" "$zshSetupFile" \
+            && _diff_=$(command diff -u "$zshFile" "$zshSetupFile") \
+            || command cp "$zshSetupFile" "$zshFile" \
             && [ -n "$_diff_" ] \
             && echo "$_diff_" > "$backup" \
             && echo "Backup was created for $(basename "$zshFile")"
