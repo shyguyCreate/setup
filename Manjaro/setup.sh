@@ -29,8 +29,8 @@ sudo pacman -S gimp shotcut --needed
 #Install media player and recorder
 sudo pacman -S vlc obs-studio --needed
 
-#Install docker engine and compose
-sudo pacman -S docker docker-compose --needed
+#Install docker (engine compose buildx)
+sudo pacman -S docker docker-compose docker-buildx --needed
 
 #Enable and start docker daemon
 sudo systemctl enable docker.socket
