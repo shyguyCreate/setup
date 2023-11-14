@@ -29,6 +29,17 @@ sudo pacman -S gimp shotcut --needed
 #Install media player and recorder
 sudo pacman -S vlc obs-studio --needed
 
+#Install docker engine and compose
+sudo pacman -S docker docker-compose --needed
+
+#Enable and start docker daemon
+sudo systemctl enable docker.socket
+sudo systemctl start docker.socket
+
+#Manage Docker as a non-root user
+sudo groupadd docker
+sudo usermod -aG docker "$USER"
+
 #Function to clone a repo or update it with pull
 git_clone_or_pull_repo()
 {
@@ -57,7 +68,8 @@ git_clone_or_pull_repo "$machineSetup" https://github.com/shyguyCreate/machine-S
 sudo pacman -S system-config-printer --needed
 #Add printer support for USB
 sudo pacman -S cups cups-pdf --needed
-sudo systemctl enable --now cups
+sudo systemctl enable cups
+sudo systemctl start cups
 #Add wireless printer support
 sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
