@@ -29,7 +29,7 @@ sudo pacman -S gimp shotcut --needed
 #Install media player and recorder
 sudo pacman -S vlc obs-studio --needed
 
-#Install docker (engine compose buildx)
+#Install docker (engine, compose, and buildx)
 sudo pacman -S docker docker-compose docker-buildx --needed
 
 #Enable and start docker daemon
@@ -78,9 +78,6 @@ sudo patch --no-backup-if-mismatch --merge -sd /etc < "$machineSetup/share/nsswi
 
 #Install zsh
 sudo pacman -S zsh --needed
-#And uninstall plugins
-sudo pacman -Rns manjaro-zsh-config zsh-completions zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search zsh-theme-powerlevel10k
-
 #Configure zsh
 . "$machineSetup/zsh/zsh-Setup.sh"
 
