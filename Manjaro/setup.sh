@@ -81,12 +81,12 @@ sudo pacman -S zsh --needed
 #Configure zsh
 . "$machineSetup/zsh/zsh-Setup.sh"
 
-#Clone gh-install repo
-gh_install="$HOME/Github/gh-install"
-git_clone_or_pull_repo "$gh_install" https://github.com/shyguyCreate/gh-install.git
+#Clone gh-pkgs repo
+gh_pkgs="$HOME/Github/gh-pkgs"
+git_clone_or_pull_repo "$gh_pkgs" https://github.com/shyguyCreate/gh-pkgs.git
 
-#Install all programs inside git repo
-"$gh_install/gh-install.sh" all
+#Install programs with gh-pkgs
+"$gh_pkgs/gh-pkgs.sh" install codium gh mesloLGS oh-my-posh pwsh shellcheck shfmt
 
 #Clone gist repo of codium settings
 codiumSettings="$HOME/Github/gist/codium-Settings"

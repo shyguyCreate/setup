@@ -6,7 +6,6 @@ zmodload -i zsh/datetime
 #Define ZDOTDIR if it wasn't
 ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
 
-
 #Set an update file and the current date in unix time
 updatePlugins="$ZDOTDIR/.update-plugins"
 todayDate=$(( EPOCHSECONDS / 60 / 60 / 24 ))
@@ -41,7 +40,6 @@ fi
 #Remove variables from the update of plugins
 unset updatePlugins todayDate
 
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -49,12 +47,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-
 #History file configuration options
 HISTSIZE=10000
 HISTFILE="$ZDOTDIR/.zhistory"
 SAVEHIST=5000
-
 
 #Check for zsh script and source it
 check_and_source_script()
@@ -69,7 +65,6 @@ check_and_source_script "$ZDOTDIR/.zstyle.zsh"
 check_and_source_script "$ZDOTDIR/.keys.zsh"
 check_and_source_script "$ZDOTDIR/.alias.zsh"
 
-
 #Add zsh-completions to fpath
 [ -d "$ZDOTDIR/zsh-completions/src" ] && fpath=("$ZDOTDIR/zsh-completions/src" $fpath)
 
@@ -77,7 +72,6 @@ check_and_source_script "$ZDOTDIR/.alias.zsh"
 autoload -Uz compinit
 zmodload -i zsh/complist
 compinit
-
 
 #Start zsh plugins
 check_and_source_script "$ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
@@ -91,11 +85,10 @@ check_and_source_script "$ZDOTDIR/.p10k.zsh"
 #Remove variables from the update of plugins
 unset -f check_and_source_script
 
-
 #Check existence of repo
-gh_install="$HOME/Github/gh-install"
-if [ -d "$gh_install" ]
+gh_pkgs="$HOME/Github/gh-pkgs"
+if [ -d "$gh_pkgs" ]
 then
-    alias gh-install="$gh_install/gh-install.sh"
+    alias gh-pkgs="$gh_pkgs/gh-pkgs.sh"
 fi
-unset gh_install
+unset gh_pkgs
