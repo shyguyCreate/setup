@@ -32,7 +32,7 @@ sudo pacman -S vlc obs-studio --needed
 #Install docker (engine, compose, and buildx)
 sudo pacman -S docker docker-compose docker-buildx --needed
 
-#Enable and start docker daemon
+#Enable/start docker daemon
 sudo systemctl enable docker.socket
 sudo systemctl start docker.socket
 
@@ -66,15 +66,25 @@ git_clone_or_pull_repo "$machineSetup" https://github.com/shyguyCreate/machine-S
 
 #Install GUI for printer
 sudo pacman -S system-config-printer --needed
-#Add printer support for USB
+#Enable/start printer support
 sudo pacman -S cups cups-pdf --needed
-sudo systemctl enable cups
-sudo systemctl start cups
-#Add wireless printer support
+sudo systemctl enable cups.socket
+sudo systemctl start cups.socket
+
+#Disable built-in mDNS service
+sudo systemctl disable systemd-resolved.service
+sudo systemctl stop systemd-resolved.service
+#Enable/start wireless printer support
 sudo pacman -S avahi nss-mdns --needed
 sudo systemctl enable avahi-daemon.service
-#Enable Avahi support for hostname resolution
-sudo patch --no-backup-if-mismatch --merge -sd /etc < "$machineSetup/share/nsswitch.conf.diff"
+sudo systemctl start avahi-daemon.service
+#Add Avahi support for local hostname resolution
+sudo sed -i 's/hosts: mymachines resolve \[!UNAVAIL=return\] files myhostname dns/hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns/' /etc/nsswitch.conf
+
+#Disable service instead use socket to not start CUPS immediately
+sudo systemctl disable cups.service
+#Restart printer support with wireless connection in current session
+sudo systemctl restart cups.socket
 
 #Install zsh
 sudo pacman -S zsh --needed
@@ -85,7 +95,7 @@ sudo pacman -S zsh --needed
 gh_pkgs="$HOME/Github/gh-pkgs"
 git_clone_or_pull_repo "$gh_pkgs" https://github.com/shyguyCreate/gh-pkgs.git
 
-#Install programs with gh-pkgs
+#Install packages with gh-pkgs
 "$gh_pkgs/gh-pkgs.sh" install codium gh mesloLGS oh-my-posh pwsh shellcheck shfmt
 
 #Clone gist repo of codium settings
