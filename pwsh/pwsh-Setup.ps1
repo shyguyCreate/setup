@@ -3,7 +3,6 @@ Set-Variable PROFILE_FOLDER -Value (Split-Path $PROFILE -Parent)
 #Make profile folder
 New-Item -Path $PROFILE_FOLDER -ItemType Directory -Force > $null
 
-
 #Checks if module is installed if not install Powershell modules
 foreach ($_module_ in @("posh-git", "PSReadLine", "Terminal-Icons")) {
     if (-not (Get-InstalledModule | Where-Object { $_.Name -eq $_module_ })) {
@@ -11,7 +10,6 @@ foreach ($_module_ in @("posh-git", "PSReadLine", "Terminal-Icons")) {
     }
 }
 Remove-Variable _module_
-
 
 #Directory of this repository
 $pwshFilesDir = [IO.Path]::Combine("$HOME", "Github", "machine-Setup", "pwsh")

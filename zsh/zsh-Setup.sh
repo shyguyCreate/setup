@@ -25,14 +25,14 @@ git_clone_shallow_repo romkatv   powerlevel10k
 unset -f git_clone_shallow_repo
 
 #Change default shell to zsh
-[ "$(basename "$SHELL")" != "zsh" ] && chsh -s "$(which zsh)"
+[ "$(basename "$(grep "$USER" /etc/passwd)")" != "zsh" ] && chsh -s "$(which zsh)"
 
 #Directory of this repository
 zshFilesDir="$HOME/Github/machine-Setup/zsh"
 if [ -d "$zshFilesDir" ] &&  [ -n "$(ls -A "$zshFilesDir")" ]; then
 
     #Get all files inside zsh folder
-    for zshSetupFile in "$zshFilesDir/"*; do
+    for zshSetupFile in "$zshFilesDir"/*; do
 
         #Save file with same name but in ZDOTDIR and a backup
         zshFile="$ZDOTDIR/$(basename "$zshSetupFile")"
