@@ -15,7 +15,7 @@ sudo pacman -S yay --needed
 sudo pacman -S bash-completion bash-language-server --needed
 
 #Install firefox with AAC and MP3 support
-sudo pacman -S firefox gstreamer --needed
+sudo pacman -S firefox --needed
 
 #Install office suite
 sudo pacman -S onlyoffice-desktopeditors --needed
@@ -40,30 +40,6 @@ sudo systemctl start docker.socket
 sudo groupadd docker
 sudo usermod -aG docker "$USER"
 
-#Function to clone a repo or update it with pull
-git_clone_or_pull_repo()
-{
-    local repoDir="$1"
-    local url="$2"
-    if [ ! -d "$repoDir/.git" ]; then
-        git clone "$url" "$repoDir"
-    else
-        git -C "$repoDir" pull -q
-    fi
-}
-
-#Make directory for Github and gists
-mkdir -p "$HOME/Github/gist"
-
-#Install git
-sudo pacman -S git --needed
-#Set main initial branch for git
-git config --global init.defaultBranch main
-
-#Clone git repository of this script
-machineSetup="$HOME/Github/machine-Setup"
-git_clone_or_pull_repo "$machineSetup" https://github.com/shyguyCreate/machine-Setup.git
-
 #Install GUI for printer
 sudo pacman -S system-config-printer --needed
 #Enable/start printer support
@@ -81,10 +57,29 @@ sudo systemctl start avahi-daemon.service
 #Add Avahi support for local hostname resolution
 sudo sed -i 's/hosts: mymachines resolve \[!UNAVAIL=return\] files myhostname dns/hosts: mymachines mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] files myhostname dns/' /etc/nsswitch.conf
 
-#Disable service instead use socket to not start CUPS immediately
-sudo systemctl disable cups.service
-#Restart printer support with wireless connection in current session
-sudo systemctl restart cups.socket
+#Function to clone a repo or update it with pull
+git_clone_or_pull_repo()
+{
+    local repoDir="$1"
+    local url="$2"
+    if [ ! -d "$repoDir/.git" ]; then
+        git clone "$url" "$repoDir"
+    else
+        git -C "$repoDir" pull -q
+    fi
+}
+
+#Install git
+sudo pacman -S git --needed
+#Set main initial branch for git
+git config --global init.defaultBranch main
+
+#Make directory for Github and gists
+mkdir -p "$HOME/Github/gist"
+
+#Clone git repository of this script
+machineSetup="$HOME/Github/machine-Setup"
+git_clone_or_pull_repo "$machineSetup" https://github.com/shyguyCreate/machine-Setup.git
 
 #Install zsh
 sudo pacman -S zsh --needed
