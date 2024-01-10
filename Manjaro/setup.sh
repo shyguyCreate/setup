@@ -46,7 +46,6 @@ sudo pacman -S system-config-printer --needed
 sudo pacman -S cups cups-pdf --needed
 sudo systemctl enable cups.socket
 sudo systemctl start cups.socket
-
 #Disable built-in mDNS service
 sudo systemctl disable systemd-resolved.service
 sudo systemctl stop systemd-resolved.service

@@ -1,10 +1,13 @@
 #!/bin/sh
 
+#Change default shell to zsh
+[ "$(basename "$(grep "$USER" /etc/passwd)")" != "zsh" ] && chsh -s "$(which zsh)"
+
 #Add config dir for zsh
 ZDOTDIR="$HOME/.config/zsh"
-mkdir -p "$ZDOTDIR"
-#Add config file to change ZDOTDIR
-[ -f /etc/zsh/zshenv ] && grep -qxF "export ZDOTDIR=\$HOME/.config/zsh" /etc/zsh/zshenv || echo "export ZDOTDIR=\$HOME/.config/zsh" | sudo tee -a /etc/zsh/zshenv > /dev/null
+[ ! -d "$ZDOTDIR" ] && mkdir -p "$ZDOTDIR"
+#Change zsh dotfiles to ~/.config/zsh
+[ -f /etc/zsh/zshenv ] && grep -qxF "export ZDOTDIR=\$HOME/.config/zsh" /etc/zsh/zshenv || echo "export ZDOTDIR=\$HOME/.config/zsh" >> "$HOME/.zshenv"
 
 #Function to shallow clone a repo
 git_clone_shallow_repo()
@@ -23,9 +26,6 @@ git_clone_shallow_repo romkatv   powerlevel10k
 
 #Remove git clone shallow function
 unset -f git_clone_shallow_repo
-
-#Change default shell to zsh
-[ "$(basename "$(grep "$USER" /etc/passwd)")" != "zsh" ] && chsh -s "$(which zsh)"
 
 #Directory of this repository
 zshFilesDir="$HOME/Github/machine-Setup/zsh"

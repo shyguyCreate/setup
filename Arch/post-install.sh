@@ -37,6 +37,9 @@ pacman -S --needed --noconfirm bash-completion bash-language-server
 
 # Install zsh
 pacman -S --needed --noconfirm zsh
+# https://wiki.archlinux.org/title/XDG_Base_Directory#Hardcoded
+# Change zsh dotfiles to ~/.config/zsh
+echo "export ZDOTDIR=\$HOME/.config/zsh" > /etc/zsh/zshenv
 
 # https://wiki.archlinux.org/title/Users_and_groups#User_management
 # Add user
@@ -51,6 +54,33 @@ pacman -S --needed --noconfirm man-db man-pages texinfo
 # https://wiki.archlinux.org/title/PulseAudio#Graphical
 # Add audio support and GUI
 pacman -S --needed --noconfirm pipewire wireplumber pipewire-audio pipewire-alsa pipewire-pulse pipewire-jack pavucontrol
+
+# https://wiki.archlinux.org/title/xorg#Installation
+# Install Xorg
+pacman -S --needed --noconfirm xorg-server
+# https://wiki.archlinux.org/title/xorg#Driver_installation
+# Install intel video drivers
+lspci -v | grep -A1 -e VGA -e 3D | grep -qi intel && pacman -S --needed --noconfirm xf86-video-intel mesa vulkan-intel
+# https://wiki.archlinux.org/title/xorg#Running
+# https://wiki.archlinux.org/title/Xinit#Installation
+# Add starx
+pacman -S --needed --noconfirm xorg-init
+
+# https://wiki.archlinux.org/title/xfce#Installation
+pacman -S --needed --noconfirm xfce4 xfce4-goodies
+# https://wiki.archlinux.org/title/xfce#Starting
+# https://wiki.archlinux.org/title/Xinit#xinitrc
+runuser -l shyguy -c 'echo "exec startxfce4" > $HOME/.xinitrc'
+
+# https://wiki.archlinux.org/title/LightDM#Installation
+# Install lightdm
+pacman -S --needed --noconfirm lightdm lightdm-gtk-greeter
+# https://wiki.archlinux.org/title/LightDM#Enabling_LightDM
+# Enable lightdm
+systemctl enable lightdm.service
+# https://wiki.archlinux.org/title/LightDM#Optional_configuration_and_tweaks
+# Install lightdm GUI
+pacman -S --needed --noconfirm lightdm-gtk-greeter-settings
 
 # https://wiki.archlinux.org/title/CUPS#Installation
 # Add printer support
@@ -92,8 +122,21 @@ usermod -aG docker shyguy
 
 # Install git
 pacman -S --needed --noconfirm git
-# Set main initial branch for git
-git config --global init.defaultBranch main
+
+#Install firefox with AAC and MP3 support
+pacman -S --needed --noconfirm firefox
+
+#Install password manager
+pacman -S --needed --noconfirm keepassxc
+
+#Install image and video editor
+pacman -S --needed --noconfirm gimp shotcut
+
+#Install media player and recorder
+pacman -S --needed --noconfirm vlc obs-studio
+
+# Install screen color temperature adjuster
+pacman -S --needed --noconfirm redshift
 
 # Add user password
 passwd shyguy
