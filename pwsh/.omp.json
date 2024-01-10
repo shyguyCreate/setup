@@ -108,7 +108,7 @@
           "invert_powerline": true,
           "foreground": "#ffffff",
           "background": "#2f2f2f",
-          "template": "{{ .FormattedMs }} \uf252 <#7a7a7a> \ue0b3</> ",
+          "template": "{{ .FormattedMs }} \uf252<#7a7a7a> \ue0b3</> ",
           "properties": {
             "always_enabled": true
           }
