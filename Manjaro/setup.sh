@@ -83,7 +83,7 @@ git_clone_or_pull_repo "$machineSetup" https://github.com/shyguyCreate/machine-S
 #Install zsh
 sudo pacman -S zsh --needed
 #Configure zsh
-. "$machineSetup/zsh/zsh-Setup.sh"
+. "$machineSetup/zsh/setup.sh"
 
 #Clone gh-pkgs repo
 gh_pkgs="$HOME/Github/gh-pkgs"
@@ -96,11 +96,11 @@ git_clone_or_pull_repo "$gh_pkgs" https://github.com/shyguyCreate/gh-pkgs.git
 codiumSettings="$HOME/Github/gist/codium-Settings"
 git_clone_or_pull_repo "$codiumSettings" https://gist.github.com/efcf9345431ca9e4d3eb2faaa6b71564.git
 
-#Configure codium through script
+#Configure codium
 "$codiumSettings/.config.sh"
 
 #Configure pwsh
-pwsh -NoProfile -File "$machineSetup/pwsh/pwsh-Setup.ps1"
+pwsh -NoProfile -File "$machineSetup/pwsh/setup.ps1"
 
 #Remove git clone/pull function
 unset -f git_clone_or_pull_repo

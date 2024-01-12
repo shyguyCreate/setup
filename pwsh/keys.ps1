@@ -22,7 +22,6 @@ if ("InlineView" -eq (Get-PSReadLineOption | Select-Object -ExpandProperty Predi
     }
 }
 
-
 #Add key binding to delete matching quotes or braces with backspace
 Set-PSReadLineKeyHandler -Chord Backspace `
     -BriefDescription SmartBackspace `
@@ -68,7 +67,6 @@ Set-PSReadLineKeyHandler -Key Ctrl+q, Alt+q `
     [Microsoft.PowerShell.PSConsoleReadLine]::AddToHistory($line)
     [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
 }
-
 
 #Add key binding to insert matching quotes
 Set-PSReadLineKeyHandler -Chord '"', "'" `

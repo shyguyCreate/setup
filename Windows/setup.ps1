@@ -14,7 +14,6 @@ winget install -e --id Microsoft.PowerToys -s winget
 winget install -e --id Meltytech.Shotcut -s winget
 winget install -e --id Zoom.Zoom -s winget
 
-
 #Function to clone a repo or update it with pull
 function Start-GitCloneOrPull ($repoDir, $url) {
     if (-not (Test-Path "$repoDir\.git" -PathType Container)) {
@@ -24,7 +23,6 @@ function Start-GitCloneOrPull ($repoDir, $url) {
         git -C "$repoDir" pull -q
     }
 }
-
 
 #Make directory for Github and gists
 New-Item -Path "$Env:USERPROFILE\Github\gist" -ItemType Directory -Force > $null
@@ -36,11 +34,9 @@ git config --global init.defaultBranch main
 $machineSetup = "$Env:USERPROFILE\Github\machine-Setup"
 Start-GitCloneOrPull "$machineSetup" https://github.com/shyguyCreate/machine-Setup.git
 
-
 #Configure powershell and pwsh
-powershell.exe -NoProfile -File "$machineSetup\pwsh\pwsh-Setup.ps1"
-pwsh.exe -NoProfile -File "$machineSetup\pwsh\pwsh-Setup.ps1"
-
+powershell.exe -NoProfile -File "$machineSetup\pwsh\setup.ps1"
+pwsh.exe -NoProfile -File "$machineSetup\pwsh\setup.ps1"
 
 #Clone gist repo of caskaydiacove installer
 $caskaydiaCove = "$Env:USERPROFILE\Github\gist\caskaydiaCove"
@@ -48,7 +44,6 @@ Start-GitCloneOrPull "$caskaydiaCove" https://gist.github.com/9e2772a51ef16bc59e
 
 #Install CaskaydiaCove Nerd Font
 "$caskaydiaCove\caskaydiaCove.ps1"
-
 
 #Clone gist repo of codium settings
 codiumSettings="$HOME/Github/gist/codium-Settings"
