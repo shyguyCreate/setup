@@ -1,5 +1,11 @@
 # Arch installation
 
+To get the Arch ISO, refer to the [Installation guide](https://wiki.archlinux.org/title/Installation_guide#Pre-installation) in the Arch wiki.
+
+Now, inside the USB live session, do the following:
+
+---
+
 https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout_and_font
 
 List available keyboard layouts

@@ -20,7 +20,7 @@ hwclock --systohc
 sed -i 's/^#en_US/en_US/g' /etc/locale.gen
 locale-gen
 echo 'LANG=en_US.UTF-8' > /etc/locale.conf
-echo 'KEYMAP=de-latin1' > /etc/vconsole.conf
+echo 'KEYMAP=la-latin1' > /etc/vconsole.conf
 
 # https://wiki.archlinux.org/title/Installation_guide#Network_configuration
 echo 'arch' > /etc/hostname
@@ -42,13 +42,6 @@ rmmod pcspkr snd_pcsp
 echo 'blacklist pcspkr' > /etc/modprobe.d/nobeep.conf
 echo 'blacklist snd_pcsp' >> /etc/modprobe.d/nobeep.conf
 
-# https://wiki.archlinux.org/title/sudo#Example_entries
-# Allow wheel to run sudo
-sed -i 's/# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
-
-# Update system
-pacman -Syyu --noconfirm
-
 # Install doas (alternative to sudo)
 pacman -S --needed --noconfirm opendoas
 # https://wiki.archlinux.org/title/Doas#Configuration
@@ -69,6 +62,11 @@ echo "export ZDOTDIR=\$HOME/.config/zsh" > /etc/zsh/zshenv
 # https://wiki.archlinux.org/title/Users_and_groups#User_management
 # Add user
 useradd -m -G wheel -s /usr/bin/zsh shyguy
+
+# https://wiki.archlinux.org/title/sudo#Example_entries
+# Allow wheel to run sudo without password
+sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
+sed -i 's/^%wheel ALL=(ALL:ALL) ALL/# %wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Save user HOME
 HOME_user="$(runuser -l shyguy -c 'echo "$HOME"')"
@@ -167,7 +165,7 @@ gh_pkgs="$HOME_user/Github/gh-pkgs"
 runuser -l shyguy -c "git clone https://github.com/shyguyCreate/gh-pkgs.git '$gh_pkgs'"
 
 # Install packages with gh-pkgs
-"$gh_pkgs/gh-pkgs.sh" install codium gh mesloLGS oh-my-posh pwsh shellcheck shfmt yay
+runuser -l shyguy -c "'$gh_pkgs/gh-pkgs.sh' install codium gh mesloLGS oh-my-posh pwsh shellcheck shfmt yay"
 
 # Clone codium settings from gist
 codiumSettings="$HOME_user/Github/gist/codium-Settings"
@@ -201,15 +199,9 @@ runuser -l shyguy -c "command cp -r '$machineSetup/.config' '$HOME_user'"
 runuser -l shyguy -c "systemctl --user enable redshift.service"
 
 # Clone onlyoffice desktop from AUR
-_onlyoffice="$HOME_user/onlyoffice-bin"
-runuser -l shyguy -c "git clone https://aur.archlinux.org/onlyoffice-bin.git '$_onlyoffice'"
-# Install all dependencies
-grep -w depends "$_onlyoffice/.SRCINFO" | awk '{print $3}' | while IFS= read -r package; do
-    sudo pacman -S --needed --noconfirm "$package" --asdeps
-done
-# Build onlyoffice package
-runuser -l shyguy -c "cd '$_onlyoffice' && makepkg"
-# Install onlyoffice desktop
-find "$_onlyoffice" -name "onlyoffice*.tar.zst" -exec pacman -U --needed --noconfirm '{}' \;
-# Clean onlyoffice clone
-rm -rf "$_onlyoffice"
+runuser -l shyguy -c "yay -S --needed --noconfirm onlyoffice-bin"
+
+# https://wiki.archlinux.org/title/sudo#Example_entries
+# Allow wheel to run sudo entering password
+sed -i 's/^%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
+sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
