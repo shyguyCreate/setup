@@ -172,6 +172,8 @@ codiumSettings="$HOME_user/Github/gist/codium-Settings"
 runuser -l shyguy -c "git clone https://gist.github.com/efcf9345431ca9e4d3eb2faaa6b71564.git '$codiumSettings'"
 
 # Configure codium
+runuser -l shyguy -c 'curl -s https://api.github.com/repos/foxundermoon/vs-shell-format/releases/latest | grep "\"browser_download_url.*/shell-format-.*\.vsix\"" | cut -d \" -f 4 | xargs curl -LOs'
+runuser -l shyguy -c 'find . -name "shell-format-*.vsix" -exec codium --install-extension '{}' \; -exec rm -f '{}' \;'
 runuser -l shyguy -c ". '$codiumSettings/.config.sh'"
 
 # Configure pwsh
@@ -194,6 +196,11 @@ pacman -S --needed --noconfirm vlc obs-studio
 pacman -S --needed --noconfirm redshift
 # Configure redshift
 runuser -l shyguy -c "command cp -r '$machineSetup/.config' '$HOME_user'"
+# https://bbs.archlinux.org/viewtopic.php?id=177473https://bbs.archlinux.org/viewtopic.php?id=177473
+# Fix redshift not autostarting
+[ ! -f /usr/lib/systemd/user/redshift.service ] \
+    || grep -q 'Environment=DISPLAY=:0' /usr/lib/systemd/user/redshift.service \
+    || sed -i 's/\[Service\]/[Service]\nEnvironment=DISPLAY=:0/' /usr/lib/systemd/user/redshift.service
 # https://wiki.archlinux.org/title/redshift#Autostart
 # Enable redshift user unit service
 runuser -l shyguy -c "systemctl --user enable redshift.service"
