@@ -3,6 +3,14 @@
 # Install important packages
 pacman -S --needed --noconfirm base-devel linux-headers
 
+# https://wiki.archlinux.org/title/Installation_guide#Boot_loader
+# https://wiki.archlinux.org/title/GRUB#Installation
+pacman -S --needed --noconfirm grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+# https://wiki.archlinux.org/title/GRUB#Generate_the_main_configuration_file
+sed -i 's/GRUB_TIMEOUT=./GRUB_TIMEOUT=2/' /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
+
 # https://wiki.archlinux.org/title/NetworkManager#Installation
 # Add network manager and GUI
 pacman -S --needed --noconfirm networkmanager network-manager-applet
@@ -24,17 +32,6 @@ echo 'KEYMAP=la-latin1' > /etc/vconsole.conf
 
 # https://wiki.archlinux.org/title/Installation_guide#Network_configuration
 echo 'arch' > /etc/hostname
-
-# https://wiki.archlinux.org/title/Installation_guide#Initramfs
-mkinitcpio -P
-
-# https://wiki.archlinux.org/title/Installation_guide#Boot_loader
-# https://wiki.archlinux.org/title/GRUB#Installation
-pacman -S --needed --noconfirm grub efibootmgr
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-# https://wiki.archlinux.org/title/GRUB#Generate_the_main_configuration_file
-sed -i 's/GRUB_TIMEOUT=./GRUB_TIMEOUT=2/' /etc/default/grub
-grub-mkconfig -o /boot/grub/grub.cfg
 
 # https://wiki.archlinux.org/title/PC_speaker#Globally
 # Remove beep
@@ -73,13 +70,15 @@ HOME_user="$(runuser -l shyguy -c 'echo "$HOME"')"
 
 # https://wiki.archlinux.org/title/Man_page#Installation
 # https://wiki.archlinux.org/title/GNU#Texinfo
-# Add manuals
+# Install manuals
 pacman -S --needed --noconfirm man-db man-pages texinfo
 
 # https://wiki.archlinux.org/title/PipeWire
+# Add audio support
+pacman -S --needed --noconfirm pipewire wireplumber pipewire-audio pipewire-alsa pipewire-pulse pipewire-jack
 # https://wiki.archlinux.org/title/PulseAudio#Graphical
-# Add audio support and GUI
-pacman -S --needed --noconfirm pipewire wireplumber pipewire-audio pipewire-alsa pipewire-pulse pipewire-jack pavucontrol
+# Install GUI for audio mixer
+pacman -S --needed --noconfirm pavucontrol
 
 # https://wiki.archlinux.org/title/xorg#Installation
 # Install Xorg
@@ -179,18 +178,6 @@ runuser -l shyguy -c ". '$codiumSettings/.config.sh'"
 # Configure pwsh
 runuser -l shyguy -c "pwsh -NoProfile -File '$machineSetup/pwsh/setup.ps1'"
 
-# Install firefox with AAC and MP3 support
-pacman -S --needed --noconfirm firefox
-
-# Install password manager
-pacman -S --needed --noconfirm keepassxc
-
-# Install image and video editor
-pacman -S --needed --noconfirm gimp shotcut
-
-# Install media player and recorder
-pacman -S --needed --noconfirm vlc obs-studio
-
 # https://wiki.archlinux.org/title/redshift#Installation
 # Install screen color temperature adjuster
 pacman -S --needed --noconfirm redshift
@@ -205,8 +192,20 @@ runuser -l shyguy -c "command cp -r '$machineSetup/.config' '$HOME_user'"
 # Enable redshift user unit service
 runuser -l shyguy -c "systemctl --user enable redshift.service"
 
-# Clone onlyoffice desktop from AUR
+# Install onlyoffice desktop
 runuser -l shyguy -c "yay -S --needed --noconfirm onlyoffice-bin"
+
+# Install web browser
+pacman -S --needed --noconfirm firefox
+
+# Install password manager
+pacman -S --needed --noconfirm keepassxc
+
+# Install image and video editor
+pacman -S --needed --noconfirm gimp shotcut
+
+# Install media player and recorder
+pacman -S --needed --noconfirm vlc obs-studio
 
 # https://wiki.archlinux.org/title/sudo#Example_entries
 # Allow wheel to run sudo entering password

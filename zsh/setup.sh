@@ -7,7 +7,7 @@
 ZDOTDIR="$HOME/.config/zsh"
 [ ! -d "$ZDOTDIR" ] && mkdir -p "$ZDOTDIR"
 # Change zsh dotfiles to ~/.config/zsh
-[ ! -f /etc/zsh/zshenv ] || grep -qxF "export ZDOTDIR=\$HOME/.config/zsh" /etc/zsh/zshenv \
+[ -f /etc/zsh/zshenv ] && grep -qxF "export ZDOTDIR=\$HOME/.config/zsh" /etc/zsh/zshenv \
     || [ ! -f "$HOME/.zshenv" ] || grep -qxF "export ZDOTDIR=\$HOME/.config/zsh" "$HOME/.zshenv" \
     || echo "export ZDOTDIR=\$HOME/.config/zsh" >> "$HOME/.zshenv"
 
