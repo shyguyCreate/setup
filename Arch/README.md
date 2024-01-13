@@ -157,6 +157,8 @@ curl -O https://raw.githubusercontent.com/shyguyCreate/machine-Setup/main/Arch/s
 . setup.sh > output.txt 2> error.txt
 ```
 
+**Note:** run `sed -i 's/\<shyguy\>/your_username/g' setup.sh` to set a custom username before running the script
+
 ---
 
 https://wiki.archlinux.org/title/Installation_guide#Root_password
@@ -172,6 +174,8 @@ Add user password
 ```
 passwd shyguy
 ```
+
+**Note:** change shyguy with your username if you change it in the previous step
 
 ---
 

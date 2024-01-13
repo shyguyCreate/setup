@@ -70,8 +70,8 @@ echo "export ZDOTDIR=\$HOME/.config/zsh" > /etc/zsh/zshenv
 # Add user
 useradd -m -G wheel -s /usr/bin/zsh shyguy
 
-# Save shyguy HOME
-HOME_shyguy="$(runuser -l shyguy -c 'echo "$HOME"')"
+# Save user HOME
+HOME_user="$(runuser -l shyguy -c 'echo "$HOME"')"
 
 # https://wiki.archlinux.org/title/Man_page#Installation
 # https://wiki.archlinux.org/title/GNU#Texinfo
@@ -98,7 +98,7 @@ pacman -S --needed --noconfirm xorg-init
 pacman -S --needed --noconfirm xfce4 xfce4-goodies
 # https://wiki.archlinux.org/title/xfce#Starting
 # https://wiki.archlinux.org/title/Xinit#xinitrc
-runuser -l shyguy -c "echo 'exec startxfce4' > '$HOME_shyguy/.xinitrc'"
+runuser -l shyguy -c "echo 'exec startxfce4' > '$HOME_user/.xinitrc'"
 
 # https://wiki.archlinux.org/title/LightDM#Installation
 # Install lightdm
@@ -153,25 +153,25 @@ pacman -S --needed --noconfirm git
 git config --system init.defaultBranch main
 
 # Make directory for Github and gists
-runuser -l shyguy -c "mkdir -p '$HOME_shyguy/Github/gist'"
+runuser -l shyguy -c "mkdir -p '$HOME_user/Github/gist'"
 
 # Clone git repository of this script
-machineSetup="$HOME_shyguy/Github/machine-Setup"
-runuser -l shyguy -c "git clone '$machineSetup' https://github.com/shyguyCreate/machine-Setup.git"
+machineSetup="$HOME_user/Github/machine-Setup"
+runuser -l shyguy -c "git clone https://github.com/shyguyCreate/machine-Setup.git '$machineSetup'"
 
 # Configure zsh
 runuser -l shyguy -c "'$machineSetup/zsh/setup.sh'"
 
 # Clone gh-pkgs repo
-gh_pkgs="$HOME_shyguy/Github/gh-pkgs"
-runuser -l shyguy -c "git clone '$gh_pkgs https://github.com/shyguyCreate/gh-pkgs.git"
+gh_pkgs="$HOME_user/Github/gh-pkgs"
+runuser -l shyguy -c "git clone https://github.com/shyguyCreate/gh-pkgs.git '$gh_pkgs'"
 
 # Install packages with gh-pkgs
-"$gh_pkgs/gh-pkgs.sh" install codium gh mesloLGS oh-my-posh pwsh shellcheck shfmt
+"$gh_pkgs/gh-pkgs.sh" install codium gh mesloLGS oh-my-posh pwsh shellcheck shfmt yay
 
 # Clone codium settings from gist
-codiumSettings="$HOME_shyguy/Github/gist/codium-Settings"
-runuser -l shyguy -c "git clone '$codiumSettings' https://gist.github.com/efcf9345431ca9e4d3eb2faaa6b71564.git"
+codiumSettings="$HOME_user/Github/gist/codium-Settings"
+runuser -l shyguy -c "git clone https://gist.github.com/efcf9345431ca9e4d3eb2faaa6b71564.git '$codiumSettings'"
 
 # Configure codium
 runuser -l shyguy -c ". '$codiumSettings/.config.sh'"
@@ -195,7 +195,21 @@ pacman -S --needed --noconfirm vlc obs-studio
 # Install screen color temperature adjuster
 pacman -S --needed --noconfirm redshift
 # Configure redshift
-runuser -l shyguy -c "command cp -r '$machineSetup/.config' '$HOME_shyguy'"
+runuser -l shyguy -c "command cp -r '$machineSetup/.config' '$HOME_user'"
 # https://wiki.archlinux.org/title/redshift#Autostart
 # Enable redshift user unit service
 runuser -l shyguy -c "systemctl --user enable redshift.service"
+
+# Clone onlyoffice desktop from AUR
+_onlyoffice="$HOME_user/onlyoffice-bin"
+runuser -l shyguy -c "git clone https://aur.archlinux.org/onlyoffice-bin.git '$_onlyoffice'"
+# Install all dependencies
+grep -w depends "$_onlyoffice/.SRCINFO" | awk '{print $3}' | while IFS= read -r package; do
+    sudo pacman -S --needed --noconfirm "$package" --asdeps
+done
+# Build onlyoffice package
+runuser -l shyguy -c "cd '$_onlyoffice' && makepkg"
+# Install onlyoffice desktop
+find "$_onlyoffice" -name "onlyoffice*.tar.zst" -exec pacman -U --needed --noconfirm '{}' \;
+# Clean onlyoffice clone
+rm -rf "$_onlyoffice"
