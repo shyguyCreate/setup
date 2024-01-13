@@ -150,7 +150,7 @@ arch-chroot /mnt
 
 ---
 
-Run installation script
+Run installation script (**must be run as root**)
 
 ```
 curl -O https://raw.githubusercontent.com/shyguyCreate/machine-Setup/main/Arch/setup.sh

@@ -26,7 +26,7 @@ git_clone_shallow_repo zsh-users zsh-syntax-highlighting
 git_clone_shallow_repo zsh-users zsh-history-substring-search
 git_clone_shallow_repo romkatv   powerlevel10k
 
-#Get all zsh files
+# Get all zsh files
 for zshSetupFile in "$(dirname "$0")"/.z* "$(dirname "$0")"/.*.zsh; do
 
     # Save file with same name but in ZDOTDIR and a backup

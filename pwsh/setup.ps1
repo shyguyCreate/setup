@@ -20,7 +20,7 @@ Get-ChildItem -Path $PSScriptRoot -Exclude setup.ps1 -Force |
         $backup = "${pwshFile}.bak"
         $_diff_ = ""
 
-        #Test if pwsh file exists
+        # Test if pwsh file exists
         if (Test-Path $pwshFile -PathType Leaf) {
             # Use Compare-Object output to make a backup
             $_diff_ = Compare-Object (Get-Content $pwshFile) (Get-Content $pwshSetupFile) | ForEach-Object { "$($_.SideIndicator) $($_.InputObject)" }

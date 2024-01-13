@@ -1,18 +1,18 @@
-#Changing Directories
+# Changing Directories
 setopt autocd
 setopt autopushd
 setopt pushdignoredups
 setopt pushdminus
 
-#Completion
+# Completion
 setopt alwaystoend
 setopt automenu
 unsetopt menucomplete
 
-#Expansion and Globbing
+# Expansion and Globbing
 setopt globdots
 
-#History
+# History
 setopt extendedhistory
 setopt histexpiredupsfirst
 setopt histignorealldups
@@ -22,12 +22,12 @@ setopt histsavenodups
 setopt histverify
 setopt incappendhistorytime
 
-#Input/Output
+# Input/Output
 setopt clobber
 setopt interactivecomments
 
-#Shell Emulation
+# Shell Emulation
 setopt appendcreate
 
-#ZLE
+# ZLE
 unsetopt beep

@@ -39,7 +39,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # https://wiki.archlinux.org/title/PC_speaker#Globally
 # Remove beep
 rmmod pcspkr snd_pcsp
-echo 'blacklist pcspkr' >> /etc/modprobe.d/nobeep.conf
+echo 'blacklist pcspkr' > /etc/modprobe.d/nobeep.conf
 echo 'blacklist snd_pcsp' >> /etc/modprobe.d/nobeep.conf
 
 # https://wiki.archlinux.org/title/sudo#Example_entries
