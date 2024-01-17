@@ -39,6 +39,7 @@ rmmod pcspkr snd_pcsp
 echo 'blacklist pcspkr' > /etc/modprobe.d/nobeep.conf
 echo 'blacklist snd_pcsp' >> /etc/modprobe.d/nobeep.conf
 
+# https://wiki.archlinux.org/title/Doas#Installation
 # Install doas (alternative to sudo)
 pacman -S --needed --noconfirm opendoas
 # https://wiki.archlinux.org/title/Doas#Configuration
@@ -60,13 +61,16 @@ echo "export ZDOTDIR=\$HOME/.config/zsh" > /etc/zsh/zshenv
 # Add user
 useradd -m -G wheel -s /usr/bin/zsh shyguy
 
-# https://wiki.archlinux.org/title/sudo#Example_entries
+# https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel to run sudo without password
 sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 sed -i 's/^%wheel ALL=(ALL:ALL) ALL/# %wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Save user HOME
 HOME_user="$(runuser -l shyguy -c 'echo "$HOME"')"
+
+# Install zip compression and decompression
+pacman -S --needed --noconfirm zip unzip
 
 # https://wiki.archlinux.org/title/Man_page#Installation
 # https://wiki.archlinux.org/title/GNU#Texinfo
@@ -80,20 +84,20 @@ pacman -S --needed --noconfirm pipewire wireplumber pipewire-audio pipewire-alsa
 # Install GUI for audio mixer
 pacman -S --needed --noconfirm pavucontrol
 
-# https://wiki.archlinux.org/title/xorg#Installation
+# https://wiki.archlinux.org/title/Xorg#Installation
 # Install Xorg
 pacman -S --needed --noconfirm xorg-server
-# https://wiki.archlinux.org/title/xorg#Driver_installation
+# https://wiki.archlinux.org/title/Xorg#Driver_installation
 # Install intel video drivers
 lspci -v | grep -A1 -e VGA -e 3D | grep -qi intel && pacman -S --needed --noconfirm xf86-video-intel mesa vulkan-intel
-# https://wiki.archlinux.org/title/xorg#Running
+# https://wiki.archlinux.org/title/Xorg#Running
 # https://wiki.archlinux.org/title/Xinit#Installation
 # Add starx
 pacman -S --needed --noconfirm xorg-init
 
-# https://wiki.archlinux.org/title/xfce#Installation
+# https://wiki.archlinux.org/title/Xfce#Installation
 pacman -S --needed --noconfirm xfce4 xfce4-goodies
-# https://wiki.archlinux.org/title/xfce#Starting
+# https://wiki.archlinux.org/title/Xfce#Starting
 # https://wiki.archlinux.org/title/Xinit#xinitrc
 runuser -l shyguy -c "echo 'exec startxfce4' > '$HOME_user/.xinitrc'"
 
@@ -195,19 +199,40 @@ runuser -l shyguy -c "systemctl --user enable redshift.service"
 # Install onlyoffice desktop
 runuser -l shyguy -c "yay -S --needed --noconfirm onlyoffice-bin"
 
+# https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 # Install web browser
 pacman -S --needed --noconfirm firefox
 
+# https://wiki.archlinux.org/title/List_of_applications/Security#Password_managers
 # Install password manager
 pacman -S --needed --noconfirm keepassxc
 
-# Install image and video editor
-pacman -S --needed --noconfirm gimp shotcut
+# https://wiki.archlinux.org/title/List_of_applications/Multimedia#Graphical_image_viewers
+# Install image viewer
+pacman -S --needed --noconfirm viewnior
+# https://wiki.archlinux.org/title/List_of_applications/Multimedia#Raster_graphics_editors
+# Install image editor
+pacman -S --needed --noconfirm gimp
 
-# Install media player and recorder
-pacman -S --needed --noconfirm vlc obs-studio
+# https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_players
+# Install video player
+pacman -S --needed --noconfirm vlc
+# https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_editors
+# Install video editor
+pacman -S --needed --noconfirm shotcut
 
-# https://wiki.archlinux.org/title/sudo#Example_entries
+# https://wiki.archlinux.org/title/Screen_capture#Dedicated_software
+# Install screenshot tool
+pacman -S --needed --noconfirm xfce4-screenshooter
+# https://wiki.archlinux.org/title/Screen_capture#Screencast_software
+# Install screen recorder
+pacman -S --needed --noconfirm obs-studio
+
+# https://wiki.archlinux.org/title/List_of_applications/Utilities#Archive_managers
+# Install archive manager
+pacman -S --needed --noconfirm engrampa
+
+# https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel to run sudo entering password
 sed -i 's/^%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
