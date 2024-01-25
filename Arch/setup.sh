@@ -182,11 +182,12 @@ runuser -l shyguy -c ". '$codiumSettings/.config.sh'"
 # Configure pwsh
 runuser -l shyguy -c "pwsh -NoProfile -File '$machineSetup/pwsh/setup.ps1'"
 
+# Configure user environment
+runuser -l shyguy -c "command cp -r '$machineSetup/.config' '$HOME_user'"
+
 # https://wiki.archlinux.org/title/redshift#Installation
 # Install screen color temperature adjuster
 pacman -S --needed --noconfirm redshift
-# Configure redshift
-runuser -l shyguy -c "command cp -r '$machineSetup/.config' '$HOME_user'"
 # https://bbs.archlinux.org/viewtopic.php?id=177473https://bbs.archlinux.org/viewtopic.php?id=177473
 # Fix redshift not autostarting
 [ ! -f /usr/lib/systemd/user/redshift.service ] \
@@ -221,16 +222,32 @@ pacman -S --needed --noconfirm vlc
 # Install video editor
 pacman -S --needed --noconfirm shotcut
 
+# https://wiki.archlinux.org/title/Screen_capture#maim
+# Install cli screenshot tool with window and clipboard support
+pacman -S --needed --noconfirm maim xdotool xclip
 # https://wiki.archlinux.org/title/Screen_capture#Dedicated_software
-# Install screenshot tool
+# Install GUI screenshot tool
 pacman -S --needed --noconfirm xfce4-screenshooter
 # https://wiki.archlinux.org/title/Screen_capture#Screencast_software
 # Install screen recorder
 pacman -S --needed --noconfirm obs-studio
 
+# https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
+# Install cli and GUI task manager
+pacman -S --needed --noconfirm htop xfce4-taskmanager
+
 # https://wiki.archlinux.org/title/List_of_applications/Utilities#Archive_managers
 # Install archive manager
 pacman -S --needed --noconfirm engrampa
+
+# https://wiki.archlinux.org/title/Clipboard#Managers
+# Install GUI clipboard manager
+pacman -S --needed --noconfirm xfce4-clipman-plugin
+
+# https://wiki.archlinux.org/title/Xfce#Menu
+# https://forum.endeavouros.com/t/using-windows-super-l-key-for-whisker-menu-and-tiling-shortcuts/27784/2
+# Install application launcher binded to windows/super key
+pacman -S --needed --noconfirm xfce4-whiskermenu-plugin xcape
 
 # https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel to run sudo entering password
