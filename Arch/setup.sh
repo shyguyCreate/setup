@@ -146,8 +146,8 @@ systemctl enable docker.socket
 groupadd docker
 usermod -aG docker shyguy
 
-# Install git
-pacman -S --needed --noconfirm git
+# Install git and gh
+pacman -S --needed --noconfirm git github-cli
 # https://git-scm.com/docs/git-config#Documentation/git-config.txt---system
 # https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch
 # Set main as the default branch name
@@ -168,7 +168,7 @@ gh_pkgs="$HOME_user/Github/gh-pkgs"
 runuser -l shyguy -c "git clone https://github.com/shyguyCreate/gh-pkgs.git '$gh_pkgs'"
 
 # Install packages with gh-pkgs
-runuser -l shyguy -c "'$gh_pkgs/gh-pkgs.sh' install codium gh mesloLGS oh-my-posh pwsh shellcheck shfmt yay"
+runuser -l shyguy -c "'$gh_pkgs/gh-pkgs.sh' install codium mesloLGS oh-my-posh pwsh shellcheck shfmt"
 
 # Clone codium settings from gist
 codiumSettings="$HOME_user/Github/gist/codium-Settings"
@@ -197,8 +197,18 @@ pacman -S --needed --noconfirm redshift
 # Enable redshift user unit service
 runuser -l shyguy -c "systemctl --user enable redshift.service"
 
+# https://github.com/Jguer/yay#Installation
+# Install yay from AUR
+runuser -l shyguy -c "cd '$HOME_user' && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si"
+# Clean yay clone
+[ -d "$HOME_user/yay" ] && rm -rf "$HOME_user/yay"
+
 # Install onlyoffice desktop
 runuser -l shyguy -c "yay -S --needed --noconfirm onlyoffice-bin"
+
+# https://wiki.archlinux.org/title/File_manager_functionality#Mounting
+# Add mount support for mobile devices
+pacman -S --needed --noconfirm  gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
 
 # https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 # Install web browser
@@ -227,7 +237,7 @@ pacman -S --needed --noconfirm shotcut
 pacman -S --needed --noconfirm maim xdotool xclip
 # https://wiki.archlinux.org/title/Screen_capture#Dedicated_software
 # Install GUI screenshot tool
-pacman -S --needed --noconfirm xfce4-screenshooter
+pacman -S --needed --noconfirm gnome-screenshot
 # https://wiki.archlinux.org/title/Screen_capture#Screencast_software
 # Install screen recorder
 pacman -S --needed --noconfirm obs-studio
