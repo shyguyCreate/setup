@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=clipcatd
+Comment=Start clipcat daemon
+Exec=clipcatd
+StartupNotify=false
+Terminal=false
+Hidden=false
+

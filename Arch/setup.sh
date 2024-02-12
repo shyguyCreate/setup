@@ -199,7 +199,7 @@ runuser -l shyguy -c "systemctl --user enable redshift.service"
 
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
-runuser -l shyguy -c "cd '$HOME_user' && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si"
+runuser -l shyguy -c "cd '$HOME_user' && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --needed --noconfirm"
 # Clean yay clone
 [ -d "$HOME_user/yay" ] && rm -rf "$HOME_user/yay"
 
@@ -208,7 +208,7 @@ runuser -l shyguy -c "yay -S --needed --noconfirm onlyoffice-bin"
 
 # https://wiki.archlinux.org/title/File_manager_functionality#Mounting
 # Add mount support for mobile devices
-pacman -S --needed --noconfirm  gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
+pacman -S --needed --noconfirm gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
 
 # https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 # Install web browser
@@ -252,7 +252,7 @@ pacman -S --needed --noconfirm engrampa
 
 # https://wiki.archlinux.org/title/Clipboard#Managers
 # Install GUI clipboard manager
-pacman -S --needed --noconfirm xfce4-clipman-plugin
+pacman -S --needed --noconfirm clipcat rofi
 
 # https://wiki.archlinux.org/title/Xfce#Menu
 # https://forum.endeavouros.com/t/using-windows-super-l-key-for-whisker-menu-and-tiling-shortcuts/27784/2
