@@ -3,13 +3,13 @@ finder = "rofi"
 
 [rofi]
 line_length = 100
-menu_length = 20
+menu_length = 10
 menu_prompt = "Clipcat"
-extra_arguments = []
+extra_arguments = ["-no-show-icons"]
 
 [dmenu]
 line_length = 100
-menu_length = 20
+menu_length = 30
 menu_prompt = "Clipcat"
 extra_arguments = []
 

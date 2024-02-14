@@ -250,14 +250,13 @@ pacman -S --needed --noconfirm htop xfce4-taskmanager
 # Install archive manager
 pacman -S --needed --noconfirm engrampa
 
+# https://wiki.archlinux.org/title/List_of_applications/Other#Application_launchers
+# Install application launcher and bind to windows/super key
+pacman -S --needed --noconfirm rofi xcape
+
 # https://wiki.archlinux.org/title/Clipboard#Managers
 # Install GUI clipboard manager
-pacman -S --needed --noconfirm clipcat rofi
-
-# https://wiki.archlinux.org/title/Xfce#Menu
-# https://forum.endeavouros.com/t/using-windows-super-l-key-for-whisker-menu-and-tiling-shortcuts/27784/2
-# Install application launcher binded to windows/super key
-pacman -S --needed --noconfirm xfce4-whiskermenu-plugin xcape
+pacman -S --needed --noconfirm clipcat
 
 # https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel to run sudo entering password

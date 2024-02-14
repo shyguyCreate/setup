@@ -1,1 +1,17 @@
-@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
+@theme "Arc-Dark.rasi"
+
+listview {
+  lines: 10;
+  fixed-height: false;
+}
+
+configuration {
+  display-drun: "Launcher";
+  display-window: "Switch";
+  window-format: "{c}   {w}   {t}";
+  modi: "window,drun";
+  show-icons: true;
+  sort: true;
+  sorting-method: "fzf";
+  kb-cancel: "Escape,Control+g,Control+bracketleft,Alt+F1";
+}
