@@ -2,7 +2,6 @@
 
 listview {
   lines: 10;
-  fixed-height: false;
 }
 
 configuration {

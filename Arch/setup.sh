@@ -136,7 +136,7 @@ sed -i 's/hosts: mymachines resolve \[!UNAVAIL=return\] files myhostname dns/hos
 # Install GUI for printer
 pacman -S --needed --noconfirm system-config-printer
 
-# https://wiki.archlinux.org/title/docker#Installation
+# https://wiki.archlinux.org/title/Docker#Installation
 # Install docker (engine, compose, and buildx)
 pacman -S --needed --noconfirm docker docker-compose docker-buildx
 # Enable docker daemon
@@ -209,6 +209,10 @@ runuser -l shyguy -c "yay -S --needed --noconfirm onlyoffice-bin"
 # https://wiki.archlinux.org/title/File_manager_functionality#Mounting
 # Add mount support for mobile devices
 pacman -S --needed --noconfirm gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
+
+# https://wiki.archlinux.org/title/Desktop_notifications
+# Add support for desktop notifications
+pacman -S --needed --noconfirm libnotify dunst
 
 # https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 # Install web browser
