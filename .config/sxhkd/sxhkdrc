@@ -1,0 +1,19 @@
+# Raise the volume
+XF86AudioRaiseVolume
+    pactl set-sink-volume 0 +5%; . $HOME/.config/sxhkd/scripts/volume.sh
+
+# Raise the volume
+XF86AudioLowerVolume
+    pactl set-sink-volume 0 -5%; . $HOME/.config/sxhkd/scripts/volume.sh
+
+# Mute/unmute the volume
+XF86AudioMute
+    pactl set-sink-mute 0 toggle; . $HOME/.config/sxhkd/scripts/volume.sh
+
+# Open program launcher with super key using xcape
+alt + F1
+    rofi -show drun
+
+# Open clipboard history
+super + v
+    clipcat-menu

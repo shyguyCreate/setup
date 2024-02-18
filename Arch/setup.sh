@@ -7,8 +7,9 @@ pacman -S --needed --noconfirm base-devel linux-headers
 # https://wiki.archlinux.org/title/GRUB#Installation
 pacman -S --needed --noconfirm grub efibootmgr
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-# https://wiki.archlinux.org/title/GRUB#Generate_the_main_configuration_file
+# Select default option after N seconds
 sed -i 's/GRUB_TIMEOUT=./GRUB_TIMEOUT=2/' /etc/default/grub
+# https://wiki.archlinux.org/title/GRUB#Generate_the_main_configuration_file
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # https://wiki.archlinux.org/title/NetworkManager#Installation
@@ -96,7 +97,25 @@ lspci -v | grep -A1 -e VGA -e 3D | grep -qi intel && pacman -S --needed --noconf
 pacman -S --needed --noconfirm xorg-init
 
 # https://wiki.archlinux.org/title/Xfce#Installation
-pacman -S --needed --noconfirm xfce4 xfce4-goodies
+pacman -S --needed --noconfirm \
+    exo \
+    garcon \
+    thunar \
+    thunar-volman \
+    tumbler \
+    xfce4-panel \
+    xfce4-power-manager \
+    xfce4-session \
+    xfce4-settings \
+    xfce4-terminal \
+    xfconf \
+    xfdesktop \
+    xfwm4
+pacman -S --needed --noconfirm \
+    mousepad \
+    thunar-archive-plugin \
+    thunar-media-tags-plugin \
+    xfce4-notifyd
 # https://wiki.archlinux.org/title/Xfce#Starting
 # https://wiki.archlinux.org/title/Xinit#xinitrc
 runuser -l shyguy -c "echo 'exec startxfce4' > '$HOME_user/.xinitrc'"
@@ -110,6 +129,10 @@ systemctl enable lightdm.service
 # https://wiki.archlinux.org/title/LightDM#Optional_configuration_and_tweaks
 # Install lightdm GUI
 pacman -S --needed --noconfirm lightdm-gtk-greeter-settings
+
+# https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
+# Install screen lockers
+pacman -S --needed --noconfirm light-locker
 
 # https://wiki.archlinux.org/title/CUPS#Installation
 # Add printer support
@@ -214,6 +237,10 @@ pacman -S --needed --noconfirm gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
 # Add support for desktop notifications
 pacman -S --needed --noconfirm libnotify dunst
 
+# https://wiki.archlinux.org/title/Keyboard_shortcuts#Xorg
+# Install program to map keys
+pacman -S --needed --noconfirm sxhkd
+
 # https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 # Install web browser
 pacman -S --needed --noconfirm firefox
@@ -261,6 +288,10 @@ pacman -S --needed --noconfirm rofi xcape
 # https://wiki.archlinux.org/title/Clipboard#Managers
 # Install GUI clipboard manager
 pacman -S --needed --noconfirm clipcat
+
+# https://wiki.archlinux.org/title/Fzf#Installation
+# Install command-line fuzzy finder
+pacman -S --needed --noconfirm fzf
 
 # https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel to run sudo entering password

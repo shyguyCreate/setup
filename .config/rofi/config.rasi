@@ -12,5 +12,5 @@ configuration {
   show-icons: true;
   sort: true;
   sorting-method: "fzf";
-  kb-cancel: "Escape,Control+g,Control+bracketleft,Alt+F1";
+  kb-cancel: "Escape,Alt+F1,Super_L+v,Super_L+V";
 }
