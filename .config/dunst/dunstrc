@@ -1,0 +1,22 @@
+[global]
+    font = Monospace 9
+
+    ### Icons ###
+    enable_recursive_icon_lookup = true
+    icon_theme = Adwaita
+    icon_position = left
+
+[urgency_low]
+    background = "#191311"
+    foreground = "#5B8234"
+    frame_color = "#5B8234"
+
+[urgency_normal]
+    background = "#191311"
+    foreground = "#3B7C87"
+    frame_color = "#3B7C87"
+
+[urgency_critical]
+    background = "#191311"
+    foreground = "#B7472A"
+    frame_color = "#B7472A"

@@ -1,18 +1,46 @@
-# Raise the volume
-XF86AudioRaiseVolume
-    pactl set-sink-volume 0 +5%; . $HOME/.config/sxhkd/scripts/volume.sh
+# Save screenshot of selection
+Print
+    maim -q --select "$HOME/Pictures/Screenshot-$(date +%Y%m%d%H%M%S).png"
+
+# Save screenshot of window
+shift + Print
+    maim -q -i "$(xdotool getactivewindow)" "$HOME/Pictures/Screenshot-$(date +%Y%m%d%H%M%S).png"
+
+# Save screenshot of full screen
+alt + Print
+    maim -q "$HOME/Pictures/Screenshot-$(date +%Y%m%d%H%M%S).png"
+
+# Copy screenshot of selection
+ctrl + Print
+    maim -q --select | xclip -selection clipboard -t image/png -i
+
+# Copy screenshot of window
+ctrl + shift + Print
+    maim -q -i "$(xdotool getactivewindow)" | xclip -selection clipboard -t image/png -i
+
+# Copy screenshot of full screen
+ctrl + alt + Print
+    maim -q | xclip -selection clipboard -t image/png -i
 
 # Raise the volume
+XF86AudioRaiseVolume
+    pactl set-sink-volume 0 +5%; . "$HOME/.config/sxhkd/scripts/volume.sh"
+
+# Lower the volume
 XF86AudioLowerVolume
-    pactl set-sink-volume 0 -5%; . $HOME/.config/sxhkd/scripts/volume.sh
+    pactl set-sink-volume 0 -5%; . "$HOME/.config/sxhkd/scripts/volume.sh"
 
 # Mute/unmute the volume
 XF86AudioMute
-    pactl set-sink-mute 0 toggle; . $HOME/.config/sxhkd/scripts/volume.sh
+    pactl set-sink-mute 0 toggle; . "$HOME/.config/sxhkd/scripts/volume.sh"
 
 # Open program launcher with super key using xcape
 alt + F1
     rofi -show drun
+
+# Open window switcher
+super + w
+    rofi -show window
 
 # Open clipboard history
 super + v

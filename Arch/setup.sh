@@ -235,11 +235,14 @@ pacman -S --needed --noconfirm gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
 
 # https://wiki.archlinux.org/title/Desktop_notifications
 # Add support for desktop notifications
-pacman -S --needed --noconfirm libnotify dunst
+pacman -S --needed --noconfirm libnotify dunst adwaita-icon-theme
 
 # https://wiki.archlinux.org/title/Keyboard_shortcuts#Xorg
 # Install program to map keys
 pacman -S --needed --noconfirm sxhkd
+# https://wiki.archlinux.org/title/Sxhkd#Configuration
+# Install KEYSYM reader
+pacman -S --needed --noconfirm xorg-xev
 
 # https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 # Install web browser

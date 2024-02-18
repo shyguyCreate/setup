@@ -12,5 +12,5 @@ configuration {
   show-icons: true;
   sort: true;
   sorting-method: "fzf";
-  kb-cancel: "Escape,Alt+F1,Super_L+v,Super_L+V";
+  kb-cancel: "Escape,Alt+F1,Super_L+v,Super_L+V,Super_L+w,Super_L+W";
 }
