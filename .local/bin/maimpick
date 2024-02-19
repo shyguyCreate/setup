@@ -1,12 +1,13 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-DMENU="rofi -dmenu -l 6 -i"
+MENU="rofi -dmenu -l 6 -i -no-show-icons"
+SCREENSHOT="maim -q"
 
 # Check if script is run with an argument
 prompt="$1"
 if [ -z "$prompt" ]; then
     # If not, give prompt to user
-    prompt="$(printf "Select\\t[Print]\\nWindow\\t[Shift+Print]\\nScreen\\t[Alt+Print]\\n(Copy) Select\\t[Ctrl+Print]\\n(Copy) Window\\t[Ctrl+Shift+Print]\\n(Copy) Screen\\t[Ctrl+Alt+ Print]" | ${DMENU} -p "Take screenshot")"
+    prompt="$(printf "Select\\t[Print]\\nWindow\\t[Shift+Print]\\nScreen\\t[Alt+Print]\\n(Copy) Select\\t[Ctrl+Print]\\n(Copy) Window\\t[Ctrl+Shift+Print]\\n(Copy) Screen\\t[Ctrl+Alt+ Print]" | ${MENU} -p "Take screenshot")"
 fi
 
 # File to save screenshot
@@ -27,13 +28,16 @@ send_notification()
     esac
 }
 
+# Prevent errors from maim being masked by xclip
+set -o pipefail
+
 # Run a screenshot command based on user input
 case "$prompt" in
-    "Select"*)        maim -q -u --select "${file}" && send_notification ;;
-    "Window"*)        maim -q -i "$(xdotool getactivewindow)" "${file}" && send_notification ;;
-    "Screen"*)        maim "${file}" && send_notification ;;
-    "(Copy) Select"*) maim -q -u --select | ${copy_to_clipboard} && send_notification ;;
-    "(Copy) Window"*) maim -q -i "$(xdotool getactivewindow)" | ${copy_to_clipboard} && send_notification ;;
-    "(Copy) Screen"*) maim -q | ${copy_to_clipboard} && send_notification ;;
+    "Select"*)        ${SCREENSHOT} -u --select "${file}" && send_notification ;;
+    "Window"*)        ${SCREENSHOT} -i "$(xdotool getactivewindow)" "${file}" && send_notification ;;
+    "Screen"*)        ${SCREENSHOT} "${file}" && send_notification ;;
+    "(Copy) Select"*) ${SCREENSHOT} -u --select | ${copy_to_clipboard} && send_notification ;;
+    "(Copy) Window"*) ${SCREENSHOT} -i "$(xdotool getactivewindow)" | ${copy_to_clipboard} && send_notification ;;
+    "(Copy) Screen"*) ${SCREENSHOT} | ${copy_to_clipboard} && send_notification ;;
     *) exit ;;
 esac

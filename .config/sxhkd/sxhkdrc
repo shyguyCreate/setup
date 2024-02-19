@@ -42,6 +42,10 @@ alt + F1
 super + w
     rofi -show window
 
+# Open command launcher
+super + r
+    rofi -show run
+
 # Open clipboard history
 super + v
     clipcat-menu

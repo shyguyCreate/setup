@@ -8,9 +8,10 @@ configuration {
   display-drun: "Launcher";
   display-window: "Switch";
   window-format: "{c}   {w}   {t}";
-  modi: "window,drun";
+  display-run: "Command";
+  modes: "drun,window,run";
   show-icons: true;
-  sort: true;
+  sort: false;
   sorting-method: "fzf";
-  kb-cancel: "Escape,Alt+F1,Super_L+v,Super_L+V,Super_L+w,Super_L+W";
+  kb-cancel: "Escape,Alt+F1,Super_L+v,Super_L+V,Super_L+w,Super_L+W,Super_L+r,Super_L+R";
 }
