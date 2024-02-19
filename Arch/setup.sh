@@ -207,6 +207,7 @@ runuser -l shyguy -c "pwsh -NoProfile -File '$machineSetup/pwsh/setup.ps1'"
 
 # Configure user environment
 runuser -l shyguy -c "command cp -r '$machineSetup/.config' '$HOME_user'"
+runuser -l shyguy -c "command cp -r '$machineSetup/.local' '$HOME_user'"
 
 # https://wiki.archlinux.org/title/redshift#Installation
 # Install screen color temperature adjuster
@@ -269,9 +270,6 @@ pacman -S --needed --noconfirm shotcut
 # https://wiki.archlinux.org/title/Screen_capture#maim
 # Install cli screenshot tool with window and clipboard support
 pacman -S --needed --noconfirm maim xdotool xclip
-# https://wiki.archlinux.org/title/Screen_capture#Dedicated_software
-# Install GUI screenshot tool
-pacman -S --needed --noconfirm gnome-screenshot
 # https://wiki.archlinux.org/title/Screen_capture#Screencast_software
 # Install screen recorder
 pacman -S --needed --noconfirm obs-studio

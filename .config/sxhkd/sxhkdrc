@@ -1,38 +1,38 @@
 # Save screenshot of selection
 Print
-    maim -q --select "$HOME/Pictures/Screenshot-$(date +%Y%m%d%H%M%S).png"
+    maimpick "Select"
 
 # Save screenshot of window
 shift + Print
-    maim -q -i "$(xdotool getactivewindow)" "$HOME/Pictures/Screenshot-$(date +%Y%m%d%H%M%S).png"
+    maimpick "Window"
 
 # Save screenshot of full screen
 alt + Print
-    maim -q "$HOME/Pictures/Screenshot-$(date +%Y%m%d%H%M%S).png"
+    maimpick "Screen"
 
 # Copy screenshot of selection
 ctrl + Print
-    maim -q --select | xclip -selection clipboard -t image/png -i
+    maimpick "(Copy) Select"
 
 # Copy screenshot of window
 ctrl + shift + Print
-    maim -q -i "$(xdotool getactivewindow)" | xclip -selection clipboard -t image/png -i
+    maimpick "(Copy) Window"
 
 # Copy screenshot of full screen
 ctrl + alt + Print
-    maim -q | xclip -selection clipboard -t image/png -i
+    maimpick "(Copy) Screen"
 
 # Raise the volume
 XF86AudioRaiseVolume
-    pactl set-sink-volume 0 +5%; . "$HOME/.config/sxhkd/scripts/volume.sh"
+    pactl set-sink-volume 0 +5%; volume-notify
 
 # Lower the volume
 XF86AudioLowerVolume
-    pactl set-sink-volume 0 -5%; . "$HOME/.config/sxhkd/scripts/volume.sh"
+    pactl set-sink-volume 0 -5%; volume-notify
 
 # Mute/unmute the volume
 XF86AudioMute
-    pactl set-sink-mute 0 toggle; . "$HOME/.config/sxhkd/scripts/volume.sh"
+    pactl set-sink-mute 0 toggle; volume-notify
 
 # Open program launcher with super key using xcape
 alt + F1
