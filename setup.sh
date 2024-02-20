@@ -180,12 +180,12 @@ git config --system init.defaultBranch main
 runuser -l shyguy -c "mkdir -p '$HOME_user/Github/gist'"
 
 # Clone git repository of this script
-machineSetup="$HOME_user/Github/machine-Setup"
-runuser -l shyguy -c "git clone https://github.com/shyguyCreate/machine-Setup.git '$machineSetup'"
+setupREPO="$HOME_user/Github/setup"
+runuser -l shyguy -c "git clone https://github.com/shyguyCreate/setup.git '$setupREPO'"
 
 # Configure user environment
-runuser -l shyguy -c "command cp -r '$machineSetup/.config' '$HOME_user'"
-runuser -l shyguy -c "command cp -r '$machineSetup/.local' '$HOME_user'"
+runuser -l shyguy -c "command cp -r '$setupREPO/.config' '$HOME_user'"
+runuser -l shyguy -c "command cp -r '$setupREPO/.local' '$HOME_user'"
 
 # Add zsh plugins
 runuser -l shyguy -c ". '$HOME_user/.config/zsh/.zplugins'"
