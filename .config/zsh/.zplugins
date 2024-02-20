@@ -1,0 +1,31 @@
+# Define ZDOTDIR if it wasn't
+ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
+
+# Clone or pull github zsh plugin
+get_zplugin()
+{
+    local repoOwner="$1"
+    local repoName="$2"
+    local repoDir="$ZDOTDIR/$repoName"
+
+    # If plugin directoy do not exist clone otherwise pull
+    if [ ! -d "$repoDir" ]; then
+        echo "Cloning $repoName..."
+        # Shallow clone zsh plugin repo
+        git clone --depth=1 "https://github.com/$repoOwner/$repoName.git" "$repoDir"
+    else
+        echo "Updating $repoName..."
+        # Shallow update zsh plugin repo
+        git -C "$repoDir" fetch --depth 1 -q && git -C "$repoDir" reset --hard FETCH_HEAD -q
+    fi
+}
+
+# Add zsh plugins
+get_zplugin zsh-users zsh-completions
+get_zplugin zsh-users zsh-autosuggestions
+get_zplugin zsh-users zsh-syntax-highlighting
+get_zplugin zsh-users zsh-history-substring-search
+get_zplugin romkatv   powerlevel10k
+
+# Remove git update shallow function
+unset -f git_update_shallow_repo

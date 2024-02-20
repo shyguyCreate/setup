@@ -59,7 +59,7 @@ pacman -S --needed --noconfirm zsh
 echo "export ZDOTDIR=\$HOME/.config/zsh" > /etc/zsh/zshenv
 
 # https://wiki.archlinux.org/title/Users_and_groups#User_management
-# Add user
+# Add new user
 useradd -m -G wheel -s /usr/bin/zsh shyguy
 
 # https://wiki.archlinux.org/title/Sudo#Example_entries
@@ -183,8 +183,12 @@ runuser -l shyguy -c "mkdir -p '$HOME_user/Github/gist'"
 machineSetup="$HOME_user/Github/machine-Setup"
 runuser -l shyguy -c "git clone https://github.com/shyguyCreate/machine-Setup.git '$machineSetup'"
 
-# Configure zsh
-runuser -l shyguy -c "'$machineSetup/zsh/setup.sh'"
+# Configure user environment
+runuser -l shyguy -c "command cp -r '$machineSetup/.config' '$HOME_user'"
+runuser -l shyguy -c "command cp -r '$machineSetup/.local' '$HOME_user'"
+
+# Add zsh plugins
+runuser -l shyguy -c ". '$HOME_user/.config/zsh/.zplugins'"
 
 # Clone gh-pkgs repo
 gh_pkgs="$HOME_user/Github/gh-pkgs"
@@ -204,10 +208,6 @@ runuser -l shyguy -c ". '$codiumSettings/.config.sh'"
 
 # Configure pwsh
 runuser -l shyguy -c "pwsh -NoProfile -File '$machineSetup/pwsh/setup.ps1'"
-
-# Configure user environment
-runuser -l shyguy -c "command cp -r '$machineSetup/.config' '$HOME_user'"
-runuser -l shyguy -c "command cp -r '$machineSetup/.local' '$HOME_user'"
 
 # https://wiki.archlinux.org/title/redshift#Installation
 # Install screen color temperature adjuster
