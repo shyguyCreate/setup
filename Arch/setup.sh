@@ -195,7 +195,7 @@ gh_pkgs="$HOME_user/Github/gh-pkgs"
 runuser -l shyguy -c "git clone https://github.com/shyguyCreate/gh-pkgs.git '$gh_pkgs'"
 
 # Install packages with gh-pkgs
-runuser -l shyguy -c "'$gh_pkgs/gh-pkgs.sh' install codium mesloLGS oh-my-posh pwsh shellcheck shfmt"
+runuser -l shyguy -c "'$gh_pkgs/gh-pkgs.sh' install codium mesloLGS shellcheck shfmt"
 
 # Clone codium settings from gist
 codiumSettings="$HOME_user/Github/gist/codium-Settings"
@@ -205,9 +205,6 @@ runuser -l shyguy -c "git clone https://gist.github.com/efcf9345431ca9e4d3eb2faa
 runuser -l shyguy -c 'curl -s https://api.github.com/repos/foxundermoon/vs-shell-format/releases/latest | grep "\"browser_download_url.*/shell-format-.*\.vsix\"" | cut -d \" -f 4 | xargs curl -LOs'
 runuser -l shyguy -c 'find . -name "shell-format-*.vsix" -exec codium --install-extension '{}' \; -exec rm -f '{}' \;'
 runuser -l shyguy -c ". '$codiumSettings/.config.sh'"
-
-# Configure pwsh
-runuser -l shyguy -c "pwsh -NoProfile -File '$machineSetup/pwsh/setup.ps1'"
 
 # https://wiki.archlinux.org/title/redshift#Installation
 # Install screen color temperature adjuster
