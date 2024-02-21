@@ -15,7 +15,7 @@ fi
 
 # History file configuration options
 export HISTSIZE=10000
-export HISTFILE="$ZDOTDIR/.zhistory"
+export HISTFILE="$HOME/.local/state/zsh/.histfile"
 export SAVEHIST=5000
 
 # Add zsh-completions to fpath
@@ -24,7 +24,7 @@ export SAVEHIST=5000
 # Load completion module
 autoload -Uz compinit
 zmodload -i zsh/complist
-compinit
+compinit -d $HOME/.cache/zsh/zcompdump-$ZSH_VERSION
 
 # Check for zsh script and source it
 source_script() {
@@ -32,10 +32,10 @@ source_script() {
 }
 
 # Source zsh config files
-source_script "$ZDOTDIR/.setopt.zsh"
-source_script "$ZDOTDIR/.zstyle.zsh"
-source_script "$ZDOTDIR/.keys.zsh"
-source_script "$ZDOTDIR/.alias.zsh"
+source_script "$ZDOTDIR/.setopt"
+source_script "$ZDOTDIR/.zstyle"
+source_script "$ZDOTDIR/.bindkey"
+source_script "$ZDOTDIR/.alias"
 
 # Load zsh plugins
 source_script "$ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
