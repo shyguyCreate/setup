@@ -9,7 +9,7 @@
    )
  
    # The list of segments shown on the right. Fill it with less important segments.
-@@ -95,7 +95,7 @@
+@@ -96,7 +96,7 @@
      midnight_commander      # midnight commander shell (https://midnight-commander.org/)
      nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
      chezmoi_shell           # chezmoi shell (https://www.chezmoi.io/)

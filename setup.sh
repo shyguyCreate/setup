@@ -68,7 +68,7 @@ sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: A
 sed -i 's/^%wheel ALL=(ALL:ALL) ALL/# %wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Save user HOME
-HOME_user="$(runuser -l shyguy -c 'echo "$HOME"')"
+USERHOME="$(runuser -l shyguy -c 'echo "$HOME"')"
 
 # Install zip compression and decompression
 pacman -S --needed --noconfirm zip unzip
@@ -118,7 +118,7 @@ pacman -S --needed --noconfirm \
     xfce4-notifyd
 # https://wiki.archlinux.org/title/Xfce#Starting
 # https://wiki.archlinux.org/title/Xinit#xinitrc
-runuser -l shyguy -c "echo 'exec startxfce4' > '$HOME_user/.xinitrc'"
+runuser -l shyguy -c "echo 'exec startxfce4' > '$USERHOME/.xinitrc'"
 
 # https://wiki.archlinux.org/title/LightDM#Installation
 # Install lightdm
@@ -177,28 +177,21 @@ pacman -S --needed --noconfirm git github-cli
 git config --system init.defaultBranch main
 
 # Make directory for Github and gists
-runuser -l shyguy -c "mkdir -p '$HOME_user/Github/gist'"
+runuser -l shyguy -c "mkdir -p '$USERHOME/Github/gist'"
 
 # Clone git repository of this script
-setupREPO="$HOME_user/Github/setup"
+setupREPO="$USERHOME/Github/setup"
 runuser -l shyguy -c "git clone https://github.com/shyguyCreate/setup.git '$setupREPO'"
 
 # Configure user environment
-runuser -l shyguy -c "command cp -r '$setupREPO/.config' '$HOME_user'"
-runuser -l shyguy -c "command cp -r '$setupREPO/.local' '$HOME_user'"
+runuser -l shyguy -c "command cp -r '$setupREPO/.config' '$USERHOME'"
+runuser -l shyguy -c "command cp -r '$setupREPO/.local' '$USERHOME'"
 
 # Add zsh plugins
-runuser -l shyguy -c ". '$HOME_user/.config/zsh/.zplugins'"
-
-# Clone gh-pkgs repo
-gh_pkgs="$HOME_user/Github/gh-pkgs"
-runuser -l shyguy -c "git clone https://github.com/shyguyCreate/gh-pkgs.git '$gh_pkgs'"
-
-# Install packages with gh-pkgs
-runuser -l shyguy -c "'$gh_pkgs/gh-pkgs.sh' install codium mesloLGS shellcheck shfmt"
+runuser -l shyguy -c ". '$USERHOME/.config/zsh/.zplugins'"
 
 # Clone codium settings from gist
-codiumSettings="$HOME_user/Github/gist/codium-Settings"
+codiumSettings="$USERHOME/Github/gist/codium-Settings"
 runuser -l shyguy -c "git clone https://gist.github.com/efcf9345431ca9e4d3eb2faaa6b71564.git '$codiumSettings'"
 
 # Configure codium
@@ -220,10 +213,23 @@ runuser -l shyguy -c "systemctl --user enable redshift.service"
 
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
-runuser -l shyguy -c "cd '$HOME_user' && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --needed --noconfirm"
+runuser -l shyguy -c "cd '$USERHOME' && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --needed --noconfirm"
 # Clean yay clone
-[ -d "$HOME_user/yay" ] && rm -rf "$HOME_user/yay"
+[ -d "$USERHOME/yay" ] && rm -rf "$USERHOME/yay"
 
+# Install shell script formatter
+pacman -S --needed --noconfirm shfmt
+# Install shell script analysis tool
+runuser -l shyguy -c "yay -S --needed --noconfirm shellcheck-bin"
+
+# Install mesloLGS fonts for powerlevel10k
+runuser -l shyguy -c "yay -S --needed --noconfirm ttf-meslo-nerd-font-powerlevel10k"
+
+# https://wiki.archlinux.org/title/Visual_Studio_Code#Installation
+# Install vscodium
+runuser -l shyguy -c "yay -S --needed --noconfirm vscodium-bin"
+
+# https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 # Install onlyoffice desktop
 runuser -l shyguy -c "yay -S --needed --noconfirm onlyoffice-bin"
 
@@ -232,7 +238,7 @@ runuser -l shyguy -c "yay -S --needed --noconfirm onlyoffice-bin"
 pacman -S --needed --noconfirm gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
 
 # https://wiki.archlinux.org/title/Desktop_notifications
-# Add support for desktop notifications
+# Add support for desktop notifications plus icons
 pacman -S --needed --noconfirm libnotify dunst adwaita-icon-theme
 
 # https://wiki.archlinux.org/title/Keyboard_shortcuts#Xorg
