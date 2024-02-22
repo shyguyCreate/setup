@@ -1,5 +1,8 @@
-# Print help message
-[ -f "$ZDOTDIR/.zplugins" ] && printf "Update zsh plugins with 'source \$ZDOTDIR/.zplugins'\n\n"
+# Print help message if tmp file and script exist
+if [ ! -f /tmp/.zplugins ] && [ -f "$ZDOTDIR/.zplugins" ]; then
+    printf "Update zsh plugins with 'source \$ZDOTDIR/.zplugins'\n\n"
+    touch /tmp/.zplugins
+fi
 
 # Load zsh modules
 autoload -U colors && colors
@@ -24,7 +27,7 @@ export SAVEHIST=5000
 # Load completion module
 autoload -Uz compinit
 zmodload -i zsh/complist
-compinit -d $HOME/.cache/zsh/zcompdump-$ZSH_VERSION
+compinit -d "$HOME/.cache/zsh/zcompdump-$ZSH_VERSION"
 
 # Check for zsh script and source it
 source_script() {

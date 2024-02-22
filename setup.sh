@@ -184,6 +184,7 @@ setupREPO="$USERHOME/Github/setup"
 runuser -l shyguy -c "git clone https://github.com/shyguyCreate/setup.git '$setupREPO'"
 
 # Configure user environment
+runuser -l shyguy -c "command cp -r '$setupREPO/.cache' '$USERHOME'"
 runuser -l shyguy -c "command cp -r '$setupREPO/.config' '$USERHOME'"
 runuser -l shyguy -c "command cp -r '$setupREPO/.local' '$USERHOME'"
 
