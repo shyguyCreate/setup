@@ -1,5 +1,6 @@
 # Define ZDOTDIR if it wasn't
 ZDOTDIR=${ZDOTDIR:-$HOME/.config/zsh}
+[ ! -d "$ZDOTDIR" ] && mkdir -p "$ZDOTDIR"
 
 # Clone or pull github zsh plugin
 get_zplugin()

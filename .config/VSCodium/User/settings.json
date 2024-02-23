@@ -1,0 +1,34 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "debug.console.fontFamily": "'MesloLGS NF'",
+    "terminal.integrated.fontFamily": "'MesloLGS NF'",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.minimumContrastRatio": 1,
+    "files.insertFinalNewline": true,
+    "editor.mouseWheelZoom": true,
+    "window.restoreWindows": "none",
+    "terminal.integrated.commandsToSkipShell": [
+        "workbench.action.toggleSidebarVisibility"
+    ],
+    "powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationForFirstPipeline",
+    "powershell.powerShellAdditionalExePaths": {
+        "pwsh": "/usr/local/bin/pwsh"
+    },
+    "[powershell]": {
+        "editor.defaultFormatter": "ms-vscode.powershell",
+        "editor.formatOnSave": true
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+    },
+    "shellformat.flag": "-bn -ci -sr -kp -fn",
+    "[shellscript]": {
+        "editor.defaultFormatter": "foxundermoon.shell-format",
+        "editor.formatOnSave": true
+    },
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.suggest.insertMode": "replace",
+    "workbench.startupEditor": "none",
+    "window.zoomLevel": 1
+}

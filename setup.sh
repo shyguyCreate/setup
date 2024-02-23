@@ -68,7 +68,7 @@ sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: A
 sed -i 's/^%wheel ALL=(ALL:ALL) ALL/# %wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Save user HOME
-USERHOME="$(runuser -l shyguy -c 'echo "$HOME"')"
+USERHOME="$(runuser -l shyguy -c "echo \$HOME")"
 
 # Install zip compression and decompression
 pacman -S --needed --noconfirm zip unzip
@@ -184,21 +184,13 @@ setupREPO="$USERHOME/Github/setup"
 runuser -l shyguy -c "git clone https://github.com/shyguyCreate/setup.git '$setupREPO'"
 
 # Configure user environment
-runuser -l shyguy -c "command cp -r '$setupREPO/.cache' '$USERHOME'"
-runuser -l shyguy -c "command cp -r '$setupREPO/.config' '$USERHOME'"
-runuser -l shyguy -c "command cp -r '$setupREPO/.local' '$USERHOME'"
+[ -d "$setupREPO/.cache'" ]     && runuser -l shyguy -c "command cp -r '$setupREPO/.cache' '$USERHOME'"
+[ -d "$setupREPO/.config'" ]    && runuser -l shyguy -c "command cp -r '$setupREPO/.config' '$USERHOME'"
+[ -d "$setupREPO/.local'" ]     && runuser -l shyguy -c "command cp -r '$setupREPO/.local' '$USERHOME'"
+[ -d "$setupREPO/.vscode-oss" ] && runuser -l shyguy -c "command cp -r '$setupREPO/.vscode-oss' '$USERHOME'"
 
 # Add zsh plugins
-runuser -l shyguy -c ". '$USERHOME/.config/zsh/.zplugins'"
-
-# Clone codium settings from gist
-codiumSettings="$USERHOME/Github/gist/codium-Settings"
-runuser -l shyguy -c "git clone https://gist.github.com/efcf9345431ca9e4d3eb2faaa6b71564.git '$codiumSettings'"
-
-# Configure codium
-runuser -l shyguy -c 'curl -s https://api.github.com/repos/foxundermoon/vs-shell-format/releases/latest | grep "\"browser_download_url.*/shell-format-.*\.vsix\"" | cut -d \" -f 4 | xargs curl -LOs'
-runuser -l shyguy -c 'find . -name "shell-format-*.vsix" -exec codium --install-extension '{}' \; -exec rm -f '{}' \;'
-runuser -l shyguy -c ". '$codiumSettings/.config.sh'"
+runuser -l shyguy -c ". '$setupREPO/.config/zsh/.zplugins'"
 
 # https://wiki.archlinux.org/title/redshift#Installation
 # Install screen color temperature adjuster
@@ -229,6 +221,20 @@ runuser -l shyguy -c "yay -S --needed --noconfirm ttf-meslo-nerd-font-powerlevel
 # https://wiki.archlinux.org/title/Visual_Studio_Code#Installation
 # Install vscodium
 runuser -l shyguy -c "yay -S --needed --noconfirm vscodium-bin"
+# Clone gist to install vscodium extensions from github
+vsix_install="$USERHOME/Github/gist/vsix-install"
+runuser -l shyguy -c "git clone https://gist.github.com/a8338ed17537e347b3aa9b34d101f1d7.git '$vsix_install'"
+# Link vsix installer script to bin folder
+runuser -l shyguy -c "chmod +x '$vsix_install/vsix-install.sh'; ln -sf '$vsix_install/vsix-install.sh' '$USERHOME/.local/bin/vsix-install'"
+# Install vscodium extensions from github repositories
+runuser -l shyguy -c "vsix-install gitkraken/vscode-gitlens"
+runuser -l shyguy -c "vsix-install prettier/prettier-vscode"
+runuser -l shyguy -c "vsix-install foxundermoon/vs-shell-format"
+runuser -l shyguy -c "vsix-install PKief/vscode-material-icon-theme"
+# Install vscodium extensions from file
+while IFS= read -r extension; do
+    runuser -l shyguy -c "codium --install-extension '$extension'"
+done < "$setupREPO/.vscode-oss/.vsextensions"
 
 # https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 # Install onlyoffice desktop

@@ -18,7 +18,7 @@ fi
 
 # History file configuration options
 export HISTSIZE=10000
-export HISTFILE="$HOME/.local/state/zsh/.histfile"
+export HISTFILE="$HOME/.local/state/zsh/history"
 export SAVEHIST=5000
 
 # Add zsh-completions to fpath
