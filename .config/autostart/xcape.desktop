@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=xcape
-Comment=Map Super Keys to Menu
-Exec=xcape -e 'Super_L=Alt_L|F1;Super_R=Alt_L|F1'
-StartupNotify=false
-Terminal=false
-Hidden=false
-

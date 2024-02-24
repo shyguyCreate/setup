@@ -183,14 +183,15 @@ runuser -l shyguy -c "mkdir -p '$USERHOME/Github/gist'"
 setupREPO="$USERHOME/Github/setup"
 runuser -l shyguy -c "git clone https://github.com/shyguyCreate/setup.git '$setupREPO'"
 
-# Configure user environment
-[ -d "$setupREPO/.cache'" ]     && runuser -l shyguy -c "command cp -r '$setupREPO/.cache' '$USERHOME'"
-[ -d "$setupREPO/.config'" ]    && runuser -l shyguy -c "command cp -r '$setupREPO/.config' '$USERHOME'"
-[ -d "$setupREPO/.local'" ]     && runuser -l shyguy -c "command cp -r '$setupREPO/.local' '$USERHOME'"
-[ -d "$setupREPO/.vscode-oss" ] && runuser -l shyguy -c "command cp -r '$setupREPO/.vscode-oss' '$USERHOME'"
+# Clone dotfiles repository
+dotfilesREPO="$USERHOME/Github/dotfiles"
+runuser -l shyguy -c "git clone https://github.com/shyguyCreate/dotfiles.git '$dotfilesREPO'"
 
-# Add zsh plugins
-runuser -l shyguy -c ". '$setupREPO/.config/zsh/.zplugins'"
+# Copy dotfiles to user home directory
+[ -d "$dotfilesREPO" ] && runuser -l shyguy -c "command cp -r '$dotfilesREPO' '$USERHOME'"
+
+# Clone zsh plugins in ~/.config/zsh
+[ -f "$dotfilesREPO/.config/zsh/.zplugins" ] && runuser -l shyguy -c ". '$dotfilesREPO/.config/zsh/.zplugins'"
 
 # https://wiki.archlinux.org/title/redshift#Installation
 # Install screen color temperature adjuster
@@ -232,9 +233,11 @@ runuser -l shyguy -c "vsix-install prettier/prettier-vscode"
 runuser -l shyguy -c "vsix-install foxundermoon/vs-shell-format"
 runuser -l shyguy -c "vsix-install PKief/vscode-material-icon-theme"
 # Install vscodium extensions from file
-while IFS= read -r extension; do
-    runuser -l shyguy -c "codium --install-extension '$extension'"
-done < "$setupREPO/.vscode-oss/.vsextensions"
+if [ -f "$dotfilesREPO/.vscode-oss/.vsextensions" ]; then
+    while IFS= read -r extension; do
+        runuser -l shyguy -c "codium --install-extension '$extension'"
+    done < "$dotfilesREPO/.vscode-oss/.vsextensions"
+fi
 
 # https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 # Install onlyoffice desktop

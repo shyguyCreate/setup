@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=dunst
-Comment=Start notification daemon
-Exec=dunst
-StartupNotify=false
-Terminal=false
-Hidden=false
-

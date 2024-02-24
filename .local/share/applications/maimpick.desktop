@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Screenshot
-GenericName=Maimpick
-Comment=Screenshot picker
-Exec=maimpick
-Icon=applets-screenshooter-symbolic
-Categories=Utility;Development
-Terminal=false
