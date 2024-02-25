@@ -17,7 +17,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -S --needed --noconfirm networkmanager network-manager-applet
 systemctl enable NetworkManager
 
-# https://wiki.archlinux.org/title/broadcom_wireless#Driver_selection
+# https://wiki.archlinux.org/title/Broadcom_wireless#Driver_selection
 # Check if Broadcom drivers are needed
 [ -n "$(lspci -d 14e4:)" ] && pacman -S --needed --noconfirm broadcom-wl-dkms
 
@@ -56,7 +56,8 @@ pacman -S --needed --noconfirm bash-completion bash-language-server
 pacman -S --needed --noconfirm zsh
 # https://wiki.archlinux.org/title/XDG_Base_Directory#Hardcoded
 # Change zsh dotfiles to ~/.config/zsh
-echo "export ZDOTDIR=\$HOME/.config/zsh" > /etc/zsh/zshenv
+# shellcheck disable=SC2016
+echo 'export ZDOTDIR=$HOME/.config/zsh' > /etc/zsh/zshenv
 
 # https://wiki.archlinux.org/title/Users_and_groups#User_management
 # Add new user
@@ -68,7 +69,8 @@ sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: A
 sed -i 's/^%wheel ALL=(ALL:ALL) ALL/# %wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Save user HOME
-USERHOME="$(runuser -l shyguy -c "echo \$HOME")"
+# shellcheck disable=SC2016
+USERHOME="$(runuser -l shyguy -c 'echo $HOME')"
 
 # Install zip compression and decompression
 pacman -S --needed --noconfirm zip unzip
@@ -188,12 +190,12 @@ dotfilesREPO="$USERHOME/Github/dotfiles"
 runuser -l shyguy -c "git clone https://github.com/shyguyCreate/dotfiles.git '$dotfilesREPO'"
 
 # Copy dotfiles to user home directory
-[ -d "$dotfilesREPO" ] && runuser -l shyguy -c "command cp -r '$dotfilesREPO' '$USERHOME'"
+[ -f "$dotfilesREPO/push.sh" ] && runuser -l shyguy -c "chmod +x $dotfilesREPO/push.sh" && runuser -l shyguy -c "$dotfilesREPO/push.sh"
 
 # Clone zsh plugins in ~/.config/zsh
 [ -f "$dotfilesREPO/.config/zsh/.zplugins" ] && runuser -l shyguy -c ". '$dotfilesREPO/.config/zsh/.zplugins'"
 
-# https://wiki.archlinux.org/title/redshift#Installation
+# https://wiki.archlinux.org/title/Redshift#Installation
 # Install screen color temperature adjuster
 pacman -S --needed --noconfirm redshift
 # https://bbs.archlinux.org/viewtopic.php?id=177473https://bbs.archlinux.org/viewtopic.php?id=177473
@@ -201,7 +203,7 @@ pacman -S --needed --noconfirm redshift
 [ ! -f /usr/lib/systemd/user/redshift.service ] \
     || grep -q 'Environment=DISPLAY=:0' /usr/lib/systemd/user/redshift.service \
     || sed -i 's/\[Service\]/[Service]\nEnvironment=DISPLAY=:0/' /usr/lib/systemd/user/redshift.service
-# https://wiki.archlinux.org/title/redshift#Autostart
+# https://wiki.archlinux.org/title/Redshift#Autostart
 # Enable redshift user unit service
 runuser -l shyguy -c "systemctl --user enable redshift.service"
 
