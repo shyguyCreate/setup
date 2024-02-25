@@ -93,9 +93,8 @@ pacman -S --needed --noconfirm xorg-server
 # https://wiki.archlinux.org/title/Xorg#Driver_installation
 # Install intel video drivers
 lspci -v | grep -A1 -e VGA -e 3D | grep -qi intel && pacman -S --needed --noconfirm xf86-video-intel mesa vulkan-intel
-# https://wiki.archlinux.org/title/Xorg#Running
 # https://wiki.archlinux.org/title/Xinit#Installation
-# Add starx
+# Add starx command
 pacman -S --needed --noconfirm xorg-init
 
 # https://wiki.archlinux.org/title/Xfce#Installation
@@ -118,9 +117,6 @@ pacman -S --needed --noconfirm \
     thunar-archive-plugin \
     thunar-media-tags-plugin \
     xfce4-notifyd
-# https://wiki.archlinux.org/title/Xfce#Starting
-# https://wiki.archlinux.org/title/Xinit#xinitrc
-runuser -l shyguy -c "echo 'exec startxfce4' > '$USERHOME/.xinitrc'"
 
 # https://wiki.archlinux.org/title/LightDM#Installation
 # Install lightdm
@@ -194,18 +190,6 @@ runuser -l shyguy -c "git clone https://github.com/shyguyCreate/dotfiles.git '$d
 
 # Clone zsh plugins in ~/.config/zsh
 [ -f "$dotfilesREPO/.config/zsh/.zplugins" ] && runuser -l shyguy -c ". '$dotfilesREPO/.config/zsh/.zplugins'"
-
-# https://wiki.archlinux.org/title/Redshift#Installation
-# Install screen color temperature adjuster
-pacman -S --needed --noconfirm redshift
-# https://bbs.archlinux.org/viewtopic.php?id=177473https://bbs.archlinux.org/viewtopic.php?id=177473
-# Fix redshift not autostarting
-[ ! -f /usr/lib/systemd/user/redshift.service ] \
-    || grep -q 'Environment=DISPLAY=:0' /usr/lib/systemd/user/redshift.service \
-    || sed -i 's/\[Service\]/[Service]\nEnvironment=DISPLAY=:0/' /usr/lib/systemd/user/redshift.service
-# https://wiki.archlinux.org/title/Redshift#Autostart
-# Enable redshift user unit service
-runuser -l shyguy -c "systemctl --user enable redshift.service"
 
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
@@ -304,6 +288,10 @@ pacman -S --needed --noconfirm rofi xcape
 # https://wiki.archlinux.org/title/Clipboard#Managers
 # Install GUI clipboard manager
 pacman -S --needed --noconfirm clipcat
+
+# https://wiki.archlinux.org/title/Redshift#Installation
+# Install screen color temperature adjuster
+pacman -S --needed --noconfirm redshift
 
 # https://wiki.archlinux.org/title/Fzf#Installation
 # Install command-line fuzzy finder
