@@ -1,154 +1,35 @@
 # Arch installation
 
-To get the Arch ISO, refer to the [Installation guide](https://wiki.archlinux.org/title/Installation_guide#Pre-installation) in the Arch wiki.
-
-Now, inside the USB live session, do the following:
+Follow the [installation guide](https://wiki.archlinux.org/title/Installation_guide#Pre-installation) in the Arch wiki until you complete the section of [booting from the ISO](https://wiki.archlinux.org/title/Installation_guide#Boot_the_live_environment). Now, inside the live session, do the following:
 
 ---
 
-https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout_and_font
-
-List available keyboard layouts
-
-```
-localectl list-keymaps
-```
-
-Set keyboard layout (latam latin)
-
-```
-loadkeys la-latin1
-```
-
----
-
-https://wiki.archlinux.org/title/Installation_guide#Verify_the_boot_mode
-
-Verify UEFI
-
-```
-cat /sys/firmware/efi/fw_platform_size
-```
-
----
-
-https://wiki.archlinux.org/title/Installation_guide#Connect_to_the_internet
-
-Connect to wireless internet
+Connect to [wireless internet](https://wiki.archlinux.org/title/Installation_guide#Connect_to_the_internet) using [iwctl](https://wiki.archlinux.org/title/Iwd#iwctl)
 
 ```
 iwctl
-```
-
-https://wiki.archlinux.org/title/Iwd#Connect_to_a_network
-
-```
 [iwd]# device list
-[iwd]# device _device_ set-property Powered on   # if powered off
-[iwd]# adapter _adapter_ set-property Powered on # if powered off
-[iwd]# station _device_ scan
-[iwd]# station _device_ get-networks
-[iwd]# station _device_ connect _SSID_internet_name
-[iwd]# station device show
-[iwd]# Ctrl+d # exit
-```
-
-Check internet connection
-
-```
-ping archlinux.org
+[iwd]# device  _device_  set-property Powered on        # if powered off
+[iwd]# adapter _adapter_ set-property Powered on        # if powered off
+[iwd]# station _device_ scan                            # scan for networks
+[iwd]# station _device_ get-networks                    # list networks
+[iwd]# station _device_ connect _SSID_internet_name_    # connect to network
+[iwd]# station device show                              # display the connection state
+[iwd]#  ( Ctrl+d )                                      # exit
 ```
 
 ---
 
-https://wiki.archlinux.org/title/Installation_guide#Update_the_system_clock
-
-Activate network time synchronization
+Run installation script
 
 ```
-timedatectl set-ntp true
-```
-
----
-
-https://wiki.archlinux.org/title/Installation_guide#Partition_the_disks
-
-```
-fdisk /dev/sdX
-```
-
-Partition disk
-
-```
-d     # delete partition (repeat multiple times)
-n +1G # boot
-n +5G # swap
-n     # root
-w     # write to disk
+curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/install.sh
+. install.sh
 ```
 
 ---
 
-https://wiki.archlinux.org/title/Installation_guide#Format_the_partitions
-
-Format root partition
-
-```
-mkfs.mkfs.ext4 /dev/sdX3
-```
-
-https://wiki.archlinux.org/title/EFI_system_partition#Format_the_partition
-
-Format boot partition
-
-```
-mkfs.fat -F 32 /dev/
-```
-
-https://wiki.archlinux.org/title/Swap#Swap_partition
-
-Format swap partition
-
-```
-mkswap /dev/sdX2
-```
-
----
-
-https://wiki.archlinux.org/title/Installation_guide#Mount_the_file_systems
-
-Mount disk
-
-```
-mount /dev/sdX3 /mnt
-mount --mkdir /dev/sdX1 /mnt/boot
-swapon /dev/sdX2
-```
-
----
-
-https://wiki.archlinux.org/title/Installation_guide#Install_essential_packages
-
-Install packages in new system
-
-```
-pacstrap -K /mnt base linux linux-firmware
-```
-
----
-
-https://wiki.archlinux.org/title/Installation_guide#Fstab
-
-Define disk partitions
-
-```
-genfstab -U /mnt >> /mnt/etc/fstab
-```
-
----
-
-https://wiki.archlinux.org/title/Installation_guide#Chroot
-Change root into new system
+[Change root into new system](https://wiki.archlinux.org/title/Installation_guide#Chroot)
 
 ```
 arch-chroot /mnt
@@ -156,7 +37,7 @@ arch-chroot /mnt
 
 ---
 
-Run installation script (**must be run as root**)
+Run setup script (**must be run as root**)
 
 ```
 curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh
@@ -167,65 +48,30 @@ curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh
 
 ---
 
-https://wiki.archlinux.org/title/Installation_guide#Root_password
-
-Add root password
+[Set the root password](https://wiki.archlinux.org/title/Installation_guide#Root_password)
 
 ```
 passwd
 ```
 
-Add user password
+Set the user password _(**Note:** change shyguy with your username if you change it in the previous step)_
 
 ```
 passwd shyguy
 ```
 
-**Note:** change shyguy with your username if you change it in the previous step
+---
+
+[Reboot the system](https://wiki.archlinux.org/title/Installation_guide#Reboot)
+
+1. Exit chroot: `exit`
+2. Unmount disk: `umount -R /mnt`
+3. Reboot system: `reboot`
 
 ---
 
-https://wiki.archlinux.org/title/Installation_guide#Reboot
-
-Exit from chroot
-
-```
-exit
-```
-
-Unmount disk
-
-```
-umount -R /mnt
-```
-
-Reboot system
-
-```
-reboot
-```
-
----
-
-https://wiki.archlinux.org/title/NetworkManager#Usage
-
-Connect to wireless internet
+Connect to wireless internet using [Network Manger](https://wiki.archlinux.org/title/NetworkManager#Usage)
 
 ```
 nmtui
-```
-
-or
-
-```
-nmcli device wifi list
-nmcli device wifi connect _SSID_internet_name_ password _password_
-nmcli connection show
-nmcli device
-```
-
-Check internet connection
-
-```
-ping archlinux.org
 ```

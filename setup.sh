@@ -4,10 +4,16 @@
 pacman -S --needed --noconfirm base-devel linux-headers
 
 # https://wiki.archlinux.org/title/Installation_guide#Boot_loader
-# https://wiki.archlinux.org/title/GRUB#Installation
 pacman -S --needed --noconfirm grub efibootmgr
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-# Select default option after N seconds
+# https://wiki.archlinux.org/title/Installation_guide#Verify_the_boot_mode
+case "$(cat /sys/firmware/efi/fw_platform_size 2> /dev/null)" in
+    # https://wiki.archlinux.org/title/GRUB#Installation
+    64) grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB ;;
+    32) grub-install --target=i386-efi   --efi-directory=/boot --bootloader-id=GRUB ;;
+    # https://wiki.archlinux.org/title/GRUB#Installation_2
+    "") grub-install --target=i386-pc /dev/sdX ;;
+esac
+# Select default option after N seconds in GRUB menu
 sed -i 's/GRUB_TIMEOUT=./GRUB_TIMEOUT=2/' /etc/default/grub
 # https://wiki.archlinux.org/title/GRUB#Generate_the_main_configuration_file
 grub-mkconfig -o /boot/grub/grub.cfg
