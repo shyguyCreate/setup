@@ -1,4 +1,4 @@
-# Arch installation
+# Arch Installation
 
 Follow the [installation guide](https://wiki.archlinux.org/title/Installation_guide#Pre-installation) in the Arch wiki until you complete the section of [booting from the ISO](https://wiki.archlinux.org/title/Installation_guide#Boot_the_live_environment). Now, inside the live session, do the following:
 
@@ -20,7 +20,7 @@ iwctl
 
 ---
 
-Run installation script
+Run installation script[^1]
 
 ```
 curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/install.sh
@@ -37,14 +37,14 @@ arch-chroot /mnt
 
 ---
 
-Run setup script (**must be run as root**)
+Run setup script[^1]
 
 ```
 curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh
 . setup.sh > output.txt 2> error.txt
 ```
 
-**Note:** run `sed -i 's/\<shyguy\>/your_username/g' setup.sh` to set a custom username before running the script
+<sup>**Note:** run `sed -i 's/\<shyguy\>/your_username/g' setup.sh` to set a custom username before running the script</sup>
 
 ---
 
@@ -75,3 +75,5 @@ Connect to wireless internet using [Network Manger](https://wiki.archlinux.org/t
 ```
 nmtui
 ```
+
+[^1]: Script assumes that is running as root.
