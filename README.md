@@ -37,14 +37,13 @@ arch-chroot /mnt
 
 ---
 
-Run setup script[^1]
+Run setup script[^1]<br>
+<sub>**Note:** run `sed -i 's/\<shyguy\>/your_username/g' setup.sh` before running the script to set a custom username</sub>
 
 ```
 curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh
 . setup.sh > output.txt 2> error.txt
 ```
-
-<sup>**Note:** run `sed -i 's/\<shyguy\>/your_username/g' setup.sh` to set a custom username before running the script</sup>
 
 ---
 
@@ -54,7 +53,8 @@ curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh
 passwd
 ```
 
-Set the user password _(**Note:** change shyguy with your username if you change it in the previous step)_
+Set the user password<br>
+<sub>**Note:** change shyguy with your username if you change it in the script</sub>
 
 ```
 passwd shyguy
