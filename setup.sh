@@ -122,7 +122,8 @@ pacman -S --needed --noconfirm \
     mousepad \
     thunar-archive-plugin \
     thunar-media-tags-plugin \
-    xfce4-notifyd
+    xfce4-notifyd \
+    xfce4-screensaver
 
 # https://wiki.archlinux.org/title/LightDM#Installation
 # Install lightdm
@@ -133,10 +134,6 @@ systemctl enable lightdm.service
 # https://wiki.archlinux.org/title/LightDM#Optional_configuration_and_tweaks
 # Install lightdm GUI
 pacman -S --needed --noconfirm lightdm-gtk-greeter-settings
-
-# https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
-# Install screen lockers
-pacman -S --needed --noconfirm light-locker
 
 # https://wiki.archlinux.org/title/CUPS#Installation
 # Add printer support

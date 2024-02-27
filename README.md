@@ -8,14 +8,14 @@ Connect to [wireless internet](https://wiki.archlinux.org/title/Installation_gui
 
 ```
 iwctl
-[iwd]# device list
-[iwd]# device  _device_  set-property Powered on        # if powered off
-[iwd]# adapter _adapter_ set-property Powered on        # if powered off
-[iwd]# station _device_ scan                            # scan for networks
-[iwd]# station _device_ get-networks                    # list networks
-[iwd]# station _device_ connect _SSID_internet_name_    # connect to network
-[iwd]# station device show                              # display the connection state
-[iwd]#  ( Ctrl+d )                                      # exit
+[iwd]# device list                                # list wifi devices
+[iwd]# device  _device_  set-property Powered on  # turn on device
+[iwd]# adapter _adapter_ set-property Powered on  # turn on adapter
+[iwd]# station _device_ scan                      # scan for networks
+[iwd]# station _device_ get-networks              # list networks
+[iwd]# station _device_ connect _SSID_            # connect to network
+[iwd]# station device show                        # display connection state
+[iwd]#  ( Ctrl+d )                                # exit
 ```
 
 ---
