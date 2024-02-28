@@ -32,7 +32,7 @@ swapon /dev/sdX2
 
 # https://wiki.archlinux.org/title/Installation_guide#Install_essential_packages
 # Install packages in new system
-pacstrap -K /mnt base linux linux-firmware
+pacstrap -K /mnt base base-devel linux linux-firmware linux-headers
 
 # https://wiki.archlinux.org/title/Installation_guide#Fstab
 # Define disk partitions

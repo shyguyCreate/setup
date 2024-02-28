@@ -37,6 +37,14 @@ arch-chroot /mnt
 
 ---
 
+[Set the root password](https://wiki.archlinux.org/title/Installation_guide#Root_password)
+
+```
+passwd
+```
+
+---
+
 Run setup script[^1]<br>
 <sub>**Note:** run `sed -i 's/\<shyguy\>/your_username/g' setup.sh` before running the script to set a custom username</sub>
 
@@ -46,12 +54,6 @@ curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh
 ```
 
 ---
-
-[Set the root password](https://wiki.archlinux.org/title/Installation_guide#Root_password)
-
-```
-passwd
-```
 
 Set the user password<br>
 <sub>**Note:** change shyguy with your username if you change it in the script</sub>
