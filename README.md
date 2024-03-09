@@ -46,7 +46,7 @@ passwd
 ---
 
 Run setup script[^1]<br>
-<sub>**Note:** run `sed -i 's/\<shyguy\>/your_username/g' setup.sh` before running the script to set a custom username</sub>
+<sub>**Note:** to change username, modify variables inside the script</sub>
 
 ```
 curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh

@@ -1,5 +1,32 @@
 #!/bin/sh
 
+# Script variables
+NEWUSER="shyguy"
+LOCALE_LANG="en_US.UTF-8"
+KEYBOARD_LAYOUT="la-latin1"
+
+# https://wiki.archlinux.org/title/Installation_guide#Boot_loader
+if [ -f /sys/firmware/efi/fw_platform_size ]; then
+    pacman -S --needed --noconfirm grub efibootmgr
+    # https://wiki.archlinux.org/title/Installation_guide#Verify_the_boot_mode
+    case "$(cat /sys/firmware/efi/fw_platform_size)" in
+        # https://wiki.archlinux.org/title/GRUB#Installation
+        64) grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB ;;
+        32) grub-install --target=i386-efi --efi-directory=/boot --bootloader-id=GRUB ;;
+    esac
+else
+    [ -z "$DISK" ] && echo "Error: Missing disk device, use DISK=/dev/your_disk" > /dev/tty && exit
+    [ -e "$DISK" ] && echo "Error: Disk device does not exist, use DISK=/dev/your_disk" > /dev/tty && exit
+    # https://wiki.archlinux.org/title/GRUB#Installation_2
+    pacman -S --needed --noconfirm grub
+    grub-install --target=i386-pc "$DISK"
+fi
+# https://wiki.archlinux.org/title/Installation_guide#Boot_loader
+# Select default option after N seconds in GRUB menu
+sed -i 's/GRUB_TIMEOUT=./GRUB_TIMEOUT=2/' /etc/default/grub
+# https://wiki.archlinux.org/title/GRUB#Generate_the_main_configuration_file
+grub-mkconfig -o /boot/grub/grub.cfg
+
 # https://wiki.archlinux.org/title/Installation_guide#Time
 # Set time zone and update the hardware clock
 ln -sf /usr/share/zoneinfo/US/Central /etc/localtime
@@ -10,28 +37,20 @@ hwclock --systohc
 sed -i 's/^#en_US/en_US/g' /etc/locale.gen
 locale-gen
 # Set the LANG variable
-echo 'LANG=en_US.UTF-8' > /etc/locale.conf
+echo "LANG=$LOCALE_LANG" > /etc/locale.conf
 # Set keyboard layout
-echo 'KEYMAP=la-latin1' > /etc/vconsole.conf
+echo "KEYMAP=$KEYBOARD_LAYOUT" > /etc/vconsole.conf
 
 # https://wiki.archlinux.org/title/Installation_guide#Network_configuration
 # Set hostname for network
 echo 'arch' > /etc/hostname
 
-# https://wiki.archlinux.org/title/Installation_guide#Boot_loader
-pacman -S --needed --noconfirm grub efibootmgr
-# https://wiki.archlinux.org/title/Installation_guide#Verify_the_boot_mode
-case "$(cat /sys/firmware/efi/fw_platform_size 2> /dev/null)" in
-    # https://wiki.archlinux.org/title/GRUB#Installation
-    64) grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB ;;
-    32) grub-install --target=i386-efi   --efi-directory=/boot --bootloader-id=GRUB ;;
-    # https://wiki.archlinux.org/title/GRUB#Installation_2
-    "") grub-install --target=i386-pc /dev/sdX ;;
-esac
-# Select default option after N seconds in GRUB menu
-sed -i 's/GRUB_TIMEOUT=./GRUB_TIMEOUT=2/' /etc/default/grub
-# https://wiki.archlinux.org/title/GRUB#Generate_the_main_configuration_file
-grub-mkconfig -o /boot/grub/grub.cfg
+# https://wiki.archlinux.org/title/PC_speaker#Globally
+# Remove beep sound
+lsmod | grep -wq pcspkr && rmmod pcspkr
+lsmod | grep -wq snd_pcsp && rmmod snd_pcsp
+echo 'blacklist pcspkr' > /etc/modprobe.d/nobeep.conf
+echo 'blacklist snd_pcsp' >> /etc/modprobe.d/nobeep.conf
 
 # https://wiki.archlinux.org/title/NetworkManager#Installation
 # Add network manager and GUI
@@ -64,11 +83,11 @@ echo 'export ZDOTDIR=$HOME/.config/zsh' > /etc/zsh/zshenv
 
 # https://wiki.archlinux.org/title/Users_and_groups#User_management
 # Add new user with zsh as default shell
-id -u shyguy > /dev/null 2>&1 || useradd -m -G wheel -s /usr/bin/zsh shyguy
+id -u "$NEWUSER" > /dev/null 2>&1 || useradd -m -G wheel -s /usr/bin/zsh "$NEWUSER"
 
 # Save user HOME variable
 # shellcheck disable=SC2016
-USERHOME="$(runuser -l shyguy -c 'echo $HOME')"
+USERHOME="$(runuser -l "$NEWUSER" -c 'echo $HOME')"
 
 # Install git and gh
 pacman -S --needed --noconfirm git github-cli
@@ -78,26 +97,27 @@ git config --system init.defaultBranch main
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
 USERYAYCACHE="$USERHOME/.cache/yay"
-runuser -l shyguy -c "mkdir '$USERYAYCACHE' && cd '$USERYAYCACHE' && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --needed --noconfirm"
+runuser -l "$NEWUSER" -c "[ ! -d '$USERYAYCACHE/yay/.git' ] && mkdir -p '$USERYAYCACHE' && cd '$USERYAYCACHE' && git clone https://aur.archlinux.org/yay.git"
+runuser -l "$NEWUSER" -c "cd '$USERYAYCACHE/yay' && makepkg -si --needed --noconfirm"
 
 # Make directory for Github and gists
-runuser -l shyguy -c "mkdir -p '$USERHOME/Github/gist'"
+runuser -l "$NEWUSER" -c "mkdir -p '$USERHOME/Github/gist'"
 
 # Clone git repository of this script
 setupREPO="$USERHOME/Github/setup"
-runuser -l shyguy -c "git clone https://github.com/shyguyCreate/setup.git '$setupREPO'"
+runuser -l "$NEWUSER" -c "git clone https://github.com/shyguyCreate/setup.git '$setupREPO'"
 
 # Clone dotfiles repository
 dotfilesREPO="$USERHOME/Github/dotfiles"
-runuser -l shyguy -c "git clone https://github.com/shyguyCreate/dotfiles.git '$dotfilesREPO'"
+runuser -l "$NEWUSER" -c "git clone https://github.com/shyguyCreate/dotfiles.git '$dotfilesREPO'"
 # Copy dotfiles to user home directory
-[ -f "$dotfilesREPO/push.sh" ] && runuser -l shyguy -c "chmod +x $dotfilesREPO/push.sh" && runuser -l shyguy -c "$dotfilesREPO/push.sh"
+[ -f "$dotfilesREPO/push.sh" ] && runuser -l "$NEWUSER" -c "chmod +x $dotfilesREPO/push.sh" && runuser -l "$NEWUSER" -c "$dotfilesREPO/push.sh"
 
 # Clone zsh plugins in ~/.config/zsh
-[ -f "$dotfilesREPO/.config/zsh/.zplugins" ] && runuser -l shyguy -c ". '$dotfilesREPO/.config/zsh/.zplugins'"
+[ -f "$dotfilesREPO/.config/zsh/.zplugins" ] && runuser -l "$NEWUSER" -c ". '$dotfilesREPO/.config/zsh/.zplugins'"
 
 # Install mesloLGS fonts for powerlevel10k
-runuser -l shyguy -c "yay -S --needed --noconfirm ttf-meslo-nerd-font-powerlevel10k"
+runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm ttf-meslo-nerd-font-powerlevel10k"
 
 # https://wiki.archlinux.org/title/Doas#Installation
 # Install doas (alternative to sudo)
@@ -107,12 +127,6 @@ pacman -S --needed --noconfirm opendoas
 echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel' > /etc/doas.conf
 chown -c root:root /etc/doas.conf
 chmod -c 0400 /etc/doas.conf
-
-# https://wiki.archlinux.org/title/PC_speaker#Globally
-# Remove beep sound
-rmmod pcspkr snd_pcsp
-echo 'blacklist pcspkr' > /etc/modprobe.d/nobeep.conf
-echo 'blacklist snd_pcsp' >> /etc/modprobe.d/nobeep.conf
 
 # https://wiki.archlinux.org/title/Archiving_and_compression#Archiving_and_compression
 # Install zip compression and decompression
@@ -185,7 +199,7 @@ pacman -S --needed --noconfirm lightdm-gtk-greeter-settings
 # Install shell script formatter
 pacman -S --needed --noconfirm shfmt
 # Install shell script analysis tool
-runuser -l shyguy -c "yay -S --needed --noconfirm shellcheck-bin"
+runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm shellcheck-bin"
 
 # https://wiki.archlinux.org/title/File_manager_functionality#Mounting
 # Add mount support for mobile devices
@@ -221,7 +235,7 @@ pacman -S --needed --noconfirm rofi xcape
 
 # https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 # Install onlyoffice desktop
-runuser -l shyguy -c "yay -S --needed --noconfirm onlyoffice-bin"
+runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm onlyoffice-bin"
 
 # https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 # Install web browser
@@ -257,21 +271,21 @@ pacman -S --needed --noconfirm engrampa
 
 # https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
 # Install vscodium
-runuser -l shyguy -c "yay -S --needed --noconfirm vscodium-bin"
+runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm vscodium-bin"
 # Clone gist to install vscodium extensions from github
 vsix_install="$USERHOME/Github/gist/vsix-install"
-runuser -l shyguy -c "git clone https://gist.github.com/a8338ed17537e347b3aa9b34d101f1d7.git '$vsix_install'"
+runuser -l "$NEWUSER" -c "git clone https://gist.github.com/a8338ed17537e347b3aa9b34d101f1d7.git '$vsix_install'"
 # Link vsix installer script to bin folder
-runuser -l shyguy -c "chmod +x '$vsix_install/vsix-install.sh'; ln -sf '$vsix_install/vsix-install.sh' '$USERHOME/.local/bin/vsix-install'"
+runuser -l "$NEWUSER" -c "chmod +x '$vsix_install/vsix-install.sh'; ln -sf '$vsix_install/vsix-install.sh' '$USERHOME/.local/bin/vsix-install'"
 # Install vscodium extensions from github repositories
-runuser -l shyguy -c "vsix-install gitkraken/vscode-gitlens"
-runuser -l shyguy -c "vsix-install prettier/prettier-vscode"
-runuser -l shyguy -c "vsix-install foxundermoon/vs-shell-format"
-runuser -l shyguy -c "vsix-install PKief/vscode-material-icon-theme"
+runuser -l "$NEWUSER" -c "vsix-install gitkraken/vscode-gitlens"
+runuser -l "$NEWUSER" -c "vsix-install prettier/prettier-vscode"
+runuser -l "$NEWUSER" -c "vsix-install foxundermoon/vs-shell-format"
+runuser -l "$NEWUSER" -c "vsix-install PKief/vscode-material-icon-theme"
 # Install vscodium extensions from file
 if [ -f "$dotfilesREPO/.vscode-oss/.vsextensions" ]; then
     while IFS= read -r extension; do
-        runuser -l shyguy -c "codium --install-extension '$extension'"
+        runuser -l "$NEWUSER" -c "codium --install-extension '$extension'"
     done < "$dotfilesREPO/.vscode-oss/.vsextensions"
 fi
 
@@ -282,8 +296,8 @@ pacman -S --needed --noconfirm docker docker-compose docker-buildx
 systemctl enable docker.socket
 # https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
 # Run docker as a non-root user
-groupadd docker
-usermod -aG docker shyguy
+getent group docker > /dev/null 2>&1 || groupadd docker
+id -nG "$NEWUSER" | grep -qw docker || usermod -aG docker "$NEWUSER"
 
 # https://wiki.archlinux.org/title/CUPS#Installation
 # Add printing system and print to PDF
