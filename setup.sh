@@ -76,7 +76,7 @@ pacman -S --needed --noconfirm bash-language-server
 # https://wiki.archlinux.org/title/Zsh#Installation
 # Install zsh
 pacman -S --needed --noconfirm zsh
-# https://wiki.archlinux.org/title/XDG_Base_Directory#Hardcoded
+# https://wiki.archlinux.org/title/XDG_Base_Directory#Partial
 # Change zsh dotfiles to ~/.config/zsh
 # shellcheck disable=SC2016
 echo 'export ZDOTDIR=$HOME/.config/zsh' > /etc/zsh/zshenv
@@ -135,7 +135,7 @@ pacman -S --needed --noconfirm zip unzip
 # https://wiki.archlinux.org/title/Man_page#Installation
 # https://wiki.archlinux.org/title/GNU#Texinfo
 # Install man pages and and info documents
-pacman -S --needed --noconfirm man-db man-pages texinfo
+pacman -S --needed --noconfirm man-db man-pages texinfo tldr
 
 # https://wiki.archlinux.org/title/PipeWire
 # Add audio support
@@ -233,6 +233,11 @@ pacman -S --needed --noconfirm obs-studio
 # Install application launcher and bind to windows/super key
 pacman -S --needed --noconfirm rofi xcape
 
+# https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
+# Install vscodium and configure
+runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm vscodium-bin"
+runuser -l "$NEWUSER" -c "chmod +x '$dotfilesREPO/.vscode-oss/.setup' && '$dotfilesREPO/.vscode-oss/.setup'"
+
 # https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 # Install onlyoffice desktop
 runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm onlyoffice-bin"
@@ -268,26 +273,6 @@ pacman -S --needed --noconfirm htop xfce4-taskmanager
 # https://wiki.archlinux.org/title/List_of_applications/Utilities#Archive_managers
 # Install archive manager
 pacman -S --needed --noconfirm engrampa
-
-# https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
-# Install vscodium
-runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm vscodium-bin"
-# Clone gist to install vscodium extensions from github
-vsix_install="$USERHOME/Github/gist/vsix-install"
-runuser -l "$NEWUSER" -c "git clone https://gist.github.com/a8338ed17537e347b3aa9b34d101f1d7.git '$vsix_install'"
-# Link vsix installer script to bin folder
-runuser -l "$NEWUSER" -c "chmod +x '$vsix_install/vsix-install.sh'; ln -sf '$vsix_install/vsix-install.sh' '$USERHOME/.local/bin/vsix-install'"
-# Install vscodium extensions from github repositories
-runuser -l "$NEWUSER" -c "vsix-install gitkraken/vscode-gitlens"
-runuser -l "$NEWUSER" -c "vsix-install prettier/prettier-vscode"
-runuser -l "$NEWUSER" -c "vsix-install foxundermoon/vs-shell-format"
-runuser -l "$NEWUSER" -c "vsix-install PKief/vscode-material-icon-theme"
-# Install vscodium extensions from file
-if [ -f "$dotfilesREPO/.vscode-oss/.vsextensions" ]; then
-    while IFS= read -r extension; do
-        runuser -l "$NEWUSER" -c "codium --install-extension '$extension'"
-    done < "$dotfilesREPO/.vscode-oss/.vsextensions"
-fi
 
 # https://wiki.archlinux.org/title/Docker#Installation
 # Install docker (engine, compose, and buildx)
