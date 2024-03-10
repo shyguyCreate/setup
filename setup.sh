@@ -4,6 +4,7 @@
 NEWUSER="shyguy"
 LOCALE_LANG="en_US.UTF-8"
 KEYBOARD_LAYOUT="la-latin1"
+TIMEZONE="Etc/GMT+6"
 
 # https://wiki.archlinux.org/title/Installation_guide#Boot_loader
 if [ -f /sys/firmware/efi/fw_platform_size ]; then
@@ -29,7 +30,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # https://wiki.archlinux.org/title/Installation_guide#Time
 # Set time zone and update the hardware clock
-ln -sf /usr/share/zoneinfo/US/Central /etc/localtime
+ln -sf "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
 hwclock --systohc
 
 # https://wiki.archlinux.org/title/Installation_guide#Localization

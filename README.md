@@ -35,7 +35,7 @@ iwctl
 ---
 
 Run installation script[^1]<br>
-<sub>**Note:** fill the USB variable for the script to run</sub>
+<sub>**Note:** fill the DISK variable for the script to run</sub>
 
 ```
 mkdir -p /root/usb
