@@ -3,9 +3,9 @@
 # Script variables
 KEYBOARD_LAYOUT="la-latin1"
 
-# Exit if disk is empty
-[ -z "$DISK" ] && echo "Error: Missing disk device, use DISK=/dev/your_disk" > /dev/tty && exit
-[ -e "$DISK" ] && echo "Error: Disk device does not exist, use DISK=/dev/your_disk" > /dev/tty && exit
+# Exit if DISK is empty
+[ -z "$DISK" ] && echo "Error: Missing disk device, use DISK=/dev/your_disk" > /dev/tty && return 1
+[ ! -e "$DISK" ] && echo "Error: Disk device does not exist, use DISK=/dev/your_disk" > /dev/tty && return 1
 
 # https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout_and_font
 # Set keyboard layout (latam latin)
@@ -17,7 +17,7 @@ timedatectl set-ntp true
 
 # https://wiki.archlinux.org/title/Installation_guide#Partition_the_disks
 # Partition disk
-printf "size=+1G,\\nsize=+5G,\\nsize=+\\n" | sfdisk "${DISK}"
+printf "size=+1G,type=L\\nsize=+5G,type=L\\nsize=+,type=L\\n" | sfdisk -q "${DISK}"
 
 # https://wiki.archlinux.org/title/Installation_guide#Format_the_partitions
 # Format root partition

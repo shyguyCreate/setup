@@ -24,7 +24,7 @@ Run installation script[^1]
 
 ```
 curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/install.sh
-. install.sh
+. ./install.sh
 ```
 
 ---
@@ -50,7 +50,7 @@ Run setup script[^1]<br>
 
 ```
 curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh
-. setup.sh > output.txt 2> error.txt
+. ./setup.sh > output.txt 2> error.txt
 ```
 
 ---

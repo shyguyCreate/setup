@@ -15,15 +15,15 @@ if [ -f /sys/firmware/efi/fw_platform_size ]; then
         32) grub-install --target=i386-efi --efi-directory=/boot --bootloader-id=GRUB ;;
     esac
 else
-    [ -z "$DISK" ] && echo "Error: Missing disk device, use DISK=/dev/your_disk" > /dev/tty && exit
-    [ -e "$DISK" ] && echo "Error: Disk device does not exist, use DISK=/dev/your_disk" > /dev/tty && exit
+    [ -z "$DISK" ] && echo "Error: Missing disk device, use DISK=/dev/your_disk" > /dev/tty && return 1
+    [ ! -e "$DISK" ] && echo "Error: Disk device does not exist, use DISK=/dev/your_disk" > /dev/tty && return 1
     # https://wiki.archlinux.org/title/GRUB#Installation_2
     pacman -S --needed --noconfirm grub
     grub-install --target=i386-pc "$DISK"
 fi
 # https://wiki.archlinux.org/title/Installation_guide#Boot_loader
 # Select default option after N seconds in GRUB menu
-sed -i 's/GRUB_TIMEOUT=./GRUB_TIMEOUT=2/' /etc/default/grub
+sed -i 's/GRUB_TIMEOUT=./GRUB_TIMEOUT=3/' /etc/default/grub
 # https://wiki.archlinux.org/title/GRUB#Generate_the_main_configuration_file
 grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -51,6 +51,10 @@ lsmod | grep -wq pcspkr && rmmod pcspkr
 lsmod | grep -wq snd_pcsp && rmmod snd_pcsp
 echo 'blacklist pcspkr' > /etc/modprobe.d/nobeep.conf
 echo 'blacklist snd_pcsp' >> /etc/modprobe.d/nobeep.conf
+
+# https://wiki.archlinux.org/title/FAT#File_system_creation
+# Install FAT formatter tools
+pacman -S --needed --noconfirm dosfstools
 
 # https://wiki.archlinux.org/title/NetworkManager#Installation
 # Add network manager and GUI
