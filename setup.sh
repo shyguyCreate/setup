@@ -15,7 +15,7 @@ if [ -f /sys/firmware/efi/fw_platform_size ]; then
         32) grub-install --target=i386-efi --efi-directory=/boot --bootloader-id=GRUB ;;
     esac
 else
-    [ -z "$DISK" ] && echo "Error: Missing disk device, use DISK=/dev/your_disk" > /dev/tty && return 1
+    [ -z "$DISK" ] && echo "Error: System is not UEFI, disk is required, use DISK=/dev/your_disk" > /dev/tty && return 1
     [ ! -e "$DISK" ] && echo "Error: Disk device does not exist, use DISK=/dev/your_disk" > /dev/tty && return 1
     # https://wiki.archlinux.org/title/GRUB#Installation_2
     pacman -S --needed --noconfirm grub

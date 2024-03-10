@@ -42,3 +42,6 @@ pacstrap -K /mnt base base-devel linux linux-firmware linux-headers nano vim
 # https://wiki.archlinux.org/title/Installation_guide#Fstab
 # Define disk partitions
 genfstab -U /mnt >> /mnt/etc/fstab
+
+# Copy script to DISK
+[ -f /root/usb/setup.sh ] && cp /root/usb/setup.sh /mnt/setup.sh

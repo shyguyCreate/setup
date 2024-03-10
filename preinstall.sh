@@ -4,30 +4,45 @@
 ! command -v mkfs.fat > /dev/null 2>&1 && echo "Error: Dependency mkfs.fat command is not available" > /dev/tty && return 1
 ! command -v mkfs.ext4 > /dev/null 2>&1 && echo "Error: Dependency mkfs.ext4 command is not available" > /dev/tty && return 1
 
-# Exit if DISK is empty
-[ -z "$DISK" ] && echo "Error: Missing disk device, use DISK=/dev/your_disk" > /dev/tty && return 1
-[ ! -e "$DISK" ] && echo "Error: Disk device does not exist, use DISK=/dev/your_disk" > /dev/tty && return 1
+# Exit if USB is empty
+[ -z "$USB" ] && echo "Error: Missing usb device, use USB=/dev/your_usb" > /dev/tty && return 1
+[ ! -e "$USB" ] && echo "Error: USB device does not exist, use USB=/dev/your_usb" > /dev/tty && return 1
 
 # Exit if ISO is empty
 [ -z "$ISO" ] && echo "Error: Missing iso file, use ISO=path/to/archlinux-version-x86_64.iso" > /dev/tty && return 1
 [ ! -f "$ISO" ] && echo "Error: Iso file does not exist, use ISO=path/to/archlinux-version-x86_64.iso" > /dev/tty && return 1
 
 # Restore usb drive as an empty
-wipefs --all -qf "${DISK}"
+wipefs --all -qf "${USB}"
 
 # Partition usb
-printf "size=+2G,type=L,\\nsize=+,type=L\\n" | sfdisk -q "${DISK}"
+printf "size=+2G,type=L,\\nsize=+,type=L\\n" | sfdisk -q "${USB}"
+
+############ ISO ############
 
 # Format iso partition
-mkfs.fat -F 32 "${DISK}1"
-# Format other partition
-mkfs.ext4 -q -F "${DISK}2"
+mkfs.fat -F 32 "${USB}1"
 
 # Mount iso volume
-mount "${DISK}1" /mnt
+mount "${USB}1" /mnt
 
-# Extract the iso image to mount
-bsdtar -x -f "$ISO" -C /mnt
+# Extract iso image to mount
+bsdtar -x -f "${ISO}" -C /mnt
 
 # Umount iso volume
+umount /mnt
+
+########## STORAGE ##########
+
+# Format storage partition
+mkfs.ext4 -q -F "${USB}2"
+
+# Mount storage volume
+mount "${USB}2" /mnt
+
+# Copy scripts to storage volume
+curl -s --output-dir /mnt -O https://raw.githubusercontent.com/shyguyCreate/setup/main/install.sh
+curl -s --output-dir /mnt -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh
+
+# Umount storage volume
 umount /mnt

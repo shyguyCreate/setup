@@ -1,10 +1,24 @@
 # Arch Installation
 
-Follow the [installation guide](https://wiki.archlinux.org/title/Installation_guide#Pre-installation) in the Arch wiki until you complete the section of [booting from the ISO](https://wiki.archlinux.org/title/Installation_guide#Boot_the_live_environment). Now, inside the live session, do the following:
+Follow the [installation guide](https://wiki.archlinux.org/title/Installation_guide#Pre-installation) in the Arch wiki to download the [ISO](https://wiki.archlinux.org/title/Installation_guide#Acquire_an_installation_image) and [verify the signature](https://wiki.archlinux.org/title/Installation_guide#Verify_signature).
 
 ---
 
-Connect to [wireless internet](https://wiki.archlinux.org/title/Installation_guide#Connect_to_the_internet) using [iwctl](https://wiki.archlinux.org/title/Iwd#iwctl)
+Run the preinstallation script[^1] to copy the ISO to a **USB**<br>
+<sub>**Note:** fill the USB and ISO variables for the script to run, also mkfs.fat and mkfs.ext4 need to be installed</sub>
+
+```
+curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/preinstall.sh
+USB=/dev/your_usb
+ISO=path/to/archlinux-version-x86_64.iso
+. ./preinstall.sh
+```
+
+When finished, [boot into the USB](https://wiki.archlinux.org/title/Installation_guide#Boot_the_live_environment)
+
+---
+
+Inside the bootable USB, connect to [wireless internet](https://wiki.archlinux.org/title/Installation_guide#Connect_to_the_internet) using [iwctl](https://wiki.archlinux.org/title/Iwd#iwctl)
 
 ```
 iwctl
@@ -20,11 +34,14 @@ iwctl
 
 ---
 
-Run installation script[^1]
+Run installation script[^1]<br>
+<sub>**Note:** fill the USB variable for the script to run</sub>
 
 ```
-curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/install.sh
-. ./install.sh
+mkdir -p /root/usb
+mount /dev/your_usb2 /root/usb
+DISK=/dev/your_disk
+. /root/usb/install.sh
 ```
 
 ---
@@ -49,8 +66,7 @@ Run setup script[^1]<br>
 <sub>**Note:** to change username, modify variables inside the script</sub>
 
 ```
-curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh
-. ./setup.sh > output.txt 2> error.txt
+. /setup.sh > output.txt 2> error.txt
 ```
 
 ---
