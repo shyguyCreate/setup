@@ -188,8 +188,7 @@ pacman -S --needed --noconfirm \
 # Install xfce goodies
 pacman -S --needed --noconfirm \
     mousepad \
-    xfce4-notifyd \
-    xfce4-screensaver
+    xfce4-notifyd
 
 # https://wiki.archlinux.org/title/LightDM#Installation
 # Install lightdm
@@ -209,6 +208,11 @@ runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm shellcheck-bin"
 # https://wiki.archlinux.org/title/File_manager_functionality#Mounting
 # Add mount support for mobile devices
 pacman -S --needed --noconfirm gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
+
+# https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
+# Install screen locker
+pacman -S --needed --noconfirm i3lock
+runuser -l "$NEWUSER" -c 'xfconf-query --create -c xfce4-session -p /general/LockCommand -t string -s "i3lock"'
 
 # https://wiki.archlinux.org/title/Desktop_notifications
 # Add support for desktop notifications plus icons
