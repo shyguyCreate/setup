@@ -46,6 +46,11 @@ echo "KEYMAP=$KEYBOARD_LAYOUT" > /etc/vconsole.conf
 # Set hostname for network
 echo 'arch' > /etc/hostname
 
+# https://wiki.archlinux.org/title/Microcode
+# Install processor microcode update
+grep -q AuthenticAMD /proc/cpuinfo && pacman -S --needed --noconfirm amd-ucode
+grep -q GenuineIntel /proc/cpuinfo && pacman -S --needed --noconfirm intel-ucode
+
 # https://wiki.archlinux.org/title/PC_speaker#Globally
 # Remove beep sound
 lsmod | grep -wq pcspkr && rmmod pcspkr
@@ -119,7 +124,7 @@ runuser -l "$NEWUSER" -c "git clone https://github.com/shyguyCreate/dotfiles.git
 [ -f "$dotfilesREPO/push.sh" ] && runuser -l "$NEWUSER" -c "chmod +x $dotfilesREPO/push.sh" && runuser -l "$NEWUSER" -c "$dotfilesREPO/push.sh"
 
 # Clone zsh plugins in ~/.config/zsh
-[ -f "$dotfilesREPO/.config/zsh/.zplugins" ] && runuser -l "$NEWUSER" -c ". '$dotfilesREPO/.config/zsh/.zplugins'"
+[ -f "$USERHOME/.config/zsh/.zplugins" ] && runuser -l "$NEWUSER" -c ". '$USERHOME/.config/zsh/.zplugins'"
 
 # Install mesloLGS fonts for powerlevel10k
 runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm ttf-meslo-nerd-font-powerlevel10k"
@@ -241,7 +246,7 @@ pacman -S --needed --noconfirm rofi xcape
 # https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
 # Install vscodium and configure
 runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm vscodium-bin"
-runuser -l "$NEWUSER" -c "chmod +x '$dotfilesREPO/.vscode-oss/.setup' && '$dotfilesREPO/.vscode-oss/.setup'"
+runuser -l "$NEWUSER" -c "chmod +x '$NEWUSER/.vscode-oss/.setup' && '$NEWUSER/.vscode-oss/.setup'"
 
 # https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 # Install onlyoffice desktop

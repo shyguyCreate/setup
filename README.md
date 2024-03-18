@@ -4,8 +4,8 @@ Follow the [installation guide](https://wiki.archlinux.org/title/Installation_gu
 
 ---
 
-Run the preinstallation script[^1] to copy the ISO to a **USB**<br>
-<sub>**Note:** fill the USB and ISO variables for the script to run, also mkfs.fat and mkfs.ext4 need to be installed</sub>
+Run the preinstallation script[^1] to copy the [ISO to a **USB**](https://wiki.archlinux.org/title/USB_flash_installation_medium#Using_manual_formatting)<br>
+<sub>**Note:** fill the USB and ISO variables for the script to run, mkfs.fat and mkfs.ext4 need to be installed, and additional commands are needed for [not UEFI systems](https://wiki.archlinux.org/title/USB_flash_installation_medium#Using_manual_formatting)</sub>
 
 ```
 curl -O https://raw.githubusercontent.com/shyguyCreate/setup/main/preinstall.sh
