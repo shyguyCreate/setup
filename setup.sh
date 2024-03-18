@@ -106,9 +106,9 @@ git config --system init.defaultBranch main
 
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
-USERYAYCACHE="$USERHOME/.cache/yay"
-runuser -l "$NEWUSER" -c "[ ! -d '$USERYAYCACHE/yay/.git' ] && mkdir -p '$USERYAYCACHE' && cd '$USERYAYCACHE' && git clone https://aur.archlinux.org/yay.git"
-runuser -l "$NEWUSER" -c "cd '$USERYAYCACHE/yay' && makepkg -si --needed --noconfirm"
+USERYAYCACHE="$USERHOME/.cache/yay-bin"
+runuser -l "$NEWUSER" -c "[ ! -d '$USERYAYCACHE/yay-bin/.git' ] && mkdir -p '$USERYAYCACHE' && cd '$USERYAYCACHE' && git clone https://aur.archlinux.org/yay-bin.git"
+runuser -l "$NEWUSER" -c "cd '$USERYAYCACHE/yay-bin' && makepkg -si --needed --noconfirm"
 
 # Make directory for Github and gists
 runuser -l "$NEWUSER" -c "mkdir -p '$USERHOME/Github/gist'"
@@ -177,8 +177,6 @@ pacman -S --needed --noconfirm xorg-xev
 pacman -S --needed --noconfirm \
     exo \
     garcon \
-    thunar \
-    thunar-volman \
     tumbler \
     xfce4-panel \
     xfce4-power-manager \
@@ -186,13 +184,10 @@ pacman -S --needed --noconfirm \
     xfce4-settings \
     xfce4-terminal \
     xfconf \
-    xfdesktop \
     xfwm4
 # Install xfce goodies
 pacman -S --needed --noconfirm \
     mousepad \
-    thunar-archive-plugin \
-    thunar-media-tags-plugin \
     xfce4-notifyd \
     xfce4-screensaver
 
@@ -239,6 +234,10 @@ pacman -S --needed --noconfirm maim xdotool xclip
 # Install screen recorder
 pacman -S --needed --noconfirm obs-studio
 
+# https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
+# Install terminal and GUI file manager
+pacman -S --needed --noconfirm lf pcmanfm-gtk3
+
 # https://wiki.archlinux.org/title/List_of_applications/Other#Application_launchers
 # Install application launcher and bind to windows/super key
 pacman -S --needed --noconfirm rofi xcape
@@ -277,7 +276,7 @@ pacman -S --needed --noconfirm vlc
 pacman -S --needed --noconfirm shotcut
 
 # https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
-# Install cli and GUI task manager
+# Install terminal and GUI task manager
 pacman -S --needed --noconfirm htop xfce4-taskmanager
 
 # https://wiki.archlinux.org/title/List_of_applications/Utilities#Archive_managers
