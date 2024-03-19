@@ -165,6 +165,9 @@ lspci -v | grep -A1 -e VGA -e 3D | grep -qi intel && pacman -S --needed --noconf
 # Add startx and xinit command
 pacman -S --needed --noconfirm xorg-xinit
 
+# https://wiki.archlinux.org/title/Backlight#Backlight_utilities
+pacman -S --needed --noconfirm brightnessctl
+
 # https://wiki.archlinux.org/title/Keyboard_shortcuts#Xorg
 # Install program to map keys
 pacman -S --needed --noconfirm sxhkd
@@ -177,7 +180,6 @@ pacman -S --needed --noconfirm xorg-xev
 pacman -S --needed --noconfirm \
     exo \
     garcon \
-    tumbler \
     xfce4-panel \
     xfce4-power-manager \
     xfce4-session \
@@ -210,8 +212,8 @@ runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm shellcheck-bin"
 pacman -S --needed --noconfirm gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
 
 # https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
-# Install screen locker
-pacman -S --needed --noconfirm i3lock
+# Install screen locker and screen saver timer
+pacman -S --needed --noconfirm i3lock xorg-xset
 runuser -l "$NEWUSER" -c 'xfconf-query --create -c xfce4-session -p /general/LockCommand -t string -s "i3lock"'
 
 # https://wiki.archlinux.org/title/Desktop_notifications
