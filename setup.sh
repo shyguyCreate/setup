@@ -175,6 +175,23 @@ pacman -S --needed --noconfirm sxhkd
 # Install keycode identifier
 pacman -S --needed --noconfirm xorg-xev
 
+# https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
+# Install terminal file manager
+pacman -S --needed --noconfirm lf
+# https://wiki.archlinux.org/title/Thunar#Plugins_and_addons
+# Install GUI file manager and wanted dependencies
+pacman -S --needed --noconfirm thunar thunar-archive-plugin
+
+# https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
+# Install thumbnail support
+pacman -S --needed --noconfirm tumbler ffmpegthumbnailer poppler-glib freetype2
+# Install image loading library and more image formats
+pacman -S --needed --noconfirm gdk-pixbuf2 libavif libheif libjxl libopenraw librsvg libwmf webp-pixbuf-loader
+
+# https://wiki.archlinux.org/title/File_manager_functionality#Mounting
+# Add mount support for mobile devices
+pacman -S --needed --noconfirm gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
+
 # https://wiki.archlinux.org/title/Xfce#Installation
 # Install xfce
 pacman -S --needed --noconfirm \
@@ -193,7 +210,7 @@ pacman -S --needed --noconfirm \
     xfce4-notifyd
 
 # https://wiki.archlinux.org/title/LightDM#Installation
-# Install lightdm
+# Install lightdm and greeter
 pacman -S --needed --noconfirm lightdm lightdm-gtk-greeter
 # https://wiki.archlinux.org/title/LightDM#Enabling_LightDM
 # Enable lightdm
@@ -202,23 +219,26 @@ systemctl enable lightdm.service
 # Install lightdm GUI
 pacman -S --needed --noconfirm lightdm-gtk-greeter-settings
 
+# https://wiki.archlinux.org/title/GTK#Themes_supporting_GTK_2_and_GTK_3
+# Install Adwaita and Adwaita-dark GTK theme
+pacman -S --needed --noconfirm gnome-themes-extra
+# https://wiki.archlinux.org/title/GTK#Configuration_tools
+# Install GTK 2 and GTK 3 configuration tool
+pacman -S --needed --noconfirm lxappearance-gtk3
+
 # Install shell script formatter
 pacman -S --needed --noconfirm shfmt
 # Install shell script analysis tool
 runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm shellcheck-bin"
 
-# https://wiki.archlinux.org/title/File_manager_functionality#Mounting
-# Add mount support for mobile devices
-pacman -S --needed --noconfirm gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
-
 # https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
 # Install screen locker and screen saver timer
-pacman -S --needed --noconfirm i3lock xorg-xset
-runuser -l "$NEWUSER" -c 'xfconf-query --create -c xfce4-session -p /general/LockCommand -t string -s "i3lock"'
+pacman -S --needed --noconfirm i3lock xorg-xset xss-lock
+runuser -l "$NEWUSER" -c 'xfconf-query --create -c xfce4-session -p /general/LockCommand -t string -s "i3lock -c 222222"'
 
 # https://wiki.archlinux.org/title/Desktop_notifications
-# Add support for desktop notifications plus icons
-pacman -S --needed --noconfirm libnotify dunst adwaita-icon-theme
+# Add support for desktop notifications
+pacman -S --needed --noconfirm libnotify dunst
 
 # https://wiki.archlinux.org/title/Backlight#Color_correction
 # Install screen color temperature adjuster
@@ -239,10 +259,6 @@ pacman -S --needed --noconfirm maim xdotool xclip
 # https://wiki.archlinux.org/title/Screen_capture#Screencast_software
 # Install screen recorder
 pacman -S --needed --noconfirm obs-studio
-
-# https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
-# Install terminal and GUI file manager
-pacman -S --needed --noconfirm lf pcmanfm-gtk3
 
 # https://wiki.archlinux.org/title/List_of_applications/Other#Application_launchers
 # Install application launcher and bind to windows/super key
