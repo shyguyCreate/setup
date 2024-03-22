@@ -106,9 +106,10 @@ git config --system init.defaultBranch main
 
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
-USERYAYCACHE="$USERHOME/.cache/yay-bin"
-runuser -l "$NEWUSER" -c "[ ! -d '$USERYAYCACHE/yay-bin/.git' ] && mkdir -p '$USERYAYCACHE' && cd '$USERYAYCACHE' && git clone https://aur.archlinux.org/yay-bin.git"
-runuser -l "$NEWUSER" -c "cd '$USERYAYCACHE/yay-bin' && makepkg -si --needed --noconfirm"
+USERYAYCACHE="$USERHOME/.cache/yay/yay-bin"
+[ -d "$USERYAYCACHE" ] && [ "$(git -C "$USERYAYCACHE" config --get remote.origin.url 2> /dev/null)" != "https://aur.archlinux.org/yay-bin.git" ] && rm -rf "$USERYAYCACHE"
+[ ! -d "$USERYAYCACHE" ] && runuser -l "$NEWUSER" -c "mkdir -p '$USERYAYCACHE' && git -C '$USERYAYCACHE' clone https://aur.archlinux.org/yay-bin.git ."
+runuser -l "$NEWUSER" -c "cd '$USERYAYCACHE' && makepkg -si --needed --noconfirm"
 
 # Make directory for Github and gists
 runuser -l "$NEWUSER" -c "mkdir -p '$USERHOME/Github/gist'"
@@ -121,7 +122,7 @@ runuser -l "$NEWUSER" -c "git clone https://github.com/shyguyCreate/setup.git '$
 dotfilesREPO="$USERHOME/Github/dotfiles"
 runuser -l "$NEWUSER" -c "git clone https://github.com/shyguyCreate/dotfiles.git '$dotfilesREPO'"
 # Copy dotfiles to user home directory
-[ -f "$dotfilesREPO/push.sh" ] && runuser -l "$NEWUSER" -c "chmod +x $dotfilesREPO/push.sh" && runuser -l "$NEWUSER" -c "$dotfilesREPO/push.sh"
+[ -f "$dotfilesREPO/push.sh" ] && runuser -l "$NEWUSER" -c "chmod +x '$dotfilesREPO/push.sh' && '$dotfilesREPO/push.sh'"
 
 # Clone zsh plugins in ~/.config/zsh
 [ -f "$USERHOME/.config/zsh/.zplugins" ] && runuser -l "$NEWUSER" -c ". '$USERHOME/.config/zsh/.zplugins'"
@@ -223,8 +224,8 @@ pacman -S --needed --noconfirm lightdm-gtk-greeter-settings
 # Install Adwaita and Adwaita-dark GTK theme
 pacman -S --needed --noconfirm gnome-themes-extra
 # https://wiki.archlinux.org/title/GTK#Configuration_tools
-# Install GTK 2 and GTK 3 configuration tool
-pacman -S --needed --noconfirm lxappearance-gtk3
+# Install GTK 2 and GTK 3 configuration tool and font family
+pacman -S --needed --noconfirm lxappearance-gtk3 ttf-dejavu
 
 # Install shell script formatter
 pacman -S --needed --noconfirm shfmt
@@ -267,7 +268,7 @@ pacman -S --needed --noconfirm rofi xcape
 # https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
 # Install vscodium and configure
 runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm vscodium-bin"
-runuser -l "$NEWUSER" -c "chmod +x '$NEWUSER/.vscode-oss/.setup' && '$NEWUSER/.vscode-oss/.setup'"
+runuser -l "$NEWUSER" -c "chmod +x '$USERHOME/.vscode-oss/.setup' && '$USERHOME/.vscode-oss/.setup' -c codium"
 
 # https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 # Install onlyoffice desktop
