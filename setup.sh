@@ -199,16 +199,11 @@ pacman -S --needed --noconfirm \
     exo \
     garcon \
     xfce4-panel \
-    xfce4-power-manager \
+    xfce4-power-manager xfce4-notifyd \
     xfce4-session \
     xfce4-settings \
-    xfce4-terminal \
     xfconf \
     xfwm4
-# Install xfce goodies
-pacman -S --needed --noconfirm \
-    mousepad \
-    xfce4-notifyd
 
 # https://wiki.archlinux.org/title/LightDM#Installation
 # Install lightdm and greeter
@@ -253,6 +248,10 @@ pacman -S --needed --noconfirm clipcat
 # Install command-line fuzzy finder
 pacman -S --needed --noconfirm fzf
 
+# https://wiki.archlinux.org/title/List_of_applications/Utilities#Terminal_emulators
+# Install terminal emulator
+pacman -S --needed --noconfirm xfce4-terminal
+
 # https://wiki.archlinux.org/title/Screen_capture#maim
 # Install cli screenshot tool with window and clipboard support
 pacman -S --needed --noconfirm maim xdotool xclip
@@ -265,10 +264,16 @@ pacman -S --needed --noconfirm obs-studio
 # Install application launcher and bind to windows/super key
 pacman -S --needed --noconfirm rofi xcape
 
+# https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
+# Install terminal and GUI text editor
+pacman -S --needed --noconfirm micro mousepad
+
 # https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
-# Install vscodium and configure
+# Install vscodium
 runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm vscodium-bin"
-runuser -l "$NEWUSER" -c "chmod +x '$USERHOME/.vscode-oss/.setup' && '$USERHOME/.vscode-oss/.setup' -c codium"
+# Configure vscodium with scripts
+runuser -l "$NEWUSER" -c "curl -s --output-dir /tmp -O https://gist.githubusercontent.com/shyguyCreate/4ab7e85477f6bcd2dd58aad3914861a8/raw/code-setup"
+runuser -l "$NEWUSER" -c "chmod +x /tmp/code-setup && /tmp/code-setup -c codium"
 
 # https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 # Install onlyoffice desktop
