@@ -151,7 +151,7 @@ pacman -S --needed --noconfirm man-db man-pages texinfo tldr
 # https://wiki.archlinux.org/title/PipeWire
 # Add audio support
 pacman -S --needed --noconfirm pipewire wireplumber pipewire-audio pipewire-alsa pipewire-pulse pipewire-jack
-# https://wiki.archlinux.org/title/PulseAudio#Graphical
+# https://wiki.archlinux.org/title/PulseAudio#Front-ends
 # Install GUI for audio mixer
 pacman -S --needed --noconfirm pavucontrol
 
@@ -198,7 +198,6 @@ pacman -S --needed --noconfirm gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
 pacman -S --needed --noconfirm \
     exo \
     garcon \
-    xfce4-panel \
     xfce4-power-manager xfce4-notifyd \
     xfce4-session \
     xfce4-settings \
@@ -226,6 +225,10 @@ pacman -S --needed --noconfirm lxappearance-gtk3 ttf-dejavu
 pacman -S --needed --noconfirm shfmt
 # Install shell script analysis tool
 runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm shellcheck-bin"
+
+# https://wiki.archlinux.org/title/List_of_applications/Other#Taskbars
+# Install taskbar (and workaround to hide it)
+pacman -S --needed --noconfirm polybar xdo
 
 # https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
 # Install screen locker and screen saver timer
@@ -287,7 +290,7 @@ pacman -S --needed --noconfirm firefox
 # Install password manager
 pacman -S --needed --noconfirm keepassxc
 
-# https://wiki.archlinux.org/title/List_of_applications/Multimedia#Graphical_image_viewers
+# https://wiki.archlinux.org/title/List_of_applications/Multimedia#Image_viewers
 # Install image viewer
 pacman -S --needed --noconfirm viewnior
 
