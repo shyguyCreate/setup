@@ -205,7 +205,6 @@ pacman -S --needed --noconfirm gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
 pacman -S --needed --noconfirm \
     exo \
     garcon \
-    xfce4-power-manager xfce4-notifyd \
     xfce4-session \
     xfce4-settings \
     xfconf \
@@ -245,6 +244,13 @@ runuser -l "$NEWUSER" -c 'xfconf-query --create -c xfce4-session -p /general/Loc
 # https://wiki.archlinux.org/title/Desktop_notifications
 # Add support for desktop notifications
 pacman -S --needed --noconfirm libnotify dunst
+
+# https://wiki.archlinux.org/title/Cron#Installation
+# Install cron and acpi to display battery notifications
+pacman -S --needed --noconfirm cronie acpi
+# https://wiki.archlinux.org/title/Cron#Activation_and_autostart
+# Enable cron service
+systemctl enable cronie.service
 
 # https://wiki.archlinux.org/title/Backlight#Color_correction
 # Install screen color temperature adjuster
