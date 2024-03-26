@@ -71,6 +71,13 @@ systemctl enable NetworkManager
 # Install Broadcom drivers if needed
 [ -n "$(lspci -d 14e4:)" ] && pacman -S --needed --noconfirm broadcom-wl-dkms
 
+# https://wiki.archlinux.org/title/Power_management#ACPI_events
+# Ignore power/suspend/reboot/hibernate buttons
+sudo sed -i 's/^#*HandlePowerKey=.*/HandlePowerKey=ignore/' /etc/systemd/logind.conf
+sudo sed -i 's/^#*HandleRebootKey=.*/HandleRebootKey=ignore/' /etc/systemd/logind.conf
+sudo sed -i 's/^#*HandleSuspendKey=.*/HandleSuspendKey=ignore/' /etc/systemd/logind.conf
+sudo sed -i 's/^#*HandleHibernateKey=.*/HandleHibernateKey=ignore/' /etc/systemd/logind.conf
+
 # https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel group to run sudo without password
 sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
