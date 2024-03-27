@@ -4,6 +4,7 @@
 NEWUSER="shyguy"
 LOCALE_LANG="en_US.UTF-8"
 KEYBOARD_LAYOUT="la-latin1"
+CONSOLE_FONT="ter-122b"
 TIMEZONE="Etc/GMT+6"
 
 # https://wiki.archlinux.org/title/Installation_guide#Boot_loader
@@ -45,6 +46,13 @@ echo "KEYMAP=$KEYBOARD_LAYOUT" > /etc/vconsole.conf
 # https://wiki.archlinux.org/title/Installation_guide#Network_configuration
 # Set hostname for network
 echo 'arch' > /etc/hostname
+
+# https://wiki.archlinux.org/title/Linux_console#Fonts
+# Install pack of console fonts
+pacman -S --needed --noconfirm terminus-font
+# https://wiki.archlinux.org/title/Linux_console#Persistent_configuration
+# Save console font
+echo "FONT=$CONSOLE_FONT" >> /etc/vconsole.conf
 
 # https://wiki.archlinux.org/title/Microcode
 # Install processor microcode update

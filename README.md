@@ -34,14 +34,14 @@ iwctl
 
 ---
 
-Run installation script[^1]<br>
+Run pre-installation script[^1]<br>
 <sub>**Note:** fill the DISK variable for the script to run</sub>
 
 ```
 mkdir -p /root/usb
 mount /dev/your_usb2 /root/usb
 DISK=/dev/your_disk
-. /root/usb/install.sh
+. /root/usb/preinstall.sh
 ```
 
 ---

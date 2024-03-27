@@ -14,7 +14,7 @@ printf '%s' "$USB" | rev | cut -c 1 | grep -q '[0-9]' && echo "Error: USB seems 
 [ ! -f "$ISO" ] && echo "Error: ISO file does not exist, use ISO=path/to/archlinux-version-x86_64.iso" && return 1
 ! bsdtar -t -f "$ISO" > /dev/null 2>&1 && echo "Error: Unrecognized archive format, use ISO=path/to/archlinux-version-x86_64.iso" && return 1
 
-# Restore usb drive as an empty
+# Remove partition signatures
 wipefs --all -qf "${USB}"
 
 # Partition usb
