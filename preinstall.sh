@@ -20,18 +20,23 @@ setfont "$CONSOLE_FONT"
 timedatectl set-ntp true
 
 # Remove partition signatures
-wipefs --all -qf "${DISK}"
+echo "Removing disk signatures..."
+wipefs --all -q "${DISK}" || ! echo "Error ocurred!" || exit
 
 # https://wiki.archlinux.org/title/Installation_guide#Partition_the_disks
 # Partition disk
-printf "size=+1G,type=L\\nsize=+5G,type=L\\nsize=+,type=L\\n" | sfdisk -q "${DISK}"
+echo "Partitioning disk..."
+printf "size=+1G,type=L\\nsize=+5G,type=L\\nsize=+,type=L\\n" | sfdisk -q "${DISK}" || ! echo "Error ocurred!" || exit
 
 # https://wiki.archlinux.org/title/Installation_guide#Format_the_partitions
 # Format root partition
+echo "Formatting root partition..."
 mkfs.ext4 -q -F "${DISK}3"
 # Format boot partition
+echo "Formatting boot partition..."
 mkfs.fat -F 32 "${DISK}1"
 # Format swap partition
+echo "Formatting swap partition..."
 mkswap -q "${DISK}2"
 
 # https://wiki.archlinux.org/title/Installation_guide#Mount_the_file_systems
@@ -44,6 +49,7 @@ swapon "${DISK}2"
 
 # https://wiki.archlinux.org/title/Installation_guide#Install_essential_packages
 # Install packages in new system
+echo "Installing packages to new system..."
 pacstrap -K /mnt base base-devel linux linux-firmware linux-headers nano vim > /root/pacstrap-output.log 2> /root/pacstrap-error.log
 
 # https://wiki.archlinux.org/title/Installation_guide#Fstab
@@ -51,6 +57,7 @@ pacstrap -K /mnt base base-devel linux linux-firmware linux-headers nano vim > /
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Copy logs to DISK
+echo "Copying logs to new system..."
 cp /root/pacstrap-output.log /mnt/pacstrap-output.log
 cp /root/pacstrap-error.log /mnt/pacstrap-error.log
 

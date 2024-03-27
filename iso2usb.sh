@@ -15,10 +15,12 @@ printf '%s' "$USB" | rev | cut -c 1 | grep -q '[0-9]' && echo "Error: USB seems 
 ! bsdtar -t -f "$ISO" > /dev/null 2>&1 && echo "Error: Unrecognized archive format, use ISO=path/to/archlinux-version-x86_64.iso" && return 1
 
 # Remove partition signatures
-wipefs --all -qf "${USB}"
+echo "Removing disk signatures..."
+wipefs --all -q "${USB}" || ! echo "Error ocurred!" || exit
 
 # Partition usb
-printf "size=+2G,type=L,\\nsize=+,type=L\\n" | sfdisk -q "${USB}"
+echo "Partitioning disk..."
+printf "size=+2G,type=L,\\nsize=+,type=L\\n" | sfdisk -q "${USB}" || ! echo "Error ocurred!" || exit
 
 ############ ISO ############
 
