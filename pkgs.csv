@@ -1,0 +1,60 @@
+Tag,Package,Description,URL
+,dosfstools,FAT formatter tools,https://wiki.archlinux.org/title/FAT#File_system_creation
+,network-manager-applet,network manager GUI,https://wiki.archlinux.org/title/NetworkManager#Additional_interfaces
+,bash-completion,bash commands and options completion,https://wiki.archlinux.org/title/Bash#Common_programs_and_options
+,bash-language-server,bash language support for editor or IDE,https://wiki.archlinux.org/title/Language_Server_Protocol
+,zsh,bash alternative,https://wiki.archlinux.org/title/Zsh#Installation
+,git,source control,https://wiki.archlinux.org/title/Git#Installation
+,github-cli,GitHub command line tool
+,opendoas,sudo alternative,https://wiki.archlinux.org/title/Doas#Installation
+,zip unzip,zip compression and decompression,https://wiki.archlinux.org/title/Archiving_and_compression#Archiving_and_compression
+,man-db man-pages,man pages,https://wiki.archlinux.org/title/Man_page#Installation
+,texinfo,info pages,https://wiki.archlinux.org/title/GNU#Texinfo
+,tldr,man page summaries
+,pipewire wireplumber pipewire-audio,audio support,https://wiki.archlinux.org/title/PipeWire#Installation
+,pipewire-alsa pipewire-pulse pipewire-jack,support with other audio clients,https://wiki.archlinux.org/title/PipeWire#Audio
+,pavucontrol,audio mixer GUI,https://wiki.archlinux.org/title/PulseAudio#Front-ends
+,xorg-server,display server,https://wiki.archlinux.org/title/Xorg#Installation
+,xorg-xinit,startx and xinit command,https://wiki.archlinux.org/title/Xinit#Installation
+,brightnessctl,control screen brightness,https://wiki.archlinux.org/title/Backlight#Backlight_utilities
+,sxhkd,map keys to commands,https://wiki.archlinux.org/title/Keyboard_shortcuts#Xorg
+,xorg-xev,keycode identifier,https://wiki.archlinux.org/title/Keyboard_input#Identifying_keycodes_in_Xorg
+,lf,terminal file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
+,thunar thunar-archive-plugin,GUI file manager and wanted dependencies,https://wiki.archlinux.org/title/Thunar#Plugins_and_addons
+,gdk-pixbuf2 libavif libheif libjxl libopenraw librsvg libwmf webp-pixbuf-loader,image loading library,https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
+,tumbler ffmpegthumbnailer poppler-glib freetype2,thumbnail support,https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
+,gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc,mount support for external devices,https://wiki.archlinux.org/title/File_manager_functionality#Mounting
+,exo garcon xfce4-session xfce4-settings xfconf xfwm4,xfce group,https://wiki.archlinux.org/title/Xfce#Installation
+,lightdm lightdm-gtk-greeter,display manager,https://wiki.archlinux.org/title/LightDM#Installation
+,lightdm-gtk-greeter-settings,display manager GUI settings,https://wiki.archlinux.org/title/LightDM#Optional_configuration_and_tweaks
+,gnome-themes-extra,Adwaita and Adwaita-dark GTK theme,https://wiki.archlinux.org/title/GTK#Themes_supporting_GTK_2_and_GTK_3
+,ttf-dejavu,font family,https://wiki.archlinux.org/title/Fonts
+,lxappearance-gtk3,GTK 2 and GTK 3 configuration tool,https://wiki.archlinux.org/title/GTK#Configuration_tools
+,shfmt,shell script formatter
+,polybar xdo,taskbar (and workaround to hide it),https://wiki.archlinux.org/title/List_of_applications/Other#Taskbars
+,i3lock xorg-xset xss-lock,screen locker and screen saver timer,https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
+,libnotify dunst,desktop notifications,https://wiki.archlinux.org/title/Desktop_notifications
+,acpi,get battery information,https://wiki.archlinux.org/title/ACPI_modules#Getting_information
+,cronie,job scheduler,https://wiki.archlinux.org/title/Cron#Installation
+,redshift,screen color temperature adjuster,https://wiki.archlinux.org/title/Backlight#Color_correction
+,clipcat,clipboard manager,https://wiki.archlinux.org/title/Clipboard#Managers
+,fzf,command-line fuzzy finder,https://wiki.archlinux.org/title/Core_utilities#Interactive_filters
+,xfce4-terminal,terminal emulator,https://wiki.archlinux.org/title/List_of_applications/Utilities#Terminal_emulators
+,maim xdotool xclip,screenshot tool with window and clipboard support,https://wiki.archlinux.org/title/Screen_capture#maim
+,obs-studio,screen recorder,https://wiki.archlinux.org/title/Screen_capture#Screencast_software
+,rofi,application launcher,https://wiki.archlinux.org/title/List_of_applications/Other#Application_launchers
+,micro mousepad,terminal and GUI text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
+,firefox,web browser,https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
+,keepassxc,password manager,https://wiki.archlinux.org/title/List_of_applications/Security#Password_managers
+,viewnior,image viewer,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Image_viewers
+,gimp,image editor,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Raster_graphics_editors
+,vlc,video player,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_players
+,shotcut,video editor,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_editors
+,htop xfce4-taskmanager,terminal and GUI task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
+,engrampa,archive manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archive_managers
+,docker docker-compose docker-buildx,run containers,https://wiki.archlinux.org/title/Docker#Installation
+,cups cups-pdf,printing system and print to PDF,https://wiki.archlinux.org/title/CUPS#Installation
+,usbutils,usb printer detection,https://wiki.archlinux.org/title/CUPS#USB
+,avahi,wireless printer detection,https://wiki.archlinux.org/title/CUPS#Printer_discovery
+,nss-mdns,hostname resolution,https://wiki.archlinux.org/title/Avahi#Hostname_resolution
+,system-config-printer,printer GUI,https://wiki.archlinux.org/title/CUPS#GUI_applications

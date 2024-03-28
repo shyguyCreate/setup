@@ -91,7 +91,7 @@ Run setup script[^1]<br>
 <sub>**Note:** to change username, modify variable inside the script</sub>
 
 ```
-. /install.sh
+. /setup.sh
 ```
 
 ---

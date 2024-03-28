@@ -3,25 +3,12 @@
 # Script variables
 NEWUSER="shyguy"
 
-# https://wiki.archlinux.org/title/Microcode
-# Install processor microcode update
-grep -q AuthenticAMD /proc/cpuinfo && pacman -S --needed --noconfirm amd-ucode
-grep -q GenuineIntel /proc/cpuinfo && pacman -S --needed --noconfirm intel-ucode
-
 # https://wiki.archlinux.org/title/PC_speaker#Globally
 # Remove beep sound
 lsmod | grep -wq pcspkr && rmmod pcspkr
 lsmod | grep -wq snd_pcsp && rmmod snd_pcsp
 echo 'blacklist pcspkr' > /etc/modprobe.d/nobeep.conf
 echo 'blacklist snd_pcsp' >> /etc/modprobe.d/nobeep.conf
-
-# https://wiki.archlinux.org/title/FAT#File_system_creation
-# Install FAT formatter tools
-pacman -S --needed --noconfirm dosfstools
-
-# https://wiki.archlinux.org/title/NetworkManager#Additional_interfaces
-# Add network manager GUI
-pacman -S --needed --noconfirm network-manager-applet
 
 # https://wiki.archlinux.org/title/Power_management#ACPI_events
 # Ignore power/suspend/reboot/hibernate buttons
@@ -30,45 +17,54 @@ sudo sed -i 's/^#*HandleRebootKey=.*/HandleRebootKey=ignore/' /etc/systemd/login
 sudo sed -i 's/^#*HandleSuspendKey=.*/HandleSuspendKey=ignore/' /etc/systemd/logind.conf
 sudo sed -i 's/^#*HandleHibernateKey=.*/HandleHibernateKey=ignore/' /etc/systemd/logind.conf
 
+# https://wiki.archlinux.org/title/Microcode
+# Install processor microcode update
+grep -q AuthenticAMD /proc/cpuinfo && pacman -S --needed --noconfirm amd-ucode
+grep -q GenuineIntel /proc/cpuinfo && pacman -S --needed --noconfirm intel-ucode
+
 # https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel group to run sudo without password
 sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 sed -i 's/^%wheel ALL=(ALL:ALL) ALL/# %wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
-# https://wiki.archlinux.org/title/Bash#Common_programs_and_options
-# Install commands and options completion for bash
-pacman -S --needed --noconfirm bash-completion
-# https://wiki.archlinux.org/title/Language_Server_Protocol
-# Install bash language support for editor or IDE
-pacman -S --needed --noconfirm bash-language-server
-
-# https://wiki.archlinux.org/title/Zsh#Installation
-# Install zsh
-pacman -S --needed --noconfirm zsh
-# https://wiki.archlinux.org/title/XDG_Base_Directory#Partial
-# Change zsh dotfiles to ~/.config/zsh
-# shellcheck disable=SC2016
-echo 'export ZDOTDIR=$HOME/.config/zsh' > /etc/zsh/zshenv
-
 # https://wiki.archlinux.org/title/Users_and_groups#User_management
-# Add new user with zsh as default shell
-id -u "$NEWUSER" > /dev/null 2>&1 || useradd -m -G wheel -s /usr/bin/zsh "$NEWUSER"
+# Add new user
+id -u "$NEWUSER" > /dev/null 2>&1 || useradd -m -G wheel "$NEWUSER"
 
 # Save user HOME variable
 # shellcheck disable=SC2016
 USERHOME="$(runuser -l "$NEWUSER" -c 'echo $HOME')"
 
-# Install git and gh
-pacman -S --needed --noconfirm git github-cli
-# Set main as the default branch name
-git config --system init.defaultBranch main
-
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
+pacman -S --needed --noconfirm git base-devel
 USERYAYCACHE="$USERHOME/.cache/yay/yay-bin"
 [ -d "$USERYAYCACHE" ] && [ "$(git -C "$USERYAYCACHE" config --get remote.origin.url 2> /dev/null)" != "https://aur.archlinux.org/yay-bin.git" ] && rm -rf "$USERYAYCACHE"
 [ ! -d "$USERYAYCACHE" ] && runuser -l "$NEWUSER" -c "mkdir -p '$USERYAYCACHE' && git -C '$USERYAYCACHE' clone https://aur.archlinux.org/yay-bin.git ."
 runuser -l "$NEWUSER" -c "cd '$USERYAYCACHE' && makepkg -si --needed --noconfirm"
+
+# Install packages inside csv file
+curl -s -o /tmp/pkgs.csv.tmp https://raw.githubusercontent.com/shyguyCreate/setup/main/pkgs.csv
+tail -n +2 /tmp/pkgs.csv.tmp > /tmp/pkgs.csv
+while IFS=, read -r tag program; do
+    case "$tag" in
+        "A") yay -S --needed --noconfirm "$program" ;;
+        *) pacman -S --needed --noconfirm "$program" ;;
+    esac
+done < /tmp/pkgs.csv
+
+# https://wiki.archlinux.org/title/Command-line_shell#Changing_your_default_shell
+# Change new user default shell
+chsh -s /usr/bin/zsh shyguy
+
+# https://wiki.archlinux.org/title/XDG_Base_Directory#Partial
+# Change zsh dotfiles to ~/.config/zsh
+# shellcheck disable=SC2016
+echo 'export ZDOTDIR=$HOME/.config/zsh' > /etc/zsh/zshenv
+
+# https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch
+# Set main as the default branch name
+git config --system init.defaultBranch main
 
 # Make directory for Github and gists
 runuser -l "$NEWUSER" -c "mkdir -p '$USERHOME/Github/gist'"
@@ -89,152 +85,26 @@ runuser -l "$NEWUSER" -c "git clone https://github.com/shyguyCreate/dotfiles.git
 # Install mesloLGS fonts for powerlevel10k
 runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm ttf-meslo-nerd-font-powerlevel10k"
 
-# https://wiki.archlinux.org/title/Doas#Installation
-# Install doas (alternative to sudo)
-pacman -S --needed --noconfirm opendoas
 # https://wiki.archlinux.org/title/Doas#Configuration
 # Add config file to access root
 echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel' > /etc/doas.conf
 chown -c root:root /etc/doas.conf
 chmod -c 0400 /etc/doas.conf
 
-# https://wiki.archlinux.org/title/Archiving_and_compression#Archiving_and_compression
-# Install zip compression and decompression
-pacman -S --needed --noconfirm zip unzip
-
-# https://wiki.archlinux.org/title/Man_page#Installation
-# https://wiki.archlinux.org/title/GNU#Texinfo
-# Install man pages and and info documents
-pacman -S --needed --noconfirm man-db man-pages texinfo tldr
-
-# https://wiki.archlinux.org/title/PipeWire
-# Add audio support
-pacman -S --needed --noconfirm pipewire wireplumber pipewire-audio pipewire-alsa pipewire-pulse pipewire-jack
-# https://wiki.archlinux.org/title/PulseAudio#Front-ends
-# Install GUI for audio mixer
-pacman -S --needed --noconfirm pavucontrol
-
-# https://wiki.archlinux.org/title/Xorg#Installation
-# Install Xorg
-pacman -S --needed --noconfirm xorg-server
 # https://wiki.archlinux.org/title/Xorg#Driver_installation
 # Install intel video drivers if needed
 lspci -v | grep -A1 -e VGA -e 3D | grep -qi intel && pacman -S --needed --noconfirm xf86-video-intel mesa vulkan-intel
 
-# https://wiki.archlinux.org/title/Xinit#Installation
-# Add startx and xinit command
-pacman -S --needed --noconfirm xorg-xinit
-
-# https://wiki.archlinux.org/title/Backlight#Backlight_utilities
-pacman -S --needed --noconfirm brightnessctl
-
-# https://wiki.archlinux.org/title/Keyboard_shortcuts#Xorg
-# Install program to map keys
-pacman -S --needed --noconfirm sxhkd
-# https://wiki.archlinux.org/title/Keyboard_input#Identifying_keycodes_in_Xorg
-# Install keycode identifier
-pacman -S --needed --noconfirm xorg-xev
-
-# https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
-# Install terminal file manager
-pacman -S --needed --noconfirm lf
-# https://wiki.archlinux.org/title/Thunar#Plugins_and_addons
-# Install GUI file manager and wanted dependencies
-pacman -S --needed --noconfirm thunar thunar-archive-plugin
-
-# https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
-# Install thumbnail support
-pacman -S --needed --noconfirm tumbler ffmpegthumbnailer poppler-glib freetype2
-# Install image loading library and more image formats
-pacman -S --needed --noconfirm gdk-pixbuf2 libavif libheif libjxl libopenraw librsvg libwmf webp-pixbuf-loader
-
-# https://wiki.archlinux.org/title/File_manager_functionality#Mounting
-# Add mount support for mobile devices
-pacman -S --needed --noconfirm gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc
-
-# https://wiki.archlinux.org/title/Xfce#Installation
-# Install xfce
-pacman -S --needed --noconfirm \
-    exo \
-    garcon \
-    xfce4-session \
-    xfce4-settings \
-    xfconf \
-    xfwm4
-
-# https://wiki.archlinux.org/title/LightDM#Installation
-# Install lightdm and greeter
-pacman -S --needed --noconfirm lightdm lightdm-gtk-greeter
 # https://wiki.archlinux.org/title/LightDM#Enabling_LightDM
 # Enable lightdm
 systemctl enable lightdm.service
-# https://wiki.archlinux.org/title/LightDM#Optional_configuration_and_tweaks
-# Install lightdm GUI
-pacman -S --needed --noconfirm lightdm-gtk-greeter-settings
 
-# https://wiki.archlinux.org/title/GTK#Themes_supporting_GTK_2_and_GTK_3
-# Install Adwaita and Adwaita-dark GTK theme
-pacman -S --needed --noconfirm gnome-themes-extra
-# https://wiki.archlinux.org/title/GTK#Configuration_tools
-# Install GTK 2 and GTK 3 configuration tool and font family
-pacman -S --needed --noconfirm lxappearance-gtk3 ttf-dejavu
-
-# Install shell script formatter
-pacman -S --needed --noconfirm shfmt
 # Install shell script analysis tool
 runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm shellcheck-bin"
 
-# https://wiki.archlinux.org/title/List_of_applications/Other#Taskbars
-# Install taskbar (and workaround to hide it)
-pacman -S --needed --noconfirm polybar xdo
-
-# https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
-# Install screen locker and screen saver timer
-pacman -S --needed --noconfirm i3lock xorg-xset xss-lock
-runuser -l "$NEWUSER" -c 'xfconf-query --create -c xfce4-session -p /general/LockCommand -t string -s "i3lock -c 222222"'
-
-# https://wiki.archlinux.org/title/Desktop_notifications
-# Add support for desktop notifications
-pacman -S --needed --noconfirm libnotify dunst
-
-# https://wiki.archlinux.org/title/Cron#Installation
-# Install cron and acpi to display battery notifications
-pacman -S --needed --noconfirm cronie acpi
 # https://wiki.archlinux.org/title/Cron#Activation_and_autostart
 # Enable cron service
 systemctl enable cronie.service
-
-# https://wiki.archlinux.org/title/Backlight#Color_correction
-# Install screen color temperature adjuster
-pacman -S --needed --noconfirm redshift
-
-# https://wiki.archlinux.org/title/Clipboard#Managers
-# Install clipboard manager
-pacman -S --needed --noconfirm clipcat
-
-# https://wiki.archlinux.org/title/Core_utilities#Interactive_filters
-# Install command-line fuzzy finder
-pacman -S --needed --noconfirm fzf
-
-# https://wiki.archlinux.org/title/List_of_applications/Utilities#Terminal_emulators
-# Install terminal emulator
-pacman -S --needed --noconfirm xfce4-terminal
-
-# https://wiki.archlinux.org/title/Screen_capture#maim
-# Install cli screenshot tool with window and clipboard support
-pacman -S --needed --noconfirm maim xdotool xclip
-
-# https://wiki.archlinux.org/title/Screen_capture#Screencast_software
-# Install screen recorder
-pacman -S --needed --noconfirm obs-studio
-
-# https://wiki.archlinux.org/title/List_of_applications/Other#Application_launchers
-# Install application launcher
-pacman -S --needed --noconfirm rofi
-
-# https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
-# Install terminal and GUI text editor
-pacman -S --needed --noconfirm micro mousepad
 
 # https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
 # Install vscodium
@@ -247,41 +117,6 @@ runuser -l "$NEWUSER" -c "chmod +x /tmp/code-setup && /tmp/code-setup -c codium"
 # Install onlyoffice desktop
 runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm onlyoffice-bin"
 
-# https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
-# Install web browser
-pacman -S --needed --noconfirm firefox
-
-# https://wiki.archlinux.org/title/List_of_applications/Security#Password_managers
-# Install password manager
-pacman -S --needed --noconfirm keepassxc
-
-# https://wiki.archlinux.org/title/List_of_applications/Multimedia#Image_viewers
-# Install image viewer
-pacman -S --needed --noconfirm viewnior
-
-# https://wiki.archlinux.org/title/List_of_applications/Multimedia#Raster_graphics_editors
-# Install image editor
-pacman -S --needed --noconfirm gimp
-
-# https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_players
-# Install video player
-pacman -S --needed --noconfirm vlc
-
-# https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_editors
-# Install video editor
-pacman -S --needed --noconfirm shotcut
-
-# https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
-# Install terminal and GUI task manager
-pacman -S --needed --noconfirm htop xfce4-taskmanager
-
-# https://wiki.archlinux.org/title/List_of_applications/Utilities#Archive_managers
-# Install archive manager
-pacman -S --needed --noconfirm engrampa
-
-# https://wiki.archlinux.org/title/Docker#Installation
-# Install docker (engine, compose, and buildx)
-pacman -S --needed --noconfirm docker docker-compose docker-buildx
 # Enable docker daemon
 systemctl enable docker.socket
 # https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
@@ -289,28 +124,16 @@ systemctl enable docker.socket
 getent group docker > /dev/null 2>&1 || groupadd docker
 id -nG "$NEWUSER" | grep -qw docker || usermod -aG docker "$NEWUSER"
 
-# https://wiki.archlinux.org/title/CUPS#Installation
-# Add printing system and print to PDF
-pacman -S --needed --noconfirm cups cups-pdf
 # https://wiki.archlinux.org/title/CUPS#Socket_activation
 # Enable cups socket
 systemctl enable cups.socket
-# https://wiki.archlinux.org/title/CUPS#USB
-# Add usb printer detection
-pacman -S --needed --noconfirm usbutils
 # https://wiki.archlinux.org/title/CUPS#Printer_discovery
 # Disable built-in mDNS service
 systemctl disable systemd-resolved.service
-# https://wiki.archlinux.org/title/Avahi#Installation
-# Install avahi with hostname resolution
-pacman -S --needed --noconfirm avahi nss-mdns
 # https://wiki.archlinux.org/title/Avahi#Hostname_resolution
 # Enable avahi with hostname resolution
 systemctl enable avahi-daemon.service
 sed -i 's/hosts: mymachines resolve/hosts: mymachines mdns_minimal [NOTFOUND=return] resolve/' /etc/nsswitch.conf
-# https://wiki.archlinux.org/title/CUPS#GUI_applications
-# Install GUI for printer
-pacman -S --needed --noconfirm system-config-printer
 
 # https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel to run sudo entering password

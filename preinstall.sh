@@ -61,5 +61,7 @@ echo "Copying logs to new system..."
 cp /root/pacstrap-output.log /mnt/pacstrap-output.log
 cp /root/pacstrap-error.log /mnt/pacstrap-error.log
 
-# Copy script to DISK
+# Copy scripts to DISK
+echo "Copying scripts to new system..."
+[ -f /root/usb/install.sh ] && cp /root/usb/install.sh /mnt/install.sh
 [ -f /root/usb/setup.sh ] && cp /root/usb/setup.sh /mnt/setup.sh
