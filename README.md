@@ -1,6 +1,6 @@
 # Arch Installation
 
-Follow the [installation guide](https://wiki.archlinux.org/title/Installation_guide#Pre-installation) in the Arch wiki to download the [ISO](https://wiki.archlinux.org/title/Installation_guide#Acquire_an_installation_image) and [verify the signature](https://wiki.archlinux.org/title/Installation_guide#Verify_signature).
+Follow the [installation guide](https://wiki.archlinux.org/title/Installation_guide#Pre-installation) in the Arch wiki to download the [ISO](https://wiki.archlinux.org/title/Installation_guide#Acquire_an_installation_image) and [verify the signature](https://wiki.archlinux.org/title/Installation_guide#Verify_signature)
 
 ---
 
@@ -54,28 +54,19 @@ arch-chroot /mnt
 
 ---
 
+Run installation script[^1]<br>
+<sub>**Note:** variables can be modify</sub>
+
+```
+. /install.sh
+```
+
+---
+
 [Set the root password](https://wiki.archlinux.org/title/Installation_guide#Root_password)
 
 ```
 passwd
-```
-
----
-
-Run setup script[^1]<br>
-<sub>**Note:** to change username, modify variables inside the script</sub>
-
-```
-. /setup.sh > output.txt 2> error.txt
-```
-
----
-
-Set the user password<br>
-<sub>**Note:** change shyguy with your username if you change it in the script</sub>
-
-```
-passwd shyguy
 ```
 
 ---
@@ -94,4 +85,22 @@ Connect to wireless internet using [Network Manger](https://wiki.archlinux.org/t
 nmtui
 ```
 
-[^1]: Script assumes that is running as root.
+---
+
+Run setup script[^1]<br>
+<sub>**Note:** to change username, modify variable inside the script</sub>
+
+```
+. /install.sh
+```
+
+---
+
+Set the user password<br>
+<sub>**Note:** change shyguy with your username if you change it in the script</sub>
+
+```
+passwd shyguy
+```
+
+[^1]: Script assumes that is running as root
