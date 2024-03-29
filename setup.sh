@@ -45,17 +45,17 @@ runuser -l "$NEWUSER" -c "cd '$USERYAYCACHE' && makepkg -si --needed --noconfirm
 
 # Install packages inside csv file
 curl -s -o /tmp/pkgs.csv.tmp https://raw.githubusercontent.com/shyguyCreate/setup/main/pkgs.csv
-tail -n +2 /tmp/pkgs.csv.tmp > /tmp/pkgs.csv
+tail -n +2 /tmp/pkgs.csv.tmp | cut -d ',' -f -2 > /tmp/pkgs.csv
 while IFS=, read -r tag program; do
     case "$tag" in
-        "A") yay -S --needed --noconfirm "$program" ;;
-        *) pacman -S --needed --noconfirm "$program" ;;
+        "A") yay -S --needed --noconfirm $program ;;
+        *) pacman -S --needed --noconfirm $program ;;
     esac
 done < /tmp/pkgs.csv
 
 # https://wiki.archlinux.org/title/Command-line_shell#Changing_your_default_shell
 # Change new user default shell
-chsh -s /usr/bin/zsh shyguy
+[ "$(getent passwd "$NEWUSER" | awk -F: '{print $NF}')" = "/usr/bin/zsh" ] || chsh -s /usr/bin/zsh "$NEWUSER" > /dev/null
 
 # https://wiki.archlinux.org/title/XDG_Base_Directory#Partial
 # Change zsh dotfiles to ~/.config/zsh
