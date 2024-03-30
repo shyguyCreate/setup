@@ -1,6 +1,7 @@
 Tag,Package,Description,URL
 ,dosfstools,FAT formatter tools,https://wiki.archlinux.org/title/FAT#File_system_creation
 ,network-manager-applet,network manager GUI,https://wiki.archlinux.org/title/NetworkManager#Additional_interfaces
+,bat,cat alternative,https://wiki.archlinux.org/title/Core_utilities#cat_alternatives
 ,bash-completion,bash commands and options completion,https://wiki.archlinux.org/title/Bash#Common_programs_and_options
 ,bash-language-server,bash language support for editor or IDE,https://wiki.archlinux.org/title/Language_Server_Protocol
 ,zsh,bash alternative,https://wiki.archlinux.org/title/Zsh#Installation
@@ -58,3 +59,7 @@ Tag,Package,Description,URL
 ,avahi,wireless printer detection,https://wiki.archlinux.org/title/CUPS#Printer_discovery
 ,nss-mdns,hostname resolution,https://wiki.archlinux.org/title/Avahi#Hostname_resolution
 ,system-config-printer,printer GUI,https://wiki.archlinux.org/title/CUPS#GUI_applications
+A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k
+A,shellcheck-bin,shell script analysis tool
+A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
+A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites

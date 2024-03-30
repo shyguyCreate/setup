@@ -37,18 +37,16 @@ USERHOME="$(runuser -l "$NEWUSER" -c 'echo $HOME')"
 
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
-pacman -S --needed --noconfirm git base-devel
-USERYAYCACHE="$USERHOME/.cache/yay/yay-bin"
-[ -d "$USERYAYCACHE" ] && [ "$(git -C "$USERYAYCACHE" config --get remote.origin.url 2> /dev/null)" != "https://aur.archlinux.org/yay-bin.git" ] && rm -rf "$USERYAYCACHE"
-[ ! -d "$USERYAYCACHE" ] && runuser -l "$NEWUSER" -c "mkdir -p '$USERYAYCACHE' && git -C '$USERYAYCACHE' clone https://aur.archlinux.org/yay-bin.git ."
-runuser -l "$NEWUSER" -c "cd '$USERYAYCACHE' && makepkg -si --needed --noconfirm"
+if pacman -Q yay > /dev/null 2>&1; then
+    runuser -l "$NEWUSER" -c "cd /tmp && git clone -q https://aur.archlinux.org/yay-bin.git; cd yay-bin && makepkg -si --needed --noconfirm"
+fi
 
 # Install packages inside csv file
 curl -s -o /tmp/pkgs.csv.tmp https://raw.githubusercontent.com/shyguyCreate/setup/main/pkgs.csv
 tail -n +2 /tmp/pkgs.csv.tmp | cut -d ',' -f -2 > /tmp/pkgs.csv
 while IFS=, read -r tag program; do
     case "$tag" in
-        "A") yay -S --needed --noconfirm $program ;;
+        "A") runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm $program" ;;
         *) pacman -S --needed --noconfirm $program ;;
     esac
 done < /tmp/pkgs.csv
@@ -82,9 +80,6 @@ runuser -l "$NEWUSER" -c "git clone https://github.com/shyguyCreate/dotfiles.git
 # Clone zsh plugins in ~/.config/zsh
 [ -f "$USERHOME/.config/zsh/.zplugins" ] && runuser -l "$NEWUSER" -c ". '$USERHOME/.config/zsh/.zplugins'"
 
-# Install mesloLGS fonts for powerlevel10k
-runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm ttf-meslo-nerd-font-powerlevel10k"
-
 # https://wiki.archlinux.org/title/Doas#Configuration
 # Add config file to access root
 echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel' > /etc/doas.conf
@@ -99,23 +94,13 @@ lspci -v | grep -A1 -e VGA -e 3D | grep -qi intel && pacman -S --needed --noconf
 # Enable lightdm
 systemctl enable lightdm.service
 
-# Install shell script analysis tool
-runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm shellcheck-bin"
-
 # https://wiki.archlinux.org/title/Cron#Activation_and_autostart
 # Enable cron service
 systemctl enable cronie.service
 
-# https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
-# Install vscodium
-runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm vscodium-bin"
 # Configure vscodium with scripts
 runuser -l "$NEWUSER" -c "curl -s --output-dir /tmp -O https://gist.githubusercontent.com/shyguyCreate/4ab7e85477f6bcd2dd58aad3914861a8/raw/code-setup"
 runuser -l "$NEWUSER" -c "chmod +x /tmp/code-setup && /tmp/code-setup -c codium"
-
-# https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
-# Install onlyoffice desktop
-runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm onlyoffice-bin"
 
 # Enable docker daemon
 systemctl enable docker.socket
@@ -137,5 +122,5 @@ sed -i 's/hosts: mymachines resolve/hosts: mymachines mdns_minimal [NOTFOUND=ret
 
 # https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel to run sudo entering password
-sed -i 's/^%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
+sed -i 's/^%wheel ALL=(ALL:ALL) NOPASSWD: ALL/# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
