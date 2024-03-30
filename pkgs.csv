@@ -6,12 +6,12 @@ Tag,Package,Description,URL
 ,bash-language-server,bash language support for editor or IDE,https://wiki.archlinux.org/title/Language_Server_Protocol
 ,zsh,bash alternative,https://wiki.archlinux.org/title/Zsh#Installation
 ,git,source control,https://wiki.archlinux.org/title/Git#Installation
-,github-cli,GitHub command line tool
+,github-cli,GitHub command line tool,
 ,opendoas,sudo alternative,https://wiki.archlinux.org/title/Doas#Installation
 ,zip unzip,zip compression and decompression,https://wiki.archlinux.org/title/Archiving_and_compression#Archiving_and_compression
 ,man-db man-pages,man pages,https://wiki.archlinux.org/title/Man_page#Installation
 ,texinfo,info pages,https://wiki.archlinux.org/title/GNU#Texinfo
-,tldr,man page summaries
+,tldr,man page summaries,
 ,pipewire wireplumber pipewire-audio,audio support,https://wiki.archlinux.org/title/PipeWire#Installation
 ,pipewire-alsa pipewire-pulse pipewire-jack,support with other audio clients,https://wiki.archlinux.org/title/PipeWire#Audio
 ,pavucontrol,audio mixer GUI,https://wiki.archlinux.org/title/PulseAudio#Front-ends
@@ -31,7 +31,7 @@ Tag,Package,Description,URL
 ,gnome-themes-extra,Adwaita and Adwaita-dark GTK theme,https://wiki.archlinux.org/title/GTK#Themes_supporting_GTK_2_and_GTK_3
 ,ttf-dejavu,font family,https://wiki.archlinux.org/title/Fonts
 ,lxappearance-gtk3,GTK 2 and GTK 3 configuration tool,https://wiki.archlinux.org/title/GTK#Configuration_tools
-,shfmt,shell script formatter
+,shfmt,shell script formatter,
 ,polybar xdo,taskbar (and workaround to hide it),https://wiki.archlinux.org/title/List_of_applications/Other#Taskbars
 ,i3lock xorg-xset xss-lock,screen locker and screen saver timer,https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
 ,libnotify dunst,desktop notifications,https://wiki.archlinux.org/title/Desktop_notifications
@@ -59,7 +59,7 @@ Tag,Package,Description,URL
 ,avahi,wireless printer detection,https://wiki.archlinux.org/title/CUPS#Printer_discovery
 ,nss-mdns,hostname resolution,https://wiki.archlinux.org/title/Avahi#Hostname_resolution
 ,system-config-printer,printer GUI,https://wiki.archlinux.org/title/CUPS#GUI_applications
-A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k
-A,shellcheck-bin,shell script analysis tool
+A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
+A,shellcheck-bin,shell script analysis tool,
 A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
 A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites

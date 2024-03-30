@@ -17,11 +17,6 @@ sudo sed -i 's/^#*HandleRebootKey=.*/HandleRebootKey=ignore/' /etc/systemd/login
 sudo sed -i 's/^#*HandleSuspendKey=.*/HandleSuspendKey=ignore/' /etc/systemd/logind.conf
 sudo sed -i 's/^#*HandleHibernateKey=.*/HandleHibernateKey=ignore/' /etc/systemd/logind.conf
 
-# https://wiki.archlinux.org/title/Microcode
-# Install processor microcode update
-grep -q AuthenticAMD /proc/cpuinfo && pacman -S --needed --noconfirm amd-ucode
-grep -q GenuineIntel /proc/cpuinfo && pacman -S --needed --noconfirm intel-ucode
-
 # https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel group to run sudo without password
 sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
@@ -37,8 +32,9 @@ USERHOME="$(runuser -l "$NEWUSER" -c 'echo $HOME')"
 
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
+pacman -S --needed git base-devel >> /pacman-output.log 2>> /pacman-error.log
 if pacman -Q yay > /dev/null 2>&1; then
-    runuser -l "$NEWUSER" -c "cd /tmp && git clone -q https://aur.archlinux.org/yay-bin.git; cd yay-bin && makepkg -si --needed --noconfirm"
+    runuser -l "$NEWUSER" -c "cd /tmp && git clone -q https://aur.archlinux.org/yay-bin.git; cd yay-bin && makepkg -si --needed --noconfirm" >> /yay-output.log 2>> /yay-error.log
 fi
 
 # Install packages inside csv file
@@ -46,8 +42,8 @@ curl -s -o /tmp/pkgs.csv.tmp https://raw.githubusercontent.com/shyguyCreate/setu
 tail -n +2 /tmp/pkgs.csv.tmp | cut -d ',' -f -2 > /tmp/pkgs.csv
 while IFS=, read -r tag program; do
     case "$tag" in
-        "A") runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm $program" ;;
-        *) pacman -S --needed --noconfirm $program ;;
+        "A") runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm $program" >> /yay-output.log 2>> /yay-error.log ;;
+        *) pacman -S --needed --noconfirm $program >> /pacman-output.log 2>> /pacman-error.log ;;
     esac
 done < /tmp/pkgs.csv
 
@@ -88,22 +84,22 @@ chmod -c 0400 /etc/doas.conf
 
 # https://wiki.archlinux.org/title/Xorg#Driver_installation
 # Install intel video drivers if needed
-lspci -v | grep -A1 -e VGA -e 3D | grep -qi intel && pacman -S --needed --noconfirm xf86-video-intel mesa vulkan-intel
+lspci -v | grep -A1 -e VGA -e 3D | grep -qi intel && pacman -S --needed --noconfirm xf86-video-intel mesa vulkan-intel >> /pacman-output.log 2>> /pacman-error.log
 
 # https://wiki.archlinux.org/title/LightDM#Enabling_LightDM
 # Enable lightdm
-systemctl enable lightdm.service
+systemctl --quiet enable lightdm.service
 
 # https://wiki.archlinux.org/title/Cron#Activation_and_autostart
 # Enable cron service
-systemctl enable cronie.service
+systemctl --quiet enable cronie.service
 
 # Configure vscodium with scripts
 runuser -l "$NEWUSER" -c "curl -s --output-dir /tmp -O https://gist.githubusercontent.com/shyguyCreate/4ab7e85477f6bcd2dd58aad3914861a8/raw/code-setup"
 runuser -l "$NEWUSER" -c "chmod +x /tmp/code-setup && /tmp/code-setup -c codium"
 
 # Enable docker daemon
-systemctl enable docker.socket
+systemctl --quiet enable docker.socket
 # https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
 # Run docker as a non-root user
 getent group docker > /dev/null 2>&1 || groupadd docker
@@ -111,13 +107,13 @@ id -nG "$NEWUSER" | grep -qw docker || usermod -aG docker "$NEWUSER"
 
 # https://wiki.archlinux.org/title/CUPS#Socket_activation
 # Enable cups socket
-systemctl enable cups.socket
+systemctl --quiet enable cups.socket
 # https://wiki.archlinux.org/title/CUPS#Printer_discovery
 # Disable built-in mDNS service
-systemctl disable systemd-resolved.service
+systemctl --quiet disable systemd-resolved.service
 # https://wiki.archlinux.org/title/Avahi#Hostname_resolution
 # Enable avahi with hostname resolution
-systemctl enable avahi-daemon.service
+systemctl --quiet enable avahi-daemon.service
 sed -i 's/hosts: mymachines resolve/hosts: mymachines mdns_minimal [NOTFOUND=return] resolve/' /etc/nsswitch.conf
 
 # https://wiki.archlinux.org/title/Sudo#Example_entries
