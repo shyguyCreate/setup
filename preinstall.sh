@@ -21,12 +21,12 @@ timedatectl set-ntp true
 
 # Remove partition signatures
 echo "Removing disk signatures..."
-wipefs --all -q "${DISK}" || ! echo "Error ocurred!" || exit
+wipefs --all -q "${DISK}" || ! echo "Error ocurred!" || return 1
 
 # https://wiki.archlinux.org/title/Installation_guide#Partition_the_disks
 # Partition disk
 echo "Partitioning disk..."
-printf "size=+1G,type=L\\nsize=+5G,type=L\\nsize=+,type=L\\n" | sfdisk -q "${DISK}" || ! echo "Error ocurred!" || exit
+printf "size=+1G,type=L\\nsize=+5G,type=L\\nsize=+,type=L\\n" | sfdisk -q "${DISK}" || ! echo "Error ocurred!" || return 1
 
 # https://wiki.archlinux.org/title/Installation_guide#Format_the_partitions
 # Format root partition
@@ -50,7 +50,7 @@ swapon "${DISK}2"
 # https://wiki.archlinux.org/title/Installation_guide#Install_essential_packages
 # Install packages in new system
 echo "Installing packages to new system..."
-pacstrap -K /mnt base base-devel linux linux-firmware linux-headers nano vim > /root/pacstrap-output.log 2> /root/pacstrap-error.log
+pacstrap -K /mnt base base-devel linux linux-firmware linux-headers nano vim >> /root/pacstrap-output.log 2>> /root/pacstrap-error.log
 
 # https://wiki.archlinux.org/title/Installation_guide#Fstab
 # Define disk partitions

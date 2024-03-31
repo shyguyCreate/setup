@@ -16,11 +16,11 @@ printf '%s' "$USB" | rev | cut -c 1 | grep -q '[0-9]' && echo "Error: USB seems 
 
 # Remove partition signatures
 echo "Removing disk signatures..."
-wipefs --all -q "${USB}" || ! echo "Error ocurred!" || exit
+wipefs --all -q "${USB}" || ! echo "Error ocurred!" || return 1
 
 # Partition usb
 echo "Partitioning disk..."
-printf "size=+2G,type=L,\\nsize=+,type=L\\n" | sfdisk -q "${USB}" || ! echo "Error ocurred!" || exit
+printf "size=+2G,type=L,\\nsize=+,type=L\\n" | sfdisk -q "${USB}" || ! echo "Error ocurred!" || return 1
 
 ############ ISO ############
 
