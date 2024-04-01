@@ -5,9 +5,9 @@ KEYBOARD_LAYOUT="la-latin1"
 CONSOLE_FONT="ter-122b"
 
 # Exit if DISK is empty
-[ -z "$DISK" ] && echo "Error: Missing disk device, use DISK=/dev/your_disk" && return 1
-[ ! -e "$DISK" ] && echo "Error: Disk device does not exist, use DISK=/dev/your_disk" && return 1
-printf '%s' "$DISK" | rev | cut -c 1 | grep -q '[0-9]' && echo "Error: Disk seems to be a partition, use DISK=/dev/your_disk" && return 1
+[ -z "$DISK" ] && echo "Error: Missing DISK device, use DISK=/dev/your_disk" && return 1
+[ ! -b "$DISK" ] && echo "Error: DISK does not exist, use DISK=/dev/your_disk" && return 1
+[ "$(lsblk -dno type "$DISK")" != "disk" ] && echo "Error: DISK is not disk type, use DISK=/dev/your_disk" && return 1
 
 # https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout_and_font
 # Set keyboard layout (latam latin)
@@ -26,7 +26,7 @@ wipefs --all -q "${DISK}" || ! echo "Error ocurred!" || return 1
 # https://wiki.archlinux.org/title/Installation_guide#Partition_the_disks
 # Partition disk
 echo "Partitioning disk..."
-printf "size=+1G,type=L\\nsize=+5G,type=L\\nsize=+,type=L\\n" | sfdisk -q "${DISK}" || ! echo "Error ocurred!" || return 1
+printf "size=+1G,type=L\nsize=+5G,type=L\nsize=+,type=L\n" | sfdisk -q "${DISK}" || ! echo "Error ocurred!" || return 1
 
 # https://wiki.archlinux.org/title/Installation_guide#Format_the_partitions
 # Format root partition

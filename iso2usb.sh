@@ -6,13 +6,16 @@
 
 # Exit if USB is invalid
 [ -z "$USB" ] && echo "Error: Missing USB device, use USB=/dev/your_usb" && return 1
-[ ! -e "$USB" ] && echo "Error: USB device does not exist, use USB=/dev/your_usb" && return 1
-printf '%s' "$USB" | rev | cut -c 1 | grep -q '[0-9]' && echo "Error: USB seems to be a partition, use USB=/dev/your_usb" && return 1
+[ ! -b "$USB" ] && echo "Error: USB does not exist, use USB=/dev/your_usb" && return 1
+[ "$(lsblk -dno type "$USB")" != "disk" ] && echo "Error: USB is not disk type, use USB=/dev/your_usb" && return 1
 
 # Exit if ISO is invalid
 [ -z "$ISO" ] && echo "Error: Missing ISO file, use ISO=path/to/archlinux-version-x86_64.iso" && return 1
 [ ! -f "$ISO" ] && echo "Error: ISO file does not exist, use ISO=path/to/archlinux-version-x86_64.iso" && return 1
 ! bsdtar -t -f "$ISO" > /dev/null 2>&1 && echo "Error: Unrecognized archive format, use ISO=path/to/archlinux-version-x86_64.iso" && return 1
+
+# Get iso size and add 1GB of safe space
+iso_size="$(numfmt --to=iec $(($(wc -c < "$ISO") + 100000000)))"
 
 # Remove partition signatures
 echo "Removing disk signatures..."
@@ -20,22 +23,22 @@ wipefs --all -q "${USB}" || ! echo "Error ocurred!" || return 1
 
 # Partition usb
 echo "Partitioning disk..."
-printf "size=+2G,type=L,\\nsize=+,type=L\\n" | sfdisk -q "${USB}" || ! echo "Error ocurred!" || return 1
+printf "size=+%s,type=L,bootable,\nsize=+,type=L\n" "$iso_size" | sfdisk -q "${USB}" || ! echo "Error ocurred!" || return 1
 
 ############ ISO ############
 
 # Format iso partition
-echo "Formatting boot partition..."
+echo "Formatting iso partition..."
 mkfs.fat -F 32 "${USB}1"
 
-# Mount iso volume
+# Mount iso partition
 mount "${USB}1" /mnt
 
-# Extract iso image to mount
+# Extract iso image to iso partition
 echo "Copying ISO to USB..."
 bsdtar -x -f "${ISO}" -C /mnt
 
-# Umount iso volume
+# Umount iso partition
 umount /mnt
 
 ########## STORAGE ##########
@@ -44,14 +47,14 @@ umount /mnt
 echo "Formatting storage partition..."
 mkfs.ext4 -q -F "${USB}2"
 
-# Mount storage volume
+# Mount storage partition
 mount "${USB}2" /mnt
 
-# Copy scripts to storage volume
+# Copy scripts to storage partition
 echo "Adding scripts to USB..."
 curl -s --output-dir /mnt -O https://raw.githubusercontent.com/shyguyCreate/setup/main/preinstall.sh
 curl -s --output-dir /mnt -O https://raw.githubusercontent.com/shyguyCreate/setup/main/install.sh
 curl -s --output-dir /mnt -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh
 
-# Umount storage volume
+# Umount storage partition
 umount /mnt
