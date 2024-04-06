@@ -63,6 +63,15 @@ git config --system init.defaultBranch main
 # Make directory for Github and gists
 runuser -l "$NEWUSER" -c "mkdir -p '$USERHOME/Github/gist'"
 
+# https://wiki.archlinux.org/title/File_manager_functionality#Use_PCManFM_to_get_thumbnails_for_other_file_types
+# Get thumbnail previews for PDFs
+cat > /usr/share/thumbnailers/imagemagick-pdf.thumbnailer << EOF
+[Thumbnailer Entry]
+TryExec=convert
+Exec=convert %i[0] -background "#FFFFFF" -flatten -thumbnail %s %o
+MimeType=application/pdf;application/x-pdf;image/pdf;
+EOF
+
 # Clone git repository of this script
 setupREPO="$USERHOME/Github/setup"
 runuser -l "$NEWUSER" -c "git clone https://github.com/shyguyCreate/setup.git '$setupREPO'"

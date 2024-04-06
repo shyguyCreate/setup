@@ -49,10 +49,8 @@ A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,micro l3afpad,terminal and GUI text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
 ,keepassxc,password manager,https://wiki.archlinux.org/title/List_of_applications/Security#Password_managers
 ,xarchiver,archive manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
-,lf,terminal file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
-,thunar thunar-archive-plugin,GUI file manager and wanted dependencies,https://wiki.archlinux.org/title/Thunar#Plugins_and_addons
-,gdk-pixbuf2 libavif libheif libjxl libopenraw librsvg libwmf webp-pixbuf-loader,image loading library,https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
-,tumbler ffmpegthumbnailer poppler-glib freetype2,thumbnail support,https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
+,lf pcmanfm-gtk3,terminal and GUI file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
+,webp-pixbuf-loader ffmpegthumbnailer imagemagick,thumbnail support,https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
 ,gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc,mount support for external devices,https://wiki.archlinux.org/title/File_manager_functionality#Mounting
 ,htop lxtask-gtk3,terminal and GUI task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
 ,firefox,web browser,https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
