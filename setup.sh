@@ -2,6 +2,8 @@
 
 # Script variables
 NEWUSER="shyguy"
+KEYBOARD_LAYOUT="latam"
+KEYBOARD_VARIANT="deadtilde"
 
 # https://wiki.archlinux.org/title/PC_speaker#Globally
 # Remove beep sound
@@ -47,7 +49,7 @@ while IFS=, read -r tag program; do
     esac
 done < /tmp/pkgs.csv
 
-# https://wiki.archlinux.org/title/Libinput#Via_xinput_on_Xorg
+# https://wiki.archlinux.org/title/Libinput#Via_Xorg_configuration_file
 # Add tap to click, natural scrolling, and increased mouse speed
 mkdir -p /etc/X11/xorg.conf.d
 cat > /etc/X11/xorg.conf.d/30-touchpad.conf << EOF
@@ -62,8 +64,21 @@ Section "InputClass"
 EndSection
 EOF
 
+# https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Using_X_configuration_files
+# Change Xorg keyboard layout
+mkdir -p /etc/X11/xorg.conf.d
+cat > /etc/X11/xorg.conf.d/00-keyboard.conf << EOF
+Section "InputClass"
+        Identifier "system-keyboard"
+        MatchIsKeyboard "on"
+        Option "XkbModel" "pc105"
+        Option "XkbLayout" "$KEYBOARD_LAYOUT"
+        Option "XkbVariant" "$KEYBOARD_VARIANT"
+EndSection
+EOF
+
 # https://wiki.archlinux.org/title/File_manager_functionality#Use_PCManFM_to_get_thumbnails_for_other_file_types
-# Get thumbnail previews for PDFs
+# Get thumbnail preview for PDFs
 mkdir -p /usr/share/thumbnailers
 cat > /usr/share/thumbnailers/imagemagick-pdf.thumbnailer << EOF
 [Thumbnailer Entry]
