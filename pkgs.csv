@@ -51,14 +51,16 @@ A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,keepassxc,password manager,https://wiki.archlinux.org/title/List_of_applications/Security#Password_managers
 ,xarchiver,archive manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
 ,lf pcmanfm-gtk3,terminal and GUI file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
-,webp-pixbuf-loader ffmpegthumbnailer imagemagick,thumbnail support,https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
+,webp-pixbuf-loader,webp thumbnail support,
+,ffmpegthumbnailer,video thumbnail support,
+,imagemagick,pdf thumbnail support alternative,
 ,gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc,mount support for external devices,https://wiki.archlinux.org/title/File_manager_functionality#Mounting
 ,htop lxtask-gtk3,terminal and GUI task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
 ,firefox,web browser,https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 ,imv,image viewer,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Image_viewers
 ,gimp,image editor,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Raster_graphics_editors
 ,obs-studio,screen recorder,https://wiki.archlinux.org/title/Screen_capture#Screencast_software
-,vlc,video player,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_players
+,mpv,video player,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_players
 ,shotcut,video editor,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_editors
 A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
 ,zathura,document viewer,https://wiki.archlinux.org/title/PDF,_PS_and_DjVu#Viewers
@@ -66,4 +68,4 @@ A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications
 ,zathura-ps,postscript support for zathura,
 ,zathura-djvu,djvu support for zathura,
 A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
-,exo garcon xfce4-session xfce4-settings xfconf xfwm4,xfce group,https://wiki.archlinux.org/title/Xfce#Installation
+,xfce4-session xfconf xfwm4,xfce group,https://wiki.archlinux.org/title/Xfce#Installation

@@ -47,6 +47,31 @@ while IFS=, read -r tag program; do
     esac
 done < /tmp/pkgs.csv
 
+# https://wiki.archlinux.org/title/Libinput#Via_xinput_on_Xorg
+# Add tap to click, natural scrolling, and increased mouse speed
+mkdir -p /etc/X11/xorg.conf.d
+cat > /etc/X11/xorg.conf.d/30-touchpad.conf << EOF
+Section "InputClass"
+        Identifier "libinput touchpad catchall"
+        MatchIsTouchpad "on"
+        MatchDevicePath "/dev/input/event*"
+        Driver "libinput"
+        Option "Tapping" "on"
+        Option "NaturalScrolling" "on"
+        Option "AccelSpeed" "0.25"
+EndSection
+EOF
+
+# https://wiki.archlinux.org/title/File_manager_functionality#Use_PCManFM_to_get_thumbnails_for_other_file_types
+# Get thumbnail previews for PDFs
+mkdir -p /usr/share/thumbnailers
+cat > /usr/share/thumbnailers/imagemagick-pdf.thumbnailer << EOF
+[Thumbnailer Entry]
+TryExec=convert
+Exec=convert %i[0] -background "#FFFFFF" -flatten -thumbnail %s %o
+MimeType=application/pdf;application/x-pdf;image/pdf;
+EOF
+
 # https://wiki.archlinux.org/title/Command-line_shell#Changing_your_default_shell
 # Change new user default shell
 [ "$(getent passwd "$NEWUSER" | awk -F: '{print $NF}')" = "/usr/bin/zsh" ] || chsh -s /usr/bin/zsh "$NEWUSER" > /dev/null
@@ -62,15 +87,6 @@ git config --system init.defaultBranch main
 
 # Make directory for Github and gists
 runuser -l "$NEWUSER" -c "mkdir -p '$USERHOME/Github/gist'"
-
-# https://wiki.archlinux.org/title/File_manager_functionality#Use_PCManFM_to_get_thumbnails_for_other_file_types
-# Get thumbnail previews for PDFs
-cat > /usr/share/thumbnailers/imagemagick-pdf.thumbnailer << EOF
-[Thumbnailer Entry]
-TryExec=convert
-Exec=convert %i[0] -background "#FFFFFF" -flatten -thumbnail %s %o
-MimeType=application/pdf;application/x-pdf;image/pdf;
-EOF
 
 # Clone git repository of this script
 setupREPO="$USERHOME/Github/setup"
