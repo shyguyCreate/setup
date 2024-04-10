@@ -116,6 +116,29 @@ runuser -l "$NEWUSER" -c "git clone https://github.com/shyguyCreate/dotfiles.git
 # Clone zsh plugins in ~/.config/zsh
 [ -f "$USERHOME/.config/zsh/.zplugins" ] && runuser -l "$NEWUSER" -c ". '$USERHOME/.config/zsh/.zplugins'"
 
+# https://wiki.archlinux.org/title/udev#Triggering_desktop_notifications_from_a_udev_rule
+# Send a notification when plugged
+mkdir -p /etc/udev/rules.d
+cat > /etc/udev/rules.d/99-powersupply_notification-$NEWUSER.rules << EOF
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Battery", ATTR{status}=="Full", \\
+RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify \$kernel full-charged'"
+
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Battery", ATTR{status}=="Charging", \\
+RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify \$kernel full-charging'"
+
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Battery", \\
+ATTR{status}=="Discharging", ATTR{capacity}!="[0-2][0-9]", \\
+RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify \$kernel good'"
+
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Battery", \\
+ATTR{status}=="Discharging", ATTR{capacity}=="[1-2][0-9]", \\
+RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify \$kernel low'"
+
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Battery", \\
+ATTR{status}=="Discharging", ATTR{capacity}=="[0-9]", \\
+RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify \$kernel caution'"
+EOF
+
 # https://wiki.archlinux.org/title/Doas#Configuration
 # Add config file to access root
 echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel' > /etc/doas.conf

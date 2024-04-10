@@ -18,7 +18,6 @@ A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,pipewire wireplumber pipewire-audio,audio support,https://wiki.archlinux.org/title/PipeWire#Installation
 ,pipewire-alsa pipewire-pulse pipewire-jack,support with other audio clients,https://wiki.archlinux.org/title/PipeWire#Audio
 ,brightnessctl,control screen brightness,https://wiki.archlinux.org/title/Backlight#Backlight_utilities
-,cronie,job scheduler,https://wiki.archlinux.org/title/Cron#Installation
 ,cups cups-pdf,printing system and print to PDF,https://wiki.archlinux.org/title/CUPS#Installation
 ,usbutils,usb printer detection,https://wiki.archlinux.org/title/CUPS#USB
 ,avahi,wireless printer detection,https://wiki.archlinux.org/title/CUPS#Printer_discovery
