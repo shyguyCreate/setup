@@ -87,67 +87,15 @@ Exec=convert %i[0] -background "#FFFFFF" -flatten -thumbnail %s %o
 MimeType=application/pdf;application/x-pdf;image/pdf;
 EOF
 
-# https://wiki.archlinux.org/title/Command-line_shell#Changing_your_default_shell
-# Change new user default shell
-[ "$(getent passwd "$NEWUSER" | awk -F: '{print $NF}')" = "/usr/bin/zsh" ] || chsh -s /usr/bin/zsh "$NEWUSER" > /dev/null
-
-# https://wiki.archlinux.org/title/XDG_Base_Directory#Partial
-# Change zsh dotfiles to ~/.config/zsh
-# shellcheck disable=SC2016
-echo 'export ZDOTDIR=$HOME/.config/zsh' > /etc/zsh/zshenv
-
-# https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch
-# Set main as the default branch name
-git config --system init.defaultBranch main
-
-# Make directory for Github and gists
-runuser -l "$NEWUSER" -c "mkdir -p '$USERHOME/Github/gist'"
-
-# Clone git repository of this script
-setupREPO="$USERHOME/Github/setup"
-runuser -l "$NEWUSER" -c "git clone https://github.com/shyguyCreate/setup.git '$setupREPO'"
-
-# Clone dotfiles repository
-dotfilesREPO="$USERHOME/Github/dotfiles"
-runuser -l "$NEWUSER" -c "git clone https://github.com/shyguyCreate/dotfiles.git '$dotfilesREPO'"
-# Copy dotfiles to user home directory
-[ -f "$dotfilesREPO/push.sh" ] && runuser -l "$NEWUSER" -c "chmod +x '$dotfilesREPO/push.sh' && '$dotfilesREPO/push.sh'"
-
-# Clone zsh plugins in ~/.config/zsh
-[ -f "$USERHOME/.config/zsh/.zplugins" ] && runuser -l "$NEWUSER" -c ". '$USERHOME/.config/zsh/.zplugins'"
-
-# https://wiki.archlinux.org/title/udev#Triggering_desktop_notifications_from_a_udev_rule
-# Send a notification when plugged
-mkdir -p /etc/udev/rules.d
-cat > /etc/udev/rules.d/99-powersupply_notification-$NEWUSER.rules << EOF
-ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Battery", ATTR{status}=="Full", \\
-RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify \$kernel full-charged'"
-
-ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Battery", ATTR{status}=="Charging", \\
-RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify \$kernel full-charging'"
-
-ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Battery", \\
-ATTR{status}=="Discharging", ATTR{capacity}!="[0-2][0-9]", \\
-RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify \$kernel good'"
-
-ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Battery", \\
-ATTR{status}=="Discharging", ATTR{capacity}=="[1-2][0-9]", \\
-RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify \$kernel low'"
-
-ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Battery", \\
-ATTR{status}=="Discharging", ATTR{capacity}=="[0-9]", \\
-RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify \$kernel caution'"
-EOF
-
 # https://wiki.archlinux.org/title/Doas#Configuration
 # Add config file to access root
 echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel' > /etc/doas.conf
 chown -c root:root /etc/doas.conf
 chmod -c 0400 /etc/doas.conf
 
-# https://wiki.archlinux.org/title/Xorg#Driver_installation
-# Install intel video drivers if needed
-lspci -v | grep -A1 -e VGA -e 3D | grep -qi intel && pacman -S --needed --noconfirm xf86-video-intel mesa vulkan-intel >> /pacman-output.log 2>> /pacman-error.log
+# https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch
+# Set main as the default branch name
+git config --system init.defaultBranch main
 
 # https://wiki.archlinux.org/title/LightDM#Enabling_LightDM
 # Enable lightdm
@@ -157,10 +105,7 @@ systemctl --quiet enable lightdm.service
 # Enable cron service
 systemctl --quiet enable cronie.service
 
-# Configure vscodium with scripts
-runuser -l "$NEWUSER" -c "curl -s --output-dir /tmp -O https://gist.githubusercontent.com/shyguyCreate/4ab7e85477f6bcd2dd58aad3914861a8/raw/code-setup"
-runuser -l "$NEWUSER" -c "chmod +x /tmp/code-setup && /tmp/code-setup -c codium"
-
+# https://wiki.archlinux.org/title/Docker#Installation
 # Enable docker daemon
 systemctl --quiet enable docker.socket
 # https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
@@ -178,6 +123,45 @@ systemctl --quiet disable systemd-resolved.service
 # Enable avahi with hostname resolution
 systemctl --quiet enable avahi-daemon.service
 sed -i 's/hosts: mymachines resolve/hosts: mymachines mdns_minimal [NOTFOUND=return] resolve/' /etc/nsswitch.conf
+
+# https://wiki.archlinux.org/title/XDG_Base_Directory#Partial
+# Change zsh dotfiles to ~/.config/zsh
+# shellcheck disable=SC2016
+echo 'export ZDOTDIR=$HOME/.config/zsh' > /etc/zsh/zshenv
+
+# https://wiki.archlinux.org/title/Command-line_shell#Changing_your_default_shell
+# Change new user default shell
+[ "$(getent passwd "$NEWUSER" | awk -F: '{print $NF}')" = "/usr/bin/zsh" ] || chsh -s /usr/bin/zsh "$NEWUSER" > /dev/null
+
+# Copy dotfiles from repo to HOME
+curl -Ls --output-dir /tmp -O https://github.com/shyguyCreate/dotfiles/archive/refs/heads/main.tar.gz
+tar -xf /tmp/main.tar.gz -C /tmp
+[ -f /tmp/dotfiles-main/push.sh ] && chmod +x /tmp/dotfiles-main/push.sh && runuser -l "$NEWUSER" -c /tmp/dotfiles-main/push.sh
+
+# Download zsh plugins
+[ -f "$USERHOME/.config/zsh/.zplugins" ] && runuser -l "$NEWUSER" -c ". '$USERHOME/.config/zsh/.zplugins'"
+
+# https://wiki.archlinux.org/title/udev#Triggering_desktop_notifications_from_a_udev_rule
+# Send notification when plugged
+mkdir -p /etc/udev/rules.d
+cat > /etc/udev/rules.d/99-battery-notify-$NEWUSER.rules << EOF
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", \\
+RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify'"
+
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", \\
+RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify'"
+EOF
+
+# Add cron job for battery notifications
+echo "* * * * * . $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify" | crontab -u "$NEWUSER" -
+
+# https://wiki.archlinux.org/title/Xorg#Driver_installation
+# Install intel video drivers if needed
+lspci -v | grep -A1 -e VGA -e 3D | grep -qi intel && pacman -S --needed --noconfirm xf86-video-intel mesa vulkan-intel >> /pacman-output.log 2>> /pacman-error.log
+
+# Configure vscodium with scripts
+runuser -l "$NEWUSER" -c "curl -s --output-dir /tmp -O https://gist.githubusercontent.com/shyguyCreate/4ab7e85477f6bcd2dd58aad3914861a8/raw/code-setup"
+runuser -l "$NEWUSER" -c "chmod +x /tmp/code-setup && /tmp/code-setup -c codium"
 
 # https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel to run sudo entering password
