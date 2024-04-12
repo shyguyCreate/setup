@@ -9,7 +9,6 @@ Tag,Package,Description,URL
 ,texinfo,info pages,https://wiki.archlinux.org/title/GNU#Texinfo
 ,tldr,man page summaries,
 ,bat,cat alternative,https://wiki.archlinux.org/title/Core_utilities#cat_alternatives
-,perl-rename,regex renamer,https://wiki.archlinux.org/title/List_of_applications/Utilities#Batch_renamers
 ,fzf,command-line fuzzy finder,https://wiki.archlinux.org/title/Core_utilities#Interactive_filters
 ,shfmt,shell script formatter,
 A,shellcheck-bin,shell script analysis tool,
@@ -34,60 +33,61 @@ A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,cronie,job scheduler,https://wiki.archlinux.org/title/Cron#Installation
 ,docker,run docker containers,https://wiki.archlinux.org/title/Docker#Installation
 ,docker-compose,run compose containers,https://wiki.archlinux.org/title/Docker#Docker_Compose
-,docker-buildx,extend docker build,
+,docker-buildx,extend docker build command,
 ,ttf-dejavu,font family,https://wiki.archlinux.org/title/Fonts
-,htop,terminal task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
-,micro,terminal text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
-,lf,terminal file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
 ,xorg-server,display server,https://wiki.archlinux.org/title/Xorg#Installation
 ,xorg-xinit,startx and xinit command,https://wiki.archlinux.org/title/Xinit#Installation
 ,lightdm,display manager,https://wiki.archlinux.org/title/LightDM#Installation
 ,lightdm-gtk-greeter,GUI for display manager,https://wiki.archlinux.org/title/LightDM#Greeter
 ,lightdm-gtk-greeter-settings,display manager GUI settings,https://wiki.archlinux.org/title/LightDM#Optional_configuration_and_tweaks
-,i3lock,screen locker,https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
 ,xss-lock,trigger screen locker,https://wiki.archlinux.org/title/Session_lock#Xorg_triggers
-,xorg-xset,screen saver timer,https://wiki.archlinux.org/title/Display_Power_Management_Signaling#Runtime_settings
+,xorg-xset,screen saver timer,https://wiki.archlinux.org/title/Session_lock#DPMS
 ,redshift,screen color temperature adjuster,https://wiki.archlinux.org/title/Backlight#Color_correction
 ,xorg-xev,keycode identifier,https://wiki.archlinux.org/title/Keyboard_input#Identifying_keycodes_in_Xorg
 ,sxhkd,map keys to commands,https://wiki.archlinux.org/title/Keyboard_shortcuts#Xorg
-,maim,screenshot tool,https://wiki.archlinux.org/title/Screen_capture#Screenshot_software
-,xclip,command line clipboard,https://wiki.archlinux.org/title/Clipboard#Tools
-,xdotool,get active window id,
-,rofi,application launcher,https://wiki.archlinux.org/title/List_of_applications/Other#Application_launchers
-,clipcat,clipboard manager,https://wiki.archlinux.org/title/Clipboard#Managers
 ,lxappearance-gtk3,GTK 2 and GTK 3 configuration tool,https://wiki.archlinux.org/title/GTK#Configuration_tools
 ,gnome-themes-extra,Adwaita and Adwaita-dark GTK theme,https://wiki.archlinux.org/title/GTK#Themes_supporting_GTK_2_and_GTK_3
 ,network-manager-applet,network manager GUI,https://wiki.archlinux.org/title/NetworkManager#Additional_interfaces
 ,pavucontrol,audio mixer GUI,https://wiki.archlinux.org/title/PulseAudio#Front-ends
 ,system-config-printer,printer GUI,https://wiki.archlinux.org/title/CUPS#GUI_applications
-,polybar,taskbar,https://wiki.archlinux.org/title/List_of_applications/Other#Taskbars
-,xdo,workaround to show/hide polybar,
-,libnotify,desktop notifications,https://wiki.archlinux.org/title/Desktop_notifications
+,libnotify,desktop notifications,https://wiki.archlinux.org/title/Desktop_notifications#Libnotify
 ,dunst,notification daemon,https://wiki.archlinux.org/title/Desktop_notifications#Standalone
-,lxterminal,terminal emulator,https://wiki.archlinux.org/title/List_of_applications/Utilities#Terminal_emulators
-,xarchiver,archive manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
-,lxtask-gtk3,GUI task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
+,xclip,command line clipboard,https://wiki.archlinux.org/title/Clipboard#Tools
+,clipcat,clipboard manager,https://wiki.archlinux.org/title/Clipboard#Managers
+,xdotool,get active window id,
+,micro,terminal text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
 ,l3afpad,GUI text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
-,pcmanfm-gtk3,GUI file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
-,webp-pixbuf-loader,webp thumbnail support,https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
-,ffmpegthumbnailer,video thumbnail support,https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
-,imagemagick,pdf thumbnail support alternative,https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
-,gvfs,mount support and trash functionality,https://wiki.archlinux.org/title/File_manager_functionality#Mounting
-,gvfs-mtp,MTP support for gvfs,https://wiki.archlinux.org/title/Media_Transfer_Protocol#File_manager_integration
-,gvfs-gphoto2,PTP support for gvfs,https://wiki.archlinux.org/title/GPhoto#Frontend_applications
-,gvfs-afc,AFC support for gvfs,https://wiki.archlinux.org/title/IOS#Using_a_graphical_file_manager
-,keepassxc,password manager,https://wiki.archlinux.org/title/List_of_applications/Security#Password_managers
+A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
+,zathura,document viewer,https://wiki.archlinux.org/title/List_of_applications/Documents#PDF_and_DjVu
 ,firefox,web browser,https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 ,imv,image viewer,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Image_viewers
 ,gimp,image editor,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Raster_graphics_editors
-,obs-studio,screen recorder,https://wiki.archlinux.org/title/Screen_capture#Screencast_software
+,maim,screenshot tool,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Screenshot
 ,mpv,video player,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_players
 ,shotcut,video editor,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_editors
-A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
-,zathura,document viewer,https://wiki.archlinux.org/title/PDF,_PS_and_DjVu#Viewers
-,zathura-pdf-poppler,pdf support for zathura,https://wiki.archlinux.org/title/Zathura#Installation
-,zathura-ps,postscript support for zathura,https://wiki.archlinux.org/title/Zathura#Installation
-,zathura-djvu,djvu support for zathura,https://wiki.archlinux.org/title/Zathura#Installation
-A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
+,obs-studio,screen recorder,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Screencast
+,polybar,taskbar,https://wiki.archlinux.org/title/List_of_applications/Other#Taskbars
+,rofi,application launcher,https://wiki.archlinux.org/title/List_of_applications/Other#Application_launchers
 ,galculator,calculator,https://wiki.archlinux.org/title/List_of_applications/Science#Calculator
+,i3lock,screen locker,https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
+,keepassxc,password manager,https://wiki.archlinux.org/title/List_of_applications/Security#Password_managers
+,lxterminal,terminal emulator,https://wiki.archlinux.org/title/List_of_applications/Utilities#Terminal_emulators
+,lf,terminal file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
+,pcmanfm-gtk3,GUI file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
+,xarchiver,archive manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
+,perl-rename,regex renamer,https://wiki.archlinux.org/title/List_of_applications/Utilities#Batch_renamers
+A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
+,htop,terminal task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
+,lxtask-gtk3,GUI task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
+,xdo,workaround to show/hide polybar,
+,gvfs,mount support and trash functionality,https://wiki.archlinux.org/title/File_manager_functionality#Mounting
+,gvfs-mtp,MTP support for gvfs,
+,gvfs-gphoto2,PTP support for gvfs,
+,gvfs-afc,AFC support for gvfs,
+,webp-pixbuf-loader,webp thumbnail support,
+,ffmpegthumbnailer,video thumbnail support,
+,imagemagick,pdf thumbnail support alternative,
+,zathura-pdf-poppler,pdf support for zathura,
+,zathura-ps,postscript support for zathura,
+,zathura-djvu,djvu support for zathura,
 ,xfce4-session xfconf xfwm4,xfce group,https://wiki.archlinux.org/title/Xfce#Installation
