@@ -30,7 +30,7 @@ id -u "$NEWUSER" > /dev/null 2>&1 || useradd -m -G wheel "$NEWUSER"
 
 # Save user HOME variable
 # shellcheck disable=SC2016
-USERHOME="$(runuser -l "$NEWUSER" -c 'echo $HOME')"
+USERHOME="$(getent passwd "$NEWUSER" | cut -d ':' -f 6)"
 
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
@@ -48,6 +48,49 @@ while IFS=, read -r tag program; do
         *) pacman -S --needed --noconfirm $program >> /pacman-output.log 2>> /pacman-error.log ;;
     esac
 done < /tmp/pkgs.csv
+
+# https://wiki.archlinux.org/title/Doas#Configuration
+# Add config file to access root
+echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel' > /etc/doas.conf
+chown -c root:root /etc/doas.conf
+chmod -c 0400 /etc/doas.conf
+
+# https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch
+# Set main as the default branch name
+git config --system init.defaultBranch main
+
+# https://wiki.archlinux.org/title/Uncomplicated_Firewall#Installation
+systemctl --quiet disable iptables.service
+systemctl --quiet disable ip6tables.service
+systemctl --quiet enable ufw.service
+ufw enable
+
+# https://wiki.archlinux.org/title/LightDM#Enabling_LightDM
+# Enable lightdm
+systemctl --quiet enable lightdm.service
+
+# https://wiki.archlinux.org/title/Cron#Activation_and_autostart
+# Enable cron service
+systemctl --quiet enable cronie.service
+
+# https://wiki.archlinux.org/title/Docker#Installation
+# Enable docker daemon
+systemctl --quiet enable docker.socket
+# https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
+# Run docker as a non-root user
+getent group docker > /dev/null 2>&1 || groupadd docker
+id -nG "$NEWUSER" | grep -qw docker || usermod -aG docker "$NEWUSER"
+
+# https://wiki.archlinux.org/title/CUPS#Socket_activation
+# Enable cups socket
+systemctl --quiet enable cups.socket
+# https://wiki.archlinux.org/title/CUPS#Printer_discovery
+# Disable built-in mDNS service
+systemctl --quiet disable systemd-resolved.service
+# https://wiki.archlinux.org/title/Avahi#Hostname_resolution
+# Enable avahi with hostname resolution
+systemctl --quiet enable avahi-daemon.service
+sed -i 's/hosts: mymachines resolve/hosts: mymachines mdns_minimal [NOTFOUND=return] resolve/' /etc/nsswitch.conf
 
 # https://wiki.archlinux.org/title/Libinput#Via_Xorg_configuration_file
 # Add tap to click, natural scrolling, and increased mouse speed
@@ -87,43 +130,6 @@ Exec=convert %i[0] -background "#FFFFFF" -flatten -thumbnail %s %o
 MimeType=application/pdf;application/x-pdf;image/pdf;
 EOF
 
-# https://wiki.archlinux.org/title/Doas#Configuration
-# Add config file to access root
-echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wheel' > /etc/doas.conf
-chown -c root:root /etc/doas.conf
-chmod -c 0400 /etc/doas.conf
-
-# https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch
-# Set main as the default branch name
-git config --system init.defaultBranch main
-
-# https://wiki.archlinux.org/title/LightDM#Enabling_LightDM
-# Enable lightdm
-systemctl --quiet enable lightdm.service
-
-# https://wiki.archlinux.org/title/Cron#Activation_and_autostart
-# Enable cron service
-systemctl --quiet enable cronie.service
-
-# https://wiki.archlinux.org/title/Docker#Installation
-# Enable docker daemon
-systemctl --quiet enable docker.socket
-# https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
-# Run docker as a non-root user
-getent group docker > /dev/null 2>&1 || groupadd docker
-id -nG "$NEWUSER" | grep -qw docker || usermod -aG docker "$NEWUSER"
-
-# https://wiki.archlinux.org/title/CUPS#Socket_activation
-# Enable cups socket
-systemctl --quiet enable cups.socket
-# https://wiki.archlinux.org/title/CUPS#Printer_discovery
-# Disable built-in mDNS service
-systemctl --quiet disable systemd-resolved.service
-# https://wiki.archlinux.org/title/Avahi#Hostname_resolution
-# Enable avahi with hostname resolution
-systemctl --quiet enable avahi-daemon.service
-sed -i 's/hosts: mymachines resolve/hosts: mymachines mdns_minimal [NOTFOUND=return] resolve/' /etc/nsswitch.conf
-
 # https://wiki.archlinux.org/title/XDG_Base_Directory#Partial
 # Change zsh dotfiles to ~/.config/zsh
 # shellcheck disable=SC2016
@@ -135,11 +141,19 @@ echo 'export ZDOTDIR=$HOME/.config/zsh' > /etc/zsh/zshenv
 
 # Copy dotfiles from repo to HOME
 curl -Ls --output-dir /tmp -O https://github.com/shyguyCreate/dotfiles/archive/refs/heads/main.tar.gz
-tar -xf /tmp/main.tar.gz -C /tmp
-[ -f /tmp/dotfiles-main/push.sh ] && chmod +x /tmp/dotfiles-main/push.sh && runuser -l "$NEWUSER" -c /tmp/dotfiles-main/push.sh
+mkdir -p /tmp/dotfiles && tar -xf /tmp/main.tar.gz -C /tmp/dotfiles --strip-components=1
+[ -f /tmp/dotfiles/push.sh ] && chmod +x /tmp/dotfiles/push.sh && runuser -l "$NEWUSER" -c /tmp/dotfiles/push.sh
 
 # Download zsh plugins
 [ -f "$USERHOME/.config/zsh/.zplugins" ] && runuser -l "$NEWUSER" -c ". '$USERHOME/.config/zsh/.zplugins'"
+
+# Configure vscodium with scripts
+curl -s --output-dir /tmp -O https://gist.githubusercontent.com/shyguyCreate/4ab7e85477f6bcd2dd58aad3914861a8/raw/code-setup
+chmod +x /tmp/code-setup && runuser -l "$NEWUSER" -c "/tmp/code-setup -c codium"
+
+# https://wiki.archlinux.org/title/cron#Running_X.org_server-based_applications
+# Add cron job for battery notifications
+echo "* * * * * . $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify" | crontab -u "$NEWUSER" -
 
 # https://wiki.archlinux.org/title/udev#Triggering_desktop_notifications_from_a_udev_rule
 # Send notification when plugged
@@ -151,17 +165,6 @@ RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery
 ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", \\
 RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify'"
 EOF
-
-# Add cron job for battery notifications
-echo "* * * * * . $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify" | crontab -u "$NEWUSER" -
-
-# https://wiki.archlinux.org/title/Xorg#Driver_installation
-# Install intel video drivers if needed
-lspci -v | grep -A1 -e VGA -e 3D | grep -qi intel && pacman -S --needed --noconfirm xf86-video-intel mesa vulkan-intel >> /pacman-output.log 2>> /pacman-error.log
-
-# Configure vscodium with scripts
-runuser -l "$NEWUSER" -c "curl -s --output-dir /tmp -O https://gist.githubusercontent.com/shyguyCreate/4ab7e85477f6bcd2dd58aad3914861a8/raw/code-setup"
-runuser -l "$NEWUSER" -c "chmod +x /tmp/code-setup && /tmp/code-setup -c codium"
 
 # https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel to run sudo entering password

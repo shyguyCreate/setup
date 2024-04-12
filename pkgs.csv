@@ -1,11 +1,15 @@
 Tag,Package,Description,URL
 ,dosfstools,FAT formatter tools,https://wiki.archlinux.org/title/FAT#File_system_creation
+,ufw,firewall manager,https://wiki.archlinux.org/title/Uncomplicated_Firewall#Installation
 ,opendoas,sudo alternative,https://wiki.archlinux.org/title/Doas#Installation
-,zip unzip,zip compression and decompression,https://wiki.archlinux.org/title/Archiving_and_compression#Archiving_and_compression
-,man-db man-pages,man pages,https://wiki.archlinux.org/title/Man_page#Installation
+,zip,zip compression,
+,unzip,zip decompression,
+,man-db,man command,https://wiki.archlinux.org/title/Man_page#Installation
+,man-pages,man pages,https://wiki.archlinux.org/title/Man_page#Installation
 ,texinfo,info pages,https://wiki.archlinux.org/title/GNU#Texinfo
 ,tldr,man page summaries,
 ,bat,cat alternative,https://wiki.archlinux.org/title/Core_utilities#cat_alternatives
+,perl-rename,regex renamer,https://wiki.archlinux.org/title/List_of_applications/Utilities#Batch_renamers
 ,fzf,command-line fuzzy finder,https://wiki.archlinux.org/title/Core_utilities#Interactive_filters
 ,shfmt,shell script formatter,
 A,shellcheck-bin,shell script analysis tool,
@@ -19,11 +23,13 @@ A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,pipewire-alsa pipewire-pulse pipewire-jack,support with other audio clients,https://wiki.archlinux.org/title/PipeWire#Audio
 ,brightnessctl,control screen brightness,https://wiki.archlinux.org/title/Backlight#Backlight_utilities
 ,cronie,job scheduler,https://wiki.archlinux.org/title/Cron#Installation
-,cups cups-pdf,printing system and print to PDF,https://wiki.archlinux.org/title/CUPS#Installation
+,cups,printing system,https://wiki.archlinux.org/title/CUPS#Installation
+,cups-pdf,support print to PDF,https://wiki.archlinux.org/title/CUPS#Installation
 ,usbutils,usb printer detection,https://wiki.archlinux.org/title/CUPS#USB
 ,avahi,wireless printer detection,https://wiki.archlinux.org/title/CUPS#Printer_discovery
 ,docker docker-compose docker-buildx,run containers,https://wiki.archlinux.org/title/Docker#Installation
 ,nss-mdns,hostname resolution,https://wiki.archlinux.org/title/Avahi#Hostname_resolution
+,ttf-dejavu,font family,https://wiki.archlinux.org/title/Fonts
 ,xorg-server,display server,https://wiki.archlinux.org/title/Xorg#Installation
 ,xorg-xinit,startx and xinit command,https://wiki.archlinux.org/title/Xinit#Installation
 ,lightdm,display manager,https://wiki.archlinux.org/title/LightDM#Installation
@@ -38,7 +44,6 @@ A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,clipcat,clipboard manager,https://wiki.archlinux.org/title/Clipboard#Managers
 ,lxappearance-gtk3,GTK 2 and GTK 3 configuration tool,https://wiki.archlinux.org/title/GTK#Configuration_tools
 ,gnome-themes-extra,Adwaita and Adwaita-dark GTK theme,https://wiki.archlinux.org/title/GTK#Themes_supporting_GTK_2_and_GTK_3
-,ttf-dejavu,font family,https://wiki.archlinux.org/title/Fonts
 ,network-manager-applet,network manager GUI,https://wiki.archlinux.org/title/NetworkManager#Additional_interfaces
 ,pavucontrol,audio mixer GUI,https://wiki.archlinux.org/title/PulseAudio#Front-ends
 ,system-config-printer,printer GUI,https://wiki.archlinux.org/title/CUPS#GUI_applications
@@ -53,7 +58,10 @@ A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,webp-pixbuf-loader,webp thumbnail support,
 ,ffmpegthumbnailer,video thumbnail support,
 ,imagemagick,pdf thumbnail support alternative,
-,gvfs gvfs-mtp gvfs-gphoto2 gvfs-afc,mount support for external devices,https://wiki.archlinux.org/title/File_manager_functionality#Mounting
+,gvfs,mount support and trash functionality,https://wiki.archlinux.org/title/File_manager_functionality#Mounting
+,gvfs-mtp,MTP support for gvfs,
+,gvfs-gphoto2,PTP support for gvfs,
+,gvfs-afc,AFC support for gvfs,
 ,htop lxtask-gtk3,terminal and GUI task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
 ,firefox,web browser,https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 ,imv,image viewer,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Image_viewers
