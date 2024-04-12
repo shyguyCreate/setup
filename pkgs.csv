@@ -15,31 +15,44 @@ Tag,Package,Description,URL
 A,shellcheck-bin,shell script analysis tool,
 ,git,source control,https://wiki.archlinux.org/title/Git#Installation
 ,github-cli,GitHub command line tool,
-,bash-completion,bash commands and options completion,https://wiki.archlinux.org/title/Bash#Common_programs_and_options
-,bash-language-server,bash language support for editor or IDE,https://wiki.archlinux.org/title/Language_Server_Protocol
+,bash-completion,bash command options completion,https://wiki.archlinux.org/title/Bash#Tab_completion
+,bash-language-server,bash language support for editor and IDE,https://wiki.archlinux.org/title/Language_Server_Protocol
 ,zsh,bash alternative,https://wiki.archlinux.org/title/Zsh#Installation
 A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
-,pipewire wireplumber pipewire-audio,audio support,https://wiki.archlinux.org/title/PipeWire#Installation
-,pipewire-alsa pipewire-pulse pipewire-jack,support with other audio clients,https://wiki.archlinux.org/title/PipeWire#Audio
+,pipewire,multimedia framework,https://wiki.archlinux.org/title/PipeWire#Installation
+,wireplumber,pipewire manager,https://wiki.archlinux.org/title/PipeWire#Session_manager
+,pipewire-audio,audio server,https://wiki.archlinux.org/title/PipeWire#Audio
+,pipewire-alsa,alsa support for pipewire,https://wiki.archlinux.org/title/PipeWire#ALSA_clients
+,pipewire-pulse,pulseaudio support for pipewire,https://wiki.archlinux.org/title/PipeWire#PulseAudio_clients
+,pipewire-jack,jack support for pipewire,https://wiki.archlinux.org/title/PipeWire#JACK_clients
 ,brightnessctl,control screen brightness,https://wiki.archlinux.org/title/Backlight#Backlight_utilities
-,cronie,job scheduler,https://wiki.archlinux.org/title/Cron#Installation
 ,cups,printing system,https://wiki.archlinux.org/title/CUPS#Installation
 ,cups-pdf,support print to PDF,https://wiki.archlinux.org/title/CUPS#Installation
 ,usbutils,usb printer detection,https://wiki.archlinux.org/title/CUPS#USB
 ,avahi,wireless printer detection,https://wiki.archlinux.org/title/CUPS#Printer_discovery
-,docker docker-compose docker-buildx,run containers,https://wiki.archlinux.org/title/Docker#Installation
 ,nss-mdns,hostname resolution,https://wiki.archlinux.org/title/Avahi#Hostname_resolution
+,cronie,job scheduler,https://wiki.archlinux.org/title/Cron#Installation
+,docker,run docker containers,https://wiki.archlinux.org/title/Docker#Installation
+,docker-compose,run compose containers,https://wiki.archlinux.org/title/Docker#Docker_Compose
+,docker-buildx,extend docker build,
 ,ttf-dejavu,font family,https://wiki.archlinux.org/title/Fonts
+,htop,terminal task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
+,micro,terminal text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
+,lf,terminal file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
 ,xorg-server,display server,https://wiki.archlinux.org/title/Xorg#Installation
 ,xorg-xinit,startx and xinit command,https://wiki.archlinux.org/title/Xinit#Installation
 ,lightdm,display manager,https://wiki.archlinux.org/title/LightDM#Installation
 ,lightdm-gtk-greeter,GUI for display manager,https://wiki.archlinux.org/title/LightDM#Greeter
 ,lightdm-gtk-greeter-settings,display manager GUI settings,https://wiki.archlinux.org/title/LightDM#Optional_configuration_and_tweaks
-,i3lock xorg-xset xss-lock,screen locker and screen saver timer,https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
+,i3lock,screen locker,https://wiki.archlinux.org/title/List_of_applications/Security#Screen_lockers
+,xss-lock,trigger screen locker,https://wiki.archlinux.org/title/Session_lock#Xorg_triggers
+,xorg-xset,screen saver timer,https://wiki.archlinux.org/title/Display_Power_Management_Signaling#Runtime_settings
 ,redshift,screen color temperature adjuster,https://wiki.archlinux.org/title/Backlight#Color_correction
 ,xorg-xev,keycode identifier,https://wiki.archlinux.org/title/Keyboard_input#Identifying_keycodes_in_Xorg
 ,sxhkd,map keys to commands,https://wiki.archlinux.org/title/Keyboard_shortcuts#Xorg
-,maim xdotool xclip,screenshot tool with window and clipboard support,https://wiki.archlinux.org/title/Screen_capture#Screenshot_software
+,maim,screenshot tool,https://wiki.archlinux.org/title/Screen_capture#Screenshot_software
+,xclip,command line clipboard,https://wiki.archlinux.org/title/Clipboard#Tools
+,xdotool,get active window id,
 ,rofi,application launcher,https://wiki.archlinux.org/title/List_of_applications/Other#Application_launchers
 ,clipcat,clipboard manager,https://wiki.archlinux.org/title/Clipboard#Managers
 ,lxappearance-gtk3,GTK 2 and GTK 3 configuration tool,https://wiki.archlinux.org/title/GTK#Configuration_tools
@@ -47,22 +60,23 @@ A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,network-manager-applet,network manager GUI,https://wiki.archlinux.org/title/NetworkManager#Additional_interfaces
 ,pavucontrol,audio mixer GUI,https://wiki.archlinux.org/title/PulseAudio#Front-ends
 ,system-config-printer,printer GUI,https://wiki.archlinux.org/title/CUPS#GUI_applications
-,polybar xdo,taskbar (and workaround to hide it),https://wiki.archlinux.org/title/List_of_applications/Other#Taskbars
+,polybar,taskbar,https://wiki.archlinux.org/title/List_of_applications/Other#Taskbars
+,xdo,workaround to show/hide polybar,
 ,libnotify,desktop notifications,https://wiki.archlinux.org/title/Desktop_notifications
 ,dunst,notification daemon,https://wiki.archlinux.org/title/Desktop_notifications#Standalone
 ,lxterminal,terminal emulator,https://wiki.archlinux.org/title/List_of_applications/Utilities#Terminal_emulators
-,micro l3afpad,terminal and GUI text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
-,keepassxc,password manager,https://wiki.archlinux.org/title/List_of_applications/Security#Password_managers
 ,xarchiver,archive manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
-,lf pcmanfm-gtk3,terminal and GUI file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
-,webp-pixbuf-loader,webp thumbnail support,
-,ffmpegthumbnailer,video thumbnail support,
-,imagemagick,pdf thumbnail support alternative,
+,lxtask-gtk3,GUI task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
+,l3afpad,GUI text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
+,pcmanfm-gtk3,GUI file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
+,webp-pixbuf-loader,webp thumbnail support,https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
+,ffmpegthumbnailer,video thumbnail support,https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
+,imagemagick,pdf thumbnail support alternative,https://wiki.archlinux.org/title/File_manager_functionality#Thumbnail_previews
 ,gvfs,mount support and trash functionality,https://wiki.archlinux.org/title/File_manager_functionality#Mounting
-,gvfs-mtp,MTP support for gvfs,
-,gvfs-gphoto2,PTP support for gvfs,
-,gvfs-afc,AFC support for gvfs,
-,htop lxtask-gtk3,terminal and GUI task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
+,gvfs-mtp,MTP support for gvfs,https://wiki.archlinux.org/title/Media_Transfer_Protocol#File_manager_integration
+,gvfs-gphoto2,PTP support for gvfs,https://wiki.archlinux.org/title/GPhoto#Frontend_applications
+,gvfs-afc,AFC support for gvfs,https://wiki.archlinux.org/title/IOS#Using_a_graphical_file_manager
+,keepassxc,password manager,https://wiki.archlinux.org/title/List_of_applications/Security#Password_managers
 ,firefox,web browser,https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 ,imv,image viewer,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Image_viewers
 ,gimp,image editor,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Raster_graphics_editors
@@ -71,9 +85,9 @@ A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,shotcut,video editor,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_editors
 A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
 ,zathura,document viewer,https://wiki.archlinux.org/title/PDF,_PS_and_DjVu#Viewers
-,zathura-pdf-poppler,pdf support for zathura,
-,zathura-ps,postscript support for zathura,
-,zathura-djvu,djvu support for zathura,
+,zathura-pdf-poppler,pdf support for zathura,https://wiki.archlinux.org/title/Zathura#Installation
+,zathura-ps,postscript support for zathura,https://wiki.archlinux.org/title/Zathura#Installation
+,zathura-djvu,djvu support for zathura,https://wiki.archlinux.org/title/Zathura#Installation
 A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 ,galculator,calculator,https://wiki.archlinux.org/title/List_of_applications/Science#Calculator
 ,xfce4-session xfconf xfwm4,xfce group,https://wiki.archlinux.org/title/Xfce#Installation
