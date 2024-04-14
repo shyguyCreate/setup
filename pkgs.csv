@@ -3,6 +3,8 @@ Tag,Package,Description,URL
 ,fzf,command-line fuzzy finder,https://wiki.archlinux.org/title/Core_utilities#Interactive_filters
 ,bash-completion,bash command options completion,https://wiki.archlinux.org/title/Bash#Tab_completion
 ,bash-language-server,bash language support for editors and IDEs,https://wiki.archlinux.org/title/Language_Server_Protocol
+,shfmt,shell script formatter,
+A,shellcheck-bin,shell script analysis tool,
 ,cups,printing system,https://wiki.archlinux.org/title/CUPS#Installation
 ,cups-pdf,support print to PDF,https://wiki.archlinux.org/title/CUPS#Installation
 ,usbutils,usb printer detection,https://wiki.archlinux.org/title/CUPS#USB
@@ -15,13 +17,14 @@ Tag,Package,Description,URL
 ,xorg-server,display server,https://wiki.archlinux.org/title/Xorg#Installation
 ,xorg-xinit,startx and xinit command,https://wiki.archlinux.org/title/Xinit#Installation
 ,xss-lock,trigger screen locker,https://wiki.archlinux.org/title/Session_lock#Xorg_triggers
-,xorg-xset,screen saver timer,https://wiki.archlinux.org/title/Session_lock#DPMS
+,xorg-xset,screen saver timer,https://wiki.archlinux.org/title/Display_Power_Management_Signaling#Xorg
 ,xorg-xev,keycode identifier,https://wiki.archlinux.org/title/Keyboard_input#Identifying_keycodes_in_Xorg
+,xdotool,get active window id,
+,xclip,command line clipboard,https://wiki.archlinux.org/title/Clipboard#Tools
 ,libnotify,desktop notifications,https://wiki.archlinux.org/title/Desktop_notifications#Libnotify
 ,gnome-themes-extra,Adwaita and Adwaita-dark GTK theme,https://wiki.archlinux.org/title/GTK#Themes_supporting_GTK_2_and_GTK_3
 ,lxappearance-gtk3,GTK 2 and GTK 3 configuration tool,https://wiki.archlinux.org/title/GTK#Configuration_tools
-,xclip,command line clipboard,https://wiki.archlinux.org/title/Clipboard#Tools
-,xdotool,get active window id,
+,tldr,man page summaries,
 ,micro,terminal text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
 ,l3afpad,GUI text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
 A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
@@ -64,10 +67,10 @@ A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications
 ,man-db,man command,https://wiki.archlinux.org/title/List_of_applications/Utilities#Help_viewers
 ,man-pages,man pages,https://wiki.archlinux.org/title/List_of_applications/Utilities#Help_viewers
 ,cronie,command scheduler,https://wiki.archlinux.org/title/List_of_applications/Utilities#Command_schedulers
+,arandr,GUI for xrandr,https://wiki.archlinux.org/title/List_of_applications/Utilities#Screen_management
 ,brightnessctl,control screen brightness,https://wiki.archlinux.org/title/List_of_applications/Utilities#Backlight_management
 ,redshift,screen color temperature adjuster,https://wiki.archlinux.org/title/List_of_applications/Utilities#Color_management
 ,system-config-printer,printer GUI,https://wiki.archlinux.org/title/List_of_applications/Utilities#Printer_management
-,tldr,man page summaries,
 ,wireplumber,pipewire manager,
 ,pipewire-audio,audio support for pipewire,
 ,pipewire-alsa,alsa support for pipewire,
@@ -77,8 +80,6 @@ A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications
 ,lightdm-gtk-greeter,GUI for lightdm,
 ,lightdm-gtk-greeter-settings,GUI settings for lightdm,
 ,xdo,workaround to show/hide polybar,
-,shfmt,shell script formatter,
-A,shellcheck-bin,shell script analysis tool,
 A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,github-cli,GitHub command line tool,
 ,gvfs-mtp,MTP support for gvfs,
