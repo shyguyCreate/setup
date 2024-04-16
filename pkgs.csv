@@ -21,6 +21,7 @@ A,shellcheck-bin,shell script analysis tool,
 ,xorg-xev,keycode identifier,https://wiki.archlinux.org/title/Keyboard_input#Identifying_keycodes_in_Xorg
 ,xdotool,get active window id,
 ,xclip,command line clipboard,https://wiki.archlinux.org/title/Clipboard#Tools
+,polkit-gnome,polkit agent,https://wiki.archlinux.org/title/Polkit#Authentication_agents
 ,libnotify,desktop notifications,https://wiki.archlinux.org/title/Desktop_notifications#Libnotify
 ,gnome-themes-extra,Adwaita and Adwaita-dark GTK theme,https://wiki.archlinux.org/title/GTK#Themes_supporting_GTK_2_and_GTK_3
 ,lxappearance-gtk3,GTK 2 and GTK 3 configuration tool,https://wiki.archlinux.org/title/GTK#Configuration_tools
@@ -54,6 +55,7 @@ A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applicati
 ,lf,terminal file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
 ,pcmanfm-gtk3,GUI file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
 ,gvfs,mount support and trash functionality,https://wiki.archlinux.org/title/List_of_applications/Utilities#Trash_management
+,syncthing,file synchronization,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_synchronization_and_backup
 ,zip,zip compression,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
 ,unzip,zip decompression,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
 ,xarchiver,archive manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
@@ -91,4 +93,4 @@ A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,zathura-pdf-poppler,pdf support for zathura,
 ,zathura-ps,postscript support for zathura,
 ,zathura-djvu,djvu support for zathura,
-,xfce4-session xfconf xfwm4,xfce group,https://wiki.archlinux.org/title/Xfce#Installation
+,xfconf xfwm4,xfce group,https://wiki.archlinux.org/title/Xfce#Installation
