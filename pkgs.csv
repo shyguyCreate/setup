@@ -14,6 +14,7 @@ A,shellcheck-bin,shell script analysis tool,
 ,docker-compose,run compose containers,
 ,docker-buildx,extend docker build command,
 ,ttf-dejavu,font family,https://wiki.archlinux.org/title/Fonts#Families
+,libinput,handle input devices,https://wiki.archlinux.org/title/Libinput#Installation
 ,xorg-server,display server,https://wiki.archlinux.org/title/Xorg#Installation
 ,xorg-xinit,startx and xinit command,https://wiki.archlinux.org/title/Xinit#Installation
 ,xss-lock,trigger screen locker,https://wiki.archlinux.org/title/Session_lock#Xorg_triggers
@@ -41,6 +42,7 @@ A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applicati
 ,shotcut,video editor,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Video_editors
 ,obs-studio,screen recorder,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Screencast
 ,lightdm,display manager,https://wiki.archlinux.org/title/List_of_applications/Other#Display_managers
+,qtile,window manager,https://wiki.archlinux.org/title/List_of_applications/Other#Window_managers
 ,polybar,taskbar,https://wiki.archlinux.org/title/List_of_applications/Other#Taskbars
 ,rofi,application launcher,https://wiki.archlinux.org/title/List_of_applications/Other#Application_launchers
 ,dunst,notification daemon,https://wiki.archlinux.org/title/List_of_applications/Other#Desktop_notifications
@@ -81,7 +83,6 @@ A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications
 ,network-manager-applet,GUI for NetworkManager,
 ,lightdm-gtk-greeter,GUI for lightdm,
 ,lightdm-gtk-greeter-settings,GUI settings for lightdm,
-,xdo,workaround to show/hide polybar,
 A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,github-cli,GitHub command line tool,
 ,gvfs-mtp,MTP support for gvfs,
@@ -93,4 +94,3 @@ A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,zathura-pdf-poppler,pdf support for zathura,
 ,zathura-ps,postscript support for zathura,
 ,zathura-djvu,djvu support for zathura,
-,xfconf xfwm4,xfce group,https://wiki.archlinux.org/title/Xfce#Installation
