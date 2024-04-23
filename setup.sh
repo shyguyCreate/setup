@@ -139,12 +139,19 @@ echo 'export ZDOTDIR=$HOME/.config/zsh' > /etc/zsh/zshenv
 # Change new user default shell
 [ "$(getent passwd "$NEWUSER" | awk -F: '{print $NF}')" = "/usr/bin/zsh" ] || chsh -s /usr/bin/zsh "$NEWUSER" > /dev/null
 
+# https://wiki.archlinux.org/title/Dotfiles#Tracking_dotfiles_directly_with_Git
 # Copy dotfiles from repo to HOME
-curl -Ls --output-dir /tmp -O https://github.com/shyguyCreate/dotfiles/archive/refs/heads/main.tar.gz
-mkdir -p /tmp/dotfiles && tar -xf /tmp/main.tar.gz -C /tmp/dotfiles --strip-components=1
-[ -f /tmp/dotfiles/push.sh ] && chmod +x /tmp/dotfiles/push.sh && runuser -l "$NEWUSER" -c /tmp/dotfiles/push.sh
+runuser -l "$NEWUSER" << 'EOF'
+git clone -q --bare https://github.com/shyguyCreate/dotfiles.git "$HOME/.dotfiles" --depth 1
+dotfiles(){ git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" $@; }
+dotfiles config --local status.showUntrackedFiles no
+cd "$HOME" && mkdir -p .dotfiles-backup
+dotfiles checkout 2>&1 | grep "\s\s*\." | awk '{print $1}' | sed 's|[^/]*$||' | sort -u | xargs -I {} mkdir -p ".dotfiles-backup/{}"
+dotfiles checkout 2>&1 | grep "\s\s*\." | awk '{print $1}' | xargs -I {} mv {} ".dotfiles-backup/{}"
+dotfiles checkout -f
+EOF
 
-# Download zsh plugins
+# Clone zsh plugins
 [ -f "$USERHOME/.config/zsh/.zplugins" ] && runuser -l "$NEWUSER" -c ". '$USERHOME/.config/zsh/.zplugins'"
 
 # Configure vscodium with scripts

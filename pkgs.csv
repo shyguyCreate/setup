@@ -83,6 +83,8 @@ A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications
 ,network-manager-applet,GUI for NetworkManager,
 ,lightdm-gtk-greeter,GUI for lightdm,
 ,lightdm-gtk-greeter-settings,GUI settings for lightdm,
+,python-pyxdg,qtile icon search,
+,python-dbus-next,qtile notifications,
 A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,github-cli,GitHub command line tool,
 ,gvfs-mtp,MTP support for gvfs,
