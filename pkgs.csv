@@ -43,7 +43,6 @@ A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applicati
 ,obs-studio,screen recorder,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Screencast
 ,lightdm,display manager,https://wiki.archlinux.org/title/List_of_applications/Other#Display_managers
 ,qtile,window manager,https://wiki.archlinux.org/title/List_of_applications/Other#Window_managers
-,polybar,taskbar,https://wiki.archlinux.org/title/List_of_applications/Other#Taskbars
 ,rofi,application launcher,https://wiki.archlinux.org/title/List_of_applications/Other#Application_launchers
 ,dunst,notification daemon,https://wiki.archlinux.org/title/List_of_applications/Other#Desktop_notifications
 ,clipcat,clipboard manager,https://wiki.archlinux.org/title/List_of_applications/Other#Clipboard_managers
@@ -83,6 +82,8 @@ A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications
 ,network-manager-applet,GUI for NetworkManager,
 ,lightdm-gtk-greeter,GUI for lightdm,
 ,lightdm-gtk-greeter-settings,GUI settings for lightdm,
+,alsa-utils,qtile volume widget,
+,python-psutil,qtile system stats widgets,
 ,python-pyxdg,qtile icon search,
 ,python-dbus-next,qtile notifications,
 A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,

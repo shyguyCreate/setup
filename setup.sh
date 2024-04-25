@@ -151,9 +151,6 @@ dotfiles checkout 2>&1 | grep "\s\s*\." | awk '{print $1}' | xargs -I {} mv {} "
 dotfiles checkout -f
 EOF
 
-# Clone zsh plugins
-[ -f "$USERHOME/.config/zsh/.zplugins" ] && runuser -l "$NEWUSER" -c ". '$USERHOME/.config/zsh/.zplugins'"
-
 # Configure vscodium with scripts
 curl -s --output-dir /tmp -O https://gist.githubusercontent.com/shyguyCreate/4ab7e85477f6bcd2dd58aad3914861a8/raw/code-setup
 chmod +x /tmp/code-setup && runuser -l "$NEWUSER" -c "/tmp/code-setup -c codium"
