@@ -19,7 +19,6 @@ A,shellcheck-bin,shell script analysis tool,
 ,xorg-xinit,startx and xinit command,https://wiki.archlinux.org/title/Xinit#Installation
 ,xss-lock,trigger screen locker,https://wiki.archlinux.org/title/Session_lock#Xorg_triggers
 ,xorg-xset,screen saver timer,https://wiki.archlinux.org/title/Display_Power_Management_Signaling#Xorg
-,xorg-xev,keycode identifier,https://wiki.archlinux.org/title/Keyboard_input#Identifying_keycodes_in_Xorg
 ,xdotool,get active window id,
 ,xclip,command line clipboard,https://wiki.archlinux.org/title/Clipboard#Tools
 ,polkit-gnome,polkit agent,https://wiki.archlinux.org/title/Polkit#Authentication_agents
@@ -31,6 +30,7 @@ A,shellcheck-bin,shell script analysis tool,
 ,l3afpad,GUI text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
 A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 ,zathura,document viewer,https://wiki.archlinux.org/title/List_of_applications/Documents#PDF_and_DjVu
+,tesseract-data-eng,OCR for english,https://wiki.archlinux.org/title/List_of_applications/Documents#OCR_software
 ,networkmanager,network manager,https://wiki.archlinux.org/title/List_of_applications/Internet#Network_managers
 ,firefox,web browser,https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 ,imv,image viewer,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Image_viewers
@@ -63,7 +63,6 @@ A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applicati
 ,perl-rename,regex renamer,https://wiki.archlinux.org/title/List_of_applications/Utilities#Batch_renamers
 ,git,version control,https://wiki.archlinux.org/title/List_of_applications/Utilities#Version_control_systems
 A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
-,sxhkd,map keys to commands,https://wiki.archlinux.org/title/List_of_applications/Utilities#Keybinding_managers
 ,dosfstools,FAT formatter tools,https://wiki.archlinux.org/title/List_of_applications/Utilities#Formatting_tools
 ,htop,terminal task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
 ,lxtask-gtk3,GUI task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
