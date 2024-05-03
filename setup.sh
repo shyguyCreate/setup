@@ -28,10 +28,6 @@ sed -i 's/^%wheel ALL=(ALL:ALL) ALL/# %wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 # Add new user
 id -u "$NEWUSER" > /dev/null 2>&1 || useradd -m -G wheel "$NEWUSER"
 
-# Save user HOME variable
-# shellcheck disable=SC2016
-USERHOME="$(getent passwd "$NEWUSER" | cut -d ':' -f 6)"
-
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
 pacman -S --needed git base-devel >> /pacman-output.log 2>> /pacman-error.log
@@ -154,21 +150,6 @@ EOF
 # Configure vscodium with scripts
 curl -s --output-dir /tmp -O https://gist.githubusercontent.com/shyguyCreate/4ab7e85477f6bcd2dd58aad3914861a8/raw/code-setup
 chmod +x /tmp/code-setup && runuser -l "$NEWUSER" -c "/tmp/code-setup -c codium"
-
-# https://wiki.archlinux.org/title/cron#Running_X.org_server-based_applications
-# Add cron job for battery notifications
-echo "* * * * * . $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify" | crontab -u "$NEWUSER" -
-
-# https://wiki.archlinux.org/title/udev#Triggering_desktop_notifications_from_a_udev_rule
-# Send notification when plugged
-mkdir -p /etc/udev/rules.d
-cat > /etc/udev/rules.d/99-battery-notify-$NEWUSER.rules << EOF
-ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", \\
-RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify'"
-
-ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", \\
-RUN+="/usr/bin/su $NEWUSER -c '. $USERHOME/.Xenv && $USERHOME/.local/bin/battery-notify'"
-EOF
 
 # https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel to run sudo entering password

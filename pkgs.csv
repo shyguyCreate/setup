@@ -13,6 +13,7 @@ A,shellcheck-bin,shell script analysis tool,
 ,docker,run docker containers,https://wiki.archlinux.org/title/Docker#Installation
 ,docker-compose,run compose containers,
 ,docker-buildx,extend docker build command,
+A,ttf-meslo-nerd-font-powerlevel10k,monospace default,
 ,ttf-dejavu,font family,https://wiki.archlinux.org/title/Fonts#Families
 ,libinput,handle input devices,https://wiki.archlinux.org/title/Libinput#Installation
 ,xorg-server,display server,https://wiki.archlinux.org/title/Xorg#Installation
@@ -68,7 +69,6 @@ A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications
 ,lxtask-gtk3,GUI task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
 ,man-db,man command,https://wiki.archlinux.org/title/List_of_applications/Utilities#Help_viewers
 ,man-pages,man pages,https://wiki.archlinux.org/title/List_of_applications/Utilities#Help_viewers
-,cronie,command scheduler,https://wiki.archlinux.org/title/List_of_applications/Utilities#Command_schedulers
 ,arandr,GUI for xrandr,https://wiki.archlinux.org/title/List_of_applications/Utilities#Screen_management
 ,brightnessctl,control screen brightness,https://wiki.archlinux.org/title/List_of_applications/Utilities#Backlight_management
 ,redshift,screen color temperature adjuster,https://wiki.archlinux.org/title/List_of_applications/Utilities#Color_management
@@ -85,7 +85,6 @@ A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications
 ,python-psutil,qtile system stats widgets,
 ,python-pyxdg,qtile icon search,
 ,python-dbus-next,qtile notifications,
-A,ttf-meslo-nerd-font-powerlevel10k,mesloLGS fonts for powerlevel10k,
 ,github-cli,GitHub command line tool,
 ,gvfs-mtp,MTP support for gvfs,
 ,gvfs-gphoto2,PTP support for gvfs,
