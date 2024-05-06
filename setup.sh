@@ -51,10 +51,6 @@ echo 'permit setenv {PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin} :wh
 chown -c root:root /etc/doas.conf
 chmod -c 0400 /etc/doas.conf
 
-# https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch
-# Set main as the default branch name
-git config --system init.defaultBranch main
-
 # https://wiki.archlinux.org/title/Uncomplicated_Firewall#Installation
 systemctl --quiet disable iptables.service
 systemctl --quiet disable ip6tables.service
@@ -146,10 +142,6 @@ dotfiles checkout 2>&1 | grep "\s\s*\." | awk '{print $1}' | sed 's|[^/]*$||' | 
 dotfiles checkout 2>&1 | grep "\s\s*\." | awk '{print $1}' | xargs -I {} mv {} ".dotfiles-backup/{}"
 dotfiles checkout -f
 EOF
-
-# Configure vscodium with scripts
-curl -s --output-dir /tmp -O https://gist.githubusercontent.com/shyguyCreate/4ab7e85477f6bcd2dd58aad3914861a8/raw/code-setup
-chmod +x /tmp/code-setup && runuser -l "$NEWUSER" -c "/tmp/code-setup -c codium"
 
 # https://wiki.archlinux.org/title/Sudo#Example_entries
 # Allow wheel to run sudo entering password
