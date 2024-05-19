@@ -14,6 +14,7 @@ A,shellcheck-bin,shell script analysis tool,
 ,docker-compose,run compose containers,
 ,docker-buildx,extend docker build command,
 A,ttf-meslo-nerd-font-powerlevel10k,monospace default,
+,cutefish-wallpapers,wallpaper pack,
 ,ttf-dejavu,font family,https://wiki.archlinux.org/title/Fonts#Families
 ,libinput,handle input devices,https://wiki.archlinux.org/title/Libinput#Installation
 ,xorg-server,display server,https://wiki.archlinux.org/title/Xorg#Installation
