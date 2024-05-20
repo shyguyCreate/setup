@@ -3,8 +3,8 @@ Tag,Package,Description,URL
 ,fzf,command-line fuzzy finder,https://wiki.archlinux.org/title/Core_utilities#Interactive_filters
 ,bash-completion,bash command options completion,https://wiki.archlinux.org/title/Bash#Tab_completion
 ,bash-language-server,bash language support for editors and IDEs,https://wiki.archlinux.org/title/Language_Server_Protocol
+A,shellcheck-bin,shell script analysis tool,https://wiki.archlinux.org/title/Bash#Checking_errors_by_analyzing_scripts
 ,shfmt,shell script formatter,
-A,shellcheck-bin,shell script analysis tool,
 ,cups,printing system,https://wiki.archlinux.org/title/CUPS#Installation
 ,cups-pdf,support print to PDF,https://wiki.archlinux.org/title/CUPS#Installation
 ,usbutils,usb printer detection,https://wiki.archlinux.org/title/CUPS#USB

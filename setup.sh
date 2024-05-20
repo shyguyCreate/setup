@@ -26,7 +26,7 @@ sed -i 's/^%wheel ALL=(ALL:ALL) ALL/# %wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # https://wiki.archlinux.org/title/Users_and_groups#User_management
 # Add new user
-id -u "$NEWUSER" > /dev/null 2>&1 || useradd -m -G wheel "$NEWUSER"
+id -u "$NEWUSER" > /dev/null 2>&1 || useradd -mk "" -G wheel "$NEWUSER"
 
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
