@@ -50,11 +50,9 @@ mkfs.ext4 -q -F "${USB}2"
 # Mount storage partition
 mount "${USB}2" /mnt
 
-# Copy scripts to storage partition
-echo "Adding scripts to USB..."
+# Add script to storage partition
+echo "Adding preinstall script to USB..."
 curl -s --output-dir /mnt -O https://raw.githubusercontent.com/shyguyCreate/setup/main/preinstall.sh
-curl -s --output-dir /mnt -O https://raw.githubusercontent.com/shyguyCreate/setup/main/install.sh
-curl -s --output-dir /mnt -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh
 
 # Umount storage partition
 umount /mnt

@@ -61,7 +61,7 @@ echo "Copying logs to new system..."
 cp /root/pacstrap-output.log /mnt/pacstrap-output.log
 cp /root/pacstrap-error.log /mnt/pacstrap-error.log
 
-# Copy scripts to DISK
-echo "Copying scripts to new system..."
-[ -f /root/usb/install.sh ] && cp /root/usb/install.sh /mnt/install.sh
-[ -f /root/usb/setup.sh ] && cp /root/usb/setup.sh /mnt/setup.sh
+# Add scripts to DISK
+echo "Adding scripts to new system..."
+curl -s --output-dir /mnt -O https://raw.githubusercontent.com/shyguyCreate/setup/main/install.sh
+curl -s --output-dir /mnt -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh
