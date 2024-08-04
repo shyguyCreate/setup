@@ -30,8 +30,8 @@ id -u "$NEWUSER" > /dev/null 2>&1 || useradd -mk "" -G wheel "$NEWUSER"
 
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
-pacman -S --needed git base-devel >> /pacman-output.log 2>> /pacman-error.log
-if pacman -Q yay > /dev/null 2>&1; then
+pacman -S --needed --noconfirm git base-devel >> /pacman-output.log 2>> /pacman-error.log
+if ! pacman -Q yay > /dev/null 2>&1; then
     runuser -l "$NEWUSER" -c "cd /tmp && git clone -q https://aur.archlinux.org/yay-bin.git; cd yay-bin && makepkg -si --needed --noconfirm" >> /yay-output.log 2>> /yay-error.log
 fi
 
@@ -60,10 +60,6 @@ ufw enable
 # https://wiki.archlinux.org/title/LightDM#Enabling_LightDM
 # Enable lightdm
 systemctl --quiet enable lightdm.service
-
-# https://wiki.archlinux.org/title/Cron#Activation_and_autostart
-# Enable cron service
-systemctl --quiet enable cronie.service
 
 # https://wiki.archlinux.org/title/Docker#Installation
 # Enable docker daemon
