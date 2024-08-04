@@ -58,8 +58,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 # Copy logs to DISK
 echo "Copying logs to new system..."
-cp /root/pacstrap-output.log /mnt/pacstrap-output.log
-cp /root/pacstrap-error.log /mnt/pacstrap-error.log
+cp /root/pacstrap-output.log /root/pacstrap-error.log /mnt
 
 # Add scripts to DISK
 echo "Adding scripts to new system..."

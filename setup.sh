@@ -30,9 +30,9 @@ id -u "$NEWUSER" > /dev/null 2>&1 || useradd -mk "" -G wheel "$NEWUSER"
 
 # https://github.com/Jguer/yay#Installation
 # Install yay from AUR
-pacman -S --needed --noconfirm git base-devel >> /pacman-output.log 2>> /pacman-error.log
 if ! pacman -Q yay > /dev/null 2>&1; then
-    runuser -l "$NEWUSER" -c "cd /tmp && git clone -q https://aur.archlinux.org/yay-bin.git; cd yay-bin && makepkg -si --needed --noconfirm" >> /yay-output.log 2>> /yay-error.log
+    curl -s --output-dir /tmp -L -O https://aur.archlinux.org/cgit/aur.git/snapshot/yay-bin.tar.gz
+    runuser -l "$NEWUSER" -c "cd /tmp && tar -C /tmp -xf /tmp/yay-bin.tar.gz && cd yay-bin && makepkg -si --needed --noconfirm" >> /yay-output.log 2>> /yay-error.log
 fi
 
 # Install packages inside csv file
