@@ -10,9 +10,6 @@ A,shellcheck-bin,shell script analysis tool,https://wiki.archlinux.org/title/Bas
 ,usbutils,usb printer detection,https://wiki.archlinux.org/title/CUPS#USB
 ,avahi,wireless printer detection,https://wiki.archlinux.org/title/CUPS#Printer_discovery
 ,nss-mdns,hostname resolution,https://wiki.archlinux.org/title/Avahi#Hostname_resolution
-,docker,run docker containers,https://wiki.archlinux.org/title/Docker#Installation
-,docker-compose,run compose containers,
-,docker-buildx,extend docker build command,
 ,cutefish-wallpapers,wallpaper pack,
 ,ttf-dejavu,font family,https://wiki.archlinux.org/title/Fonts#Families
 ,libinput,handle input devices,https://wiki.archlinux.org/title/Libinput#Installation

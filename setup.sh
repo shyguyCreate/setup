@@ -61,14 +61,6 @@ ufw enable
 # Enable lightdm
 systemctl --quiet enable lightdm.service
 
-# https://wiki.archlinux.org/title/Docker#Installation
-# Enable docker daemon
-systemctl --quiet enable docker.socket
-# https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
-# Run docker as a non-root user
-getent group docker > /dev/null 2>&1 || groupadd docker
-id -nG "$NEWUSER" | grep -qw docker || usermod -aG docker "$NEWUSER"
-
 # https://wiki.archlinux.org/title/CUPS#Socket_activation
 # Enable cups socket
 systemctl --quiet enable cups.socket
