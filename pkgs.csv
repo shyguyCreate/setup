@@ -5,12 +5,16 @@ Tag,Package,Description,URL
 ,bash-language-server,bash language support for editors and IDEs,https://wiki.archlinux.org/title/Language_Server_Protocol
 A,shellcheck-bin,shell script analysis tool,https://wiki.archlinux.org/title/Bash#Checking_errors_by_analyzing_scripts
 ,shfmt,shell script formatter,
+,zip,zip compression,https://wiki.archlinux.org/title/Archiving_and_compression#Archiving_and_compression
+,unzip,zip decompression,https://wiki.archlinux.org/title/Archiving_and_compression#Archiving_and_compression
 ,cups,printing system,https://wiki.archlinux.org/title/CUPS#Installation
 ,cups-pdf,support print to PDF,https://wiki.archlinux.org/title/CUPS#Installation
 ,usbutils,usb printer detection,https://wiki.archlinux.org/title/CUPS#USB
 ,avahi,wireless printer detection,https://wiki.archlinux.org/title/CUPS#Printer_discovery
 ,nss-mdns,hostname resolution,https://wiki.archlinux.org/title/Avahi#Hostname_resolution
-,cutefish-wallpapers,wallpaper pack,
+,man-db,man command,https://wiki.archlinux.org/title/Man_page#Installation
+,man-pages,man pages,https://wiki.archlinux.org/title/Man_page#Installation
+,tldr,man page summaries,
 ,ttf-dejavu,font family,https://wiki.archlinux.org/title/Fonts#Families
 ,libinput,handle input devices,https://wiki.archlinux.org/title/Libinput#Installation
 ,xorg-server,display server,https://wiki.archlinux.org/title/Xorg#Installation
@@ -23,7 +27,7 @@ A,shellcheck-bin,shell script analysis tool,https://wiki.archlinux.org/title/Bas
 ,libnotify,desktop notifications,https://wiki.archlinux.org/title/Desktop_notifications#Libnotify
 ,gnome-themes-extra,Adwaita and Adwaita-dark GTK theme,https://wiki.archlinux.org/title/GTK#Themes_supporting_GTK_2_and_GTK_3
 ,lxappearance-gtk3,GTK 2 and GTK 3 configuration tool,https://wiki.archlinux.org/title/GTK#Configuration_tools
-,tldr,man page summaries,
+,cutefish-wallpapers,wallpaper pack,
 ,micro,terminal text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
 A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 ,zathura,document viewer,https://wiki.archlinux.org/title/List_of_applications/Documents#PDF_and_DjVu
@@ -52,17 +56,12 @@ A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applicati
 ,pcmanfm-gtk3,GUI file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
 ,gvfs,mount support and trash functionality,https://wiki.archlinux.org/title/List_of_applications/Utilities#Trash_management
 ,syncthing,file synchronization,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_synchronization_and_backup
-,zip,zip compression,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
-,unzip,zip decompression,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
 ,xarchiver,archive manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
 ,perl-rename,regex renamer,https://wiki.archlinux.org/title/List_of_applications/Utilities#Batch_renamers
 ,git,version control,https://wiki.archlinux.org/title/List_of_applications/Utilities#Version_control_systems
 A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
 ,dosfstools,FAT formatter tools,https://wiki.archlinux.org/title/List_of_applications/Utilities#Formatting_tools
-,htop,terminal task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
-,lxtask-gtk3,GUI task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
-,man-db,man command,https://wiki.archlinux.org/title/List_of_applications/Utilities#Help_viewers
-,man-pages,man pages,https://wiki.archlinux.org/title/List_of_applications/Utilities#Help_viewers
+,btop,terminal task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
 ,arandr,GUI for xrandr,https://wiki.archlinux.org/title/List_of_applications/Utilities#Screen_management
 ,brightnessctl,control screen brightness,https://wiki.archlinux.org/title/List_of_applications/Utilities#Backlight_management
 ,redshift,screen color temperature adjuster,https://wiki.archlinux.org/title/List_of_applications/Utilities#Color_management

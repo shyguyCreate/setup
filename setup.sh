@@ -41,7 +41,7 @@ tail -n +2 /tmp/pkgs.csv.tmp | cut -d ',' -f -2 > /tmp/pkgs.csv
 while IFS=, read -r tag program; do
     case "$tag" in
         "A") runuser -l "$NEWUSER" -c "yay -S --needed --noconfirm $program" >> /yay-output.log 2>> /yay-error.log ;;
-        *) pacman -S --needed --noconfirm $program >> /pacman-output.log 2>> /pacman-error.log ;;
+        *) pacman -S --needed --noconfirm "$program" >> /pacman-output.log 2>> /pacman-error.log ;;
     esac
 done < /tmp/pkgs.csv
 
