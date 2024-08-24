@@ -25,7 +25,6 @@ A,shellcheck-bin,shell script analysis tool,https://wiki.archlinux.org/title/Bas
 ,lxappearance-gtk3,GTK 2 and GTK 3 configuration tool,https://wiki.archlinux.org/title/GTK#Configuration_tools
 ,tldr,man page summaries,
 ,micro,terminal text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
-,l3afpad,GUI text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
 A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 ,zathura,document viewer,https://wiki.archlinux.org/title/List_of_applications/Documents#PDF_and_DjVu
 ,tesseract-data-eng,OCR for english,https://wiki.archlinux.org/title/List_of_applications/Documents#OCR_software
@@ -50,7 +49,6 @@ A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applicati
 ,opendoas,sudo alternative,https://wiki.archlinux.org/title/List_of_applications/Security#Privilege_elevation
 ,zsh,bash alternative,https://wiki.archlinux.org/title/List_of_applications/Utilities#Command_shells
 ,lxterminal,terminal emulator,https://wiki.archlinux.org/title/List_of_applications/Utilities#Terminal_emulators
-,lf,terminal file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
 ,pcmanfm-gtk3,GUI file manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_managers
 ,gvfs,mount support and trash functionality,https://wiki.archlinux.org/title/List_of_applications/Utilities#Trash_management
 ,syncthing,file synchronization,https://wiki.archlinux.org/title/List_of_applications/Utilities#File_synchronization_and_backup
