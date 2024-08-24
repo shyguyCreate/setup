@@ -50,17 +50,14 @@ swapon "${DISK}2"
 # https://wiki.archlinux.org/title/Installation_guide#Install_essential_packages
 # Install packages in new system
 echo "Installing packages to new system..."
-pacstrap -K /mnt base base-devel linux linux-firmware linux-headers nano vim >> /root/pacstrap-output.log 2>> /root/pacstrap-error.log
+pacstrap -K /mnt base base-devel linux linux-firmware linux-headers >> /root/pacstrap-output.log 2>> /root/pacstrap-error.log
 
 # https://wiki.archlinux.org/title/Installation_guide#Fstab
 # Define disk partitions
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Copy logs to DISK
-echo "Copying logs to new system..."
 cp /root/pacstrap-output.log /root/pacstrap-error.log /mnt
 
 # Add scripts to DISK
-echo "Adding scripts to new system..."
 curl -s --output-dir /mnt -O https://raw.githubusercontent.com/shyguyCreate/setup/main/install.sh
-curl -s --output-dir /mnt -O https://raw.githubusercontent.com/shyguyCreate/setup/main/setup.sh

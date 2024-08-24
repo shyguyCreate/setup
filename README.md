@@ -55,7 +55,7 @@ arch-chroot /mnt
 ---
 
 Run installation script[^1]<br>
-<sub>**Note:** variables can be modify</sub>
+<sub>**Note:** install a text editor to modify script</sub>
 
 ```
 . /install.sh
@@ -88,7 +88,7 @@ nmtui
 ---
 
 Run setup script[^1]<br>
-<sub>**Note:** to change username, modify variable inside the script</sub>
+<sub>**Note:** modify script to change username</sub>
 
 ```
 . /setup.sh
@@ -97,7 +97,7 @@ Run setup script[^1]<br>
 ---
 
 Set the user password<br>
-<sub>**Note:** change shyguy with your username if you change it in the script</sub>
+<sub>**Note:** may need change shyguy with your username</sub>
 
 ```
 passwd shyguy
