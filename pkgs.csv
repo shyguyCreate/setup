@@ -59,7 +59,7 @@ A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applicati
 ,xarchiver,archive manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
 ,perl-rename,regex renamer,https://wiki.archlinux.org/title/List_of_applications/Utilities#Batch_renamers
 ,git,version control,https://wiki.archlinux.org/title/List_of_applications/Utilities#Version_control_systems
-A,vscodium-bin,code editor,https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
+,code,IDE,https://wiki.archlinux.org/title/List_of_applications/Utilities#Integrated_development_environments
 ,dosfstools,FAT formatter tools,https://wiki.archlinux.org/title/List_of_applications/Utilities#Formatting_tools
 ,btop,terminal task manager,https://wiki.archlinux.org/title/List_of_applications/Utilities#Task_managers
 ,arandr,GUI for xrandr,https://wiki.archlinux.org/title/List_of_applications/Utilities#Screen_management
