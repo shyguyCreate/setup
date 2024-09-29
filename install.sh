@@ -1,22 +1,24 @@
 #!/bin/sh
 
 # Script variables
-LOCALE_LANG="en_US.UTF-8"
 KEYBOARD_LAYOUT="la-latin1"
 CONSOLE_FONT="ter-122b"
 TIMEZONE="Etc/GMT+6"
 
 # https://wiki.archlinux.org/title/Installation_guide#Time
-# Set time zone and update the hardware clock
+# Set time zone
 ln -sf "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
+# Set hardware clock
 hwclock --systohc
+# Enable system clock synchronization via network
+systemctl --quiet enable systemd-timesyncd.service
 
 # https://wiki.archlinux.org/title/Installation_guide#Localization
 # Generate locales
-sed -i 's/^#en_US/en_US/g' /etc/locale.gen
+sed -i 's/^#en_US.UTF-8/en_US.UTF-8/g' /etc/locale.gen
 locale-gen
 # Set the LANG variable
-echo "LANG=$LOCALE_LANG" > /etc/locale.conf
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
 # Set keyboard layout
 echo "KEYMAP=$KEYBOARD_LAYOUT" > /etc/vconsole.conf
 

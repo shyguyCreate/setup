@@ -3,6 +3,7 @@
 # Script variables
 KEYBOARD_LAYOUT="la-latin1"
 CONSOLE_FONT="ter-122b"
+TIMEZONE="Etc/GMT+6"
 
 # Exit if DISK is empty
 [ -z "$DISK" ] && echo "Error: Missing DISK device, use DISK=/dev/your_disk" && return 1
@@ -16,7 +17,9 @@ loadkeys "$KEYBOARD_LAYOUT"
 setfont "$CONSOLE_FONT"
 
 # https://wiki.archlinux.org/title/Installation_guide#Update_the_system_clock
-# Activate network time synchronization
+# Set time zone
+timedatectl set-timezone "$TIMEZONE"
+# Activate system clock synchronization via network
 timedatectl set-ntp true
 
 # Remove partition signatures

@@ -28,7 +28,7 @@ iwctl
 [iwd]# station _device_ scan                      # scan for networks
 [iwd]# station _device_ get-networks              # list networks
 [iwd]# station _device_ connect _SSID_            # connect to network
-[iwd]# station device show                        # display connection state
+[iwd]# station _device_ show                      # display connection state
 [iwd]#  ( Ctrl+d )                                # exit
 ```
 
