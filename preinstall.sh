@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Script variables
-KEYBOARD_LAYOUT="la-latin1"
 CONSOLE_FONT="ter-122b"
+KEYBOARD_LAYOUT="la-latin1"
 TIMEZONE="Etc/GMT+6"
 
 # Exit if DISK is empty
@@ -11,9 +11,9 @@ TIMEZONE="Etc/GMT+6"
 [ "$(lsblk -dno type "$DISK")" != "disk" ] && echo "Error: DISK is not disk type, use DISK=/dev/your_disk" && return 1
 
 # https://wiki.archlinux.org/title/Installation_guide#Set_the_console_keyboard_layout_and_font
-# Set keyboard layout (latam latin)
+# Set console keyboard layout
 loadkeys "$KEYBOARD_LAYOUT"
-# Set different console font
+# Set console font
 setfont "$CONSOLE_FONT"
 
 # https://wiki.archlinux.org/title/Installation_guide#Update_the_system_clock
