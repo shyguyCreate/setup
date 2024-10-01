@@ -72,7 +72,7 @@ ufw enable
 systemctl --quiet enable lightdm.service
 
 # https://wiki.archlinux.org/title/CUPS#Installation
-# Enable cups socket
+# Enable cups
 systemctl --quiet enable cups.socket
 # https://wiki.archlinux.org/title/CUPS#Printer_discovery
 # Disable built-in mDNS service
@@ -119,11 +119,6 @@ TryExec=convert
 Exec=convert %i[0] -background "#FFFFFF" -flatten -thumbnail %s %o
 MimeType=application/pdf;application/x-pdf;image/pdf;
 EOF
-
-# https://wiki.archlinux.org/title/XDG_Base_Directory#Partial
-# Change zsh dotfiles to ~/.config/zsh
-# shellcheck disable=SC2016
-echo 'export ZDOTDIR=$HOME/.config/zsh' > /etc/zsh/zshenv
 
 # https://wiki.archlinux.org/title/Command-line_shell#Changing_your_default_shell
 # Change new user default shell
