@@ -2,8 +2,9 @@
 
 # Script variables
 NEWUSER="shyguy"
-KEYBOARD_LAYOUT="latam"
-KEYBOARD_VARIANT="deadtilde"
+XKB_MODEL="pc105"
+XKB_LAYOUT="latam"
+XKB_VARIANT="deadtilde"
 
 # https://wiki.archlinux.org/title/PC_speaker#Globally
 # Remove beep sound
@@ -90,9 +91,9 @@ Section "InputClass"
         Identifier "touchpad"
         Driver "libinput"
         MatchIsTouchpad "on"
-        Option "Tapping" "on"
-        Option "NaturalScrolling" "on"
         Option "AccelSpeed" "0.25"
+        Option "NaturalScrolling" "on"
+        Option "Tapping" "on"
 EndSection
 EOF
 
@@ -103,9 +104,9 @@ cat > /etc/X11/xorg.conf.d/00-keyboard.conf << EOF
 Section "InputClass"
         Identifier "system-keyboard"
         MatchIsKeyboard "on"
-        Option "XkbModel" "pc105"
-        Option "XkbLayout" "$KEYBOARD_LAYOUT"
-        Option "XkbVariant" "$KEYBOARD_VARIANT"
+        Option "XkbModel" "$XKB_MODEL"
+        Option "XkbLayout" "$XKB_LAYOUT"
+        Option "XkbVariant" "$XKB_VARIANT"
 EndSection
 EOF
 
