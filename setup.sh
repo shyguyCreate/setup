@@ -87,10 +87,9 @@ sed -i 's/hosts: mymachines resolve/hosts: mymachines mdns_minimal [NOTFOUND=ret
 mkdir -p /etc/X11/xorg.conf.d
 cat > /etc/X11/xorg.conf.d/30-touchpad.conf << EOF
 Section "InputClass"
-        Identifier "libinput touchpad catchall"
-        MatchIsTouchpad "on"
-        MatchDevicePath "/dev/input/event*"
+        Identifier "touchpad"
         Driver "libinput"
+        MatchIsTouchpad "on"
         Option "Tapping" "on"
         Option "NaturalScrolling" "on"
         Option "AccelSpeed" "0.25"
