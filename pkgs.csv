@@ -1,4 +1,7 @@
 Tag,Package,Description,URL
+,terminus-font,console font,https://wiki.archlinux.org/title/Linux_console#Fonts
+,ttf-dejavu,ttf-font provider,
+,ttf-hack-nerd,ttf-font-nerd provider,
 ,bat,cat alternative,https://wiki.archlinux.org/title/Core_utilities#cat_alternatives
 ,fzf,command-line fuzzy finder,https://wiki.archlinux.org/title/Core_utilities#Interactive_filters
 ,bash-completion,bash command options completion,https://wiki.archlinux.org/title/Bash#Tab_completion
@@ -15,8 +18,6 @@ A,shellcheck-bin,shell script analysis tool,https://wiki.archlinux.org/title/Bas
 ,man-db,man command,https://wiki.archlinux.org/title/Man_page#Installation
 ,man-pages,man pages,https://wiki.archlinux.org/title/Man_page#Installation
 ,tldr,man page summaries,
-,terminus-font,console font,https://wiki.archlinux.org/title/Fonts#Bitmap
-,ttf-dejavu,ttf-font provider,https://wiki.archlinux.org/title/Fonts#Families
 ,libinput,handle input devices,https://wiki.archlinux.org/title/Libinput#Installation
 ,xorg-server,display server,https://wiki.archlinux.org/title/Xorg#Installation
 ,xorg-xinit,startx and xinit command,https://wiki.archlinux.org/title/Xinit#Installation
@@ -72,7 +73,6 @@ A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applicati
 ,zsh-syntax-highlighting,zsh colored syntax,
 ,zsh-history-substring-search,zsh history search bindings,
 A,zsh-theme-powerlevel10k-bin-git,zsh custom prompt,
-A,ttf-meslo-nerd-font-powerlevel10k,font fot powerlevel10k,
 ,wireplumber,pipewire manager,
 ,pipewire-audio,audio support for pipewire,
 ,pipewire-alsa,alsa support for pipewire,
