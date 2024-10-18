@@ -72,7 +72,7 @@ A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applicati
 ,zsh-autosuggestions,zsh history suggestions,
 ,zsh-syntax-highlighting,zsh colored syntax,
 ,zsh-history-substring-search,zsh history search bindings,
-A,zsh-theme-powerlevel10k-bin-git,zsh custom prompt,
+,starship,custom prompt,
 ,wireplumber,pipewire manager,
 ,pipewire-audio,audio support for pipewire,
 ,pipewire-alsa,alsa support for pipewire,
