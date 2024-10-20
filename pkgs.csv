@@ -33,7 +33,8 @@ A,shellcheck-bin,shell script analysis tool,https://wiki.archlinux.org/title/Bas
 ,micro,terminal text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
 A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 ,zathura,document viewer,https://wiki.archlinux.org/title/List_of_applications/Documents#PDF_and_DjVu
-,tesseract-data-eng,OCR for english,https://wiki.archlinux.org/title/List_of_applications/Documents#OCR_software
+,tesseract-data-eng,english OCR,https://wiki.archlinux.org/title/List_of_applications/Documents#OCR_software
+,hunspell-en_us,english spell checker,https://wiki.archlinux.org/title/List_of_applications/Documents#Spell_checkers
 ,networkmanager,network manager,https://wiki.archlinux.org/title/List_of_applications/Internet#Network_managers
 ,firefox,web browser,https://wiki.archlinux.org/title/List_of_applications/Internet#Web_browsers
 ,imv,image viewer,https://wiki.archlinux.org/title/List_of_applications/Multimedia#Image_viewers
