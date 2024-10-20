@@ -31,7 +31,7 @@ A,shellcheck-bin,shell script analysis tool,https://wiki.archlinux.org/title/Bas
 ,lxappearance-gtk3,GTK 2 and GTK 3 configuration tool,https://wiki.archlinux.org/title/GTK#Configuration_tools
 ,cutefish-wallpapers,wallpaper pack,
 ,micro,terminal text editor,https://wiki.archlinux.org/title/List_of_applications/Documents#Text_editors
-A,onlyoffice-bin,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
+,libreoffice-still,office suite,https://wiki.archlinux.org/title/List_of_applications/Documents#Office_suites
 ,zathura,document viewer,https://wiki.archlinux.org/title/List_of_applications/Documents#PDF_and_DjVu
 ,tesseract-data-eng,english OCR,https://wiki.archlinux.org/title/List_of_applications/Documents#OCR_software
 ,hunspell-en_us,english spell checker,https://wiki.archlinux.org/title/List_of_applications/Documents#Spell_checkers
