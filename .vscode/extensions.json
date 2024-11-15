@@ -1,9 +1,5 @@
 {
     "recommendations": [
-        "foxundermoon.shell-format",
-        "mads-hartmann.bash-ide-vscode",
-        "esbenp.prettier-vscode",
-        "eamodio.gitlens",
-        "pkief.material-icon-theme"
+        "mads-hartmann.bash-ide-vscode"
     ]
 }
